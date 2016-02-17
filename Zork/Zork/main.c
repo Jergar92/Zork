@@ -6,6 +6,7 @@ typedef struct {
 	char *west;
 	char *east;
 }side;
+void movement(char);
 side myPosition;
 side homeBase;
 side rockPath;
@@ -20,6 +21,84 @@ side fuelPath;
 side gunPath;
 side underwaterCave;
 side jungle;
+
+int main(){
+	//////////////////////positions/////////////////
+	homeBase.north = "rockPath";
+	homeBase.south = "thornyPath";
+	homeBase.west = "jungle";
+	homeBase.east = "altar";
+
+	rockPath.north = "monsterCave";
+	rockPath.south = "homeBase";
+	rockPath.west = "abandonedCave";
+	rockPath.east = "waterfall";
+
+	waterfall.north = 'x';
+	waterfall.south = 'x';
+	waterfall.west = "rockPath";
+	waterfall.east = 'x';
+
+	abandonedCave.north = 'x';
+	abandonedCave.south = 'x';
+	abandonedCave.west = 'x';
+	abandonedCave.east = "rockPath";
+
+	monsterCave.north = 'x';
+	monsterCave.south = "rockPath";
+	monsterCave.west = 'x';
+	monsterCave.east = 'x';
+
+	altar.north = 'x';
+	altar.south = 'x';
+	altar.west = "homeBase";
+	altar.east = "bigNest";
+
+	bigNest.north = 'x';
+	bigNest.south = 'x';
+	bigNest.west = "altar";
+	bigNest.east = "rubble";
+
+	rubble.north = 'x';
+	rubble.south = 'x';
+	rubble.west = "waterfall";
+	rubble.east = 'x';
+
+	thornyPath.north = "homeBase";
+	thornyPath.south = "underwaterCave";
+	thornyPath.west = "gunPath";
+	thornyPath.east = "fuelPath";
+
+	gunPath.north = 'x';
+	gunPath.south = 'x';
+	gunPath.west = 'x';
+	gunPath.east = "thornyPath";
+
+	fuelPath.north = 'x';
+	fuelPath.south = 'x';
+	fuelPath.west = "thornyPath";
+	fuelPath.east = 'x';
+
+	underwaterCave.north = "thornyPath";
+	underwaterCave.south = 'x';
+	underwaterCave.west = 'x';
+	underwaterCave.east = 'x';
+
+	gunPath.north = 'x';
+	gunPath.south = 'x';
+	gunPath.west = 'x';
+	gunPath.east = "homeBase";
+	////////////////////////////
+	myPosition = homeBase;
+	char direction = 'x';
+
+	while (direction != 'q') {
+		printf("\nWhich direction you want to go (n/s/e/w/q)? ");
+		scanf_s(" %c", &direction);
+		movement(direction);
+		printf("\n\n");
+	}
+}
 void movement(char dir) {
 	switch (dir)
 	{
@@ -187,81 +266,5 @@ void movement(char dir) {
 
 	default:
 		break;
-	}
-}
-int main() {
-	char direction = 'x';
-	//////////////////////positions/////////////////
-	homeBase.north = "rockPath";
-	homeBase.south = "thornyPath";
-	homeBase.west = "jungle";
-	homeBase.east = "altar";
-
-	rockPath.north = "monsterCave";
-	rockPath.south = "homeBase";
-	rockPath.west = "abandonedCave";
-	rockPath.east = "waterfall";
-
-	waterfall.north = 'x';
-	waterfall.south = 'x';
-	waterfall.west = "rockPath";
-	waterfall.east = 'x';
-
-	abandonedCave.north = 'x';
-	abandonedCave.south = 'x';
-	abandonedCave.west = 'x';
-	abandonedCave.east = "rockPath";
-
-	monsterCave.north = 'x';
-	monsterCave.south = "rockPath";
-	monsterCave.west = 'x';
-	monsterCave.east = 'x';
-
-	altar.north = 'x';
-	altar.south = 'x';
-	altar.west = "homeBase";
-	altar.east ="bigNest";
-
-	bigNest.north = 'x';
-	bigNest.south = 'x';
-	bigNest.west = "altar";
-	bigNest.east = "rubble";
-
-	rubble.north = 'x';
-	rubble.south = 'x';
-	rubble.west = "waterfall";
-	rubble.east = 'x';
-
-	thornyPath.north = "homeBase";
-	thornyPath.south = "underwaterCave";
-	thornyPath.west = "gunPath";
-	thornyPath.east = "fuelPath";
-
-	gunPath.north = 'x';
-	gunPath.south = 'x';
-	gunPath.west = 'x';
-	gunPath.east = "thornyPath";
-
-	fuelPath.north = 'x';
-	fuelPath.south = 'x';
-	fuelPath.west = "thornyPath";
-	fuelPath.east = 'x';
-
-	underwaterCave.north = "thornyPath";
-	underwaterCave.south = 'x';
-	underwaterCave.west = 'x';
-	underwaterCave.east = 'x';
-
-	gunPath.north = 'x';
-	gunPath.south = 'x';
-	gunPath.west = 'x';
-	gunPath.east = "homeBase";
-	////////////////////////////
-	myPosition = homeBase;
-	while (direction != 'q') {
-		printf("\nWhich direction you want to go (n/s/e/w/q)? ");
-		scanf_s(" %c", &direction);
-		movement(direction);
-		printf("\n\n");
 	}
 }
