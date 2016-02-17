@@ -34,60 +34,61 @@ int main(){
 	rockPath.west = "abandonedCave";
 	rockPath.east = "waterfall";
 
-	waterfall.north = 'x';
-	waterfall.south = 'x';
+	waterfall.north = "nothing";
+	waterfall.south = "nothing";
 	waterfall.west = "rockPath";
-	waterfall.east = 'x';
+	waterfall.east = "nothing";
 
-	abandonedCave.north = 'x';
-	abandonedCave.south = 'x';
-	abandonedCave.west = 'x';
+	abandonedCave.north = "nothing";
+	abandonedCave.south = "nothing";
+	abandonedCave.west = "nothing";
 	abandonedCave.east = "rockPath";
 
-	monsterCave.north = 'x';
+	monsterCave.north = "nothing";
 	monsterCave.south = "rockPath";
-	monsterCave.west = 'x';
-	monsterCave.east = 'x';
+	monsterCave.west = "nothing";
+	monsterCave.east = "nothing";
 
-	altar.north = 'x';
-	altar.south = 'x';
+	altar.north = "nothing";
+	altar.south = "nothing";
 	altar.west = "homeBase";
 	altar.east = "bigNest";
 
-	bigNest.north = 'x';
-	bigNest.south = 'x';
+	bigNest.north = "nothing";
+	bigNest.south = "nothing";
 	bigNest.west = "altar";
 	bigNest.east = "rubble";
 
-	rubble.north = 'x';
-	rubble.south = 'x';
+	rubble.north = "nothing";
+	rubble.south = "nothing";
 	rubble.west = "waterfall";
-	rubble.east = 'x';
+	rubble.east = "nothing";
 
 	thornyPath.north = "homeBase";
 	thornyPath.south = "underwaterCave";
 	thornyPath.west = "gunPath";
 	thornyPath.east = "fuelPath";
 
-	gunPath.north = 'x';
-	gunPath.south = 'x';
-	gunPath.west = 'x';
+	gunPath.north = "nothing"; 
+	gunPath.south = "nothing";
+	gunPath.west = "nothing";
 	gunPath.east = "thornyPath";
 
-	fuelPath.north = 'x';
-	fuelPath.south = 'x';
+	fuelPath.north = "nothing";
+	fuelPath.south = "nothing";
 	fuelPath.west = "thornyPath";
-	fuelPath.east = 'x';
+	fuelPath.east = "nothing";
 
 	underwaterCave.north = "thornyPath";
-	underwaterCave.south = 'x';
-	underwaterCave.west = 'x';
-	underwaterCave.east = 'x';
+	underwaterCave.south = "nothing";
+	underwaterCave.west = "nothing";
+	underwaterCave.east = "nothing";
 
-	gunPath.north = 'x';
-	gunPath.south = 'x';
-	gunPath.west = 'x';
-	gunPath.east = "homeBase";
+	jungle.north = "nothing";
+	jungle.south = "nothing";
+	jungle.west = "nothing";
+	jungle.east = "homeBase";
+
 	////////////////////////////
 	myPosition = homeBase;
 	char direction = 'x';
@@ -103,7 +104,7 @@ void movement(char dir) {
 	switch (dir)
 	{
 	case 'n':
-		if (myPosition.north != 'x') {
+		if (myPosition.north != "nothing") {
 			if (myPosition.north == "rockPath") {
 				myPosition = rockPath;
 				printf("You are on a road with a large rock at the edge of a precipice,\non your left under a rocky road you see a cave apparently abandoned\nbottom right you see a waterfall and something seems to shine in it \nnorth from the top you see a large chunk of your ship near a cave");
@@ -131,7 +132,7 @@ void movement(char dir) {
 		}
 		break;
 	case 's':
-		if (myPosition.south != 'x') {
+		if (myPosition.south != "nothing"){
 			if (myPosition.south == "thornyPath") {
 				myPosition = thornyPath;
 				printf("You are in a Thorny Path");
@@ -159,7 +160,7 @@ void movement(char dir) {
 		}
 		break;
 	case 'w':
-		if (myPosition.west != 'x') {
+		if (myPosition.west != "nothing"){
 			if (myPosition.west == "jungle") {
 				myPosition = jungle;
 				printf("You are in a Jungle");
@@ -212,7 +213,7 @@ void movement(char dir) {
 		break;
 
 	case 'e':
-		if (myPosition.east != 'x') {
+		if (myPosition.east != "nothing") {
 			if (myPosition.east == "altar") {
 				myPosition = altar;
 				printf("You are in a Altar");
