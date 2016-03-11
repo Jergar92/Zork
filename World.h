@@ -1,22 +1,29 @@
 #ifndef _WORLD
 #define _WORLD
 
-#include "Room.h"
+#include <iostream>
+#include <string>
+#include <ctime>
+#include <cmath>
+#include <windows.h>
 #include "Player.h"
+#include "Room.h"
 #include "Exit.h"
-#include <stdio.h>
-#include <stdio.h>
-#include <stdlib.h>
+using namespace std;
 
 class World
 {
 public:
-	
+	Room* rooms = nullptr;
+
+public:
 	World();
 	~World();
+	void makeWorld();
+
+
 private:
-	Room rooms[13];
-	
+
 };
 
 #endif _WORLD

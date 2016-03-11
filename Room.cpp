@@ -2,12 +2,9 @@
 
 Room::Room()
 {
-	name = "";
-	description = "";
-
-
 	
 }
+
 Room::~Room()
 {
 	
