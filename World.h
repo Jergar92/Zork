@@ -15,12 +15,14 @@ class World
 {
 public:
 	Room* rooms = nullptr;
-
+	Exit* exits = nullptr;
+	Player* players = nullptr;
 public:
 	World();
 	~World();
-	void makeWorld();
 
+	void createWorld() const;
+	void createExits() const;
 
 private:
 

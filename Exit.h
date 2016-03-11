@@ -6,16 +6,13 @@
 class Exit
 {
 public:
+	
+public:
 	Exit();
 	~Exit();
 
 private:
-	struct{
-		char *north;
-		char *south;
-		char *west;
-		char *east;
-	}exit;
+	
 
 };
 

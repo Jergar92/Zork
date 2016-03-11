@@ -2,10 +2,8 @@
 
 Exit::Exit()
 {
-	exit.north = "";
-	exit.south = "";
-	exit.west = "";
-	exit.east = "";
+	World a;
+	a.rooms[5].name;
 }
 
 Exit::~Exit()
