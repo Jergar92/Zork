@@ -22,7 +22,7 @@ public:
 	~World();
 
 	void createWorld() const;
-	void createExits() const;
+	void createExits() ;
 
 private:
 

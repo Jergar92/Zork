@@ -6,7 +6,6 @@
 class Exit
 {
 public:
-	
 public:
 	Exit();
 	~Exit();
