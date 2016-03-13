@@ -6,6 +6,7 @@
 #include <ctime>
 #include <cmath>
 #include <windows.h>
+#include <string>
 #include "Player.h"
 #include "Room.h"
 #include "Exit.h"
@@ -22,7 +23,7 @@ public:
 	~World();
 
 	void createWorld() const;
-	void createExits() ;
+	void createExits() const;
 
 private:
 

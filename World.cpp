@@ -33,72 +33,73 @@ void World::createWorld() const{
 		strcpy_s(rooms[i].description, descriptions[i]);
 	}
 }
-void World::createExits(){
+void World::createExits() const{
 	//Home Base
-	strcpy_s(rooms[0].north, "Rock Path");
-	strcpy_s(rooms[0].south , "Thorny Path");
-	strcpy_s(rooms[0].east , "Altar");
-	strcpy_s(rooms[0].west , "Jungle");
+	strcpy_s(rooms[0].side.north, "Rock Path");
+	strcpy_s(rooms[0].side.south, "Thorny Path");
+	strcpy_s(rooms[0].side.east, "Altar");
+	strcpy_s(rooms[0].side.west, "Jungle");
 	//Rock Path
-	strcpy_s(rooms[1].north , "Monster Cave");
-	strcpy_s(rooms[1].south , "Home Base");
-	strcpy_s(rooms[1].east , "Waterfall");
-	strcpy_s(rooms[1].west ,"Abandoned Cave");
+	rooms[1].closed = true;
+	strcpy_s(rooms[1].side.north, "Monster Cave");
+	strcpy_s(rooms[1].side.south, "Home Base");
+	strcpy_s(rooms[1].side.east, "Waterfall");
+	strcpy_s(rooms[1].side.west, "Abandoned Cave");
 	//Waterfall
-	strcpy_s(rooms[2].north , "");
-	strcpy_s(rooms[2].south , "");
-	strcpy_s(rooms[2].east , "");
-	strcpy_s(rooms[2].west , "Rock Path");
+	strcpy_s(rooms[2].side.north, "");
+	strcpy_s(rooms[2].side.south, "");
+	strcpy_s(rooms[2].side.east, "");
+	strcpy_s(rooms[2].side.west, "Rock Path");
 	//Abandoned Cave
-	strcpy_s(rooms[3].north , "");
-	strcpy_s(rooms[3].south , "");
-	strcpy_s(rooms[3].east , "Rock Path");
-	strcpy_s(rooms[3].west , "");
+	strcpy_s(rooms[3].side.north, "");
+	strcpy_s(rooms[3].side.south, "");
+	strcpy_s(rooms[3].side.east, "Rock Path");
+	strcpy_s(rooms[3].side.west, "");
 	//Monster Cave
-	strcpy_s(rooms[4].north , "");
-	strcpy_s(rooms[4].south , "Rock Path");
-	strcpy_s(rooms[4].east , "");
-	strcpy_s(rooms[4].west , "");
+	strcpy_s(rooms[4].side.north, "");
+	strcpy_s(rooms[4].side.south, "Rock Path");
+	strcpy_s(rooms[4].side.east, "");
+	strcpy_s(rooms[4].side.west, "");
 	//Altar
-	strcpy_s(rooms[5].north , "");
-	strcpy_s(rooms[5].south , "");
-	strcpy_s(rooms[5].east , "Big Nest");
-	strcpy_s(rooms[5].west , "Home Base");
+	strcpy_s(rooms[5].side.north, "");
+	strcpy_s(rooms[5].side.south, "");
+	strcpy_s(rooms[5].side.east, "Big Nest");
+	strcpy_s(rooms[5].side.west, "Home Base");
 	//Big Nest
-	strcpy_s(rooms[6].north , "Rubble");
-	strcpy_s(rooms[6].south , "");
-	strcpy_s(rooms[6].east , "Altar");
-	strcpy_s(rooms[6].west, "");
+	strcpy_s(rooms[6].side.north, "Rubble");
+	strcpy_s(rooms[6].side.south, "");
+	strcpy_s(rooms[6].side.east, "Altar");
+	strcpy_s(rooms[6].side.west, "");
 	//Rubble
-	strcpy_s(rooms[7].north, "");
-	strcpy_s(rooms[7].south , "");
-	strcpy_s(rooms[7].east , "");
-	strcpy_s(rooms[7].west , "Waterfall");
+	strcpy_s(rooms[7].side.north, "");
+	strcpy_s(rooms[7].side.south, "");
+	strcpy_s(rooms[7].side.east, "");
+	strcpy_s(rooms[7].side.west, "Waterfall");
 	//Thorny Path
-	strcpy_s(rooms[8].north , "Home Base");
-	strcpy_s(rooms[8].south , "Underwater cave");
-	strcpy_s(rooms[8].east , "Fuel Path");
-	strcpy_s(rooms[8].west , "Gun Path");
+	strcpy_s(rooms[8].side.north, "Home Base");
+	strcpy_s(rooms[8].side.south, "Underwater cave");
+	strcpy_s(rooms[8].side.east, "Fuel Path");
+	strcpy_s(rooms[8].side.west, "Gun Path");
 	//Gun Path
-	strcpy_s(rooms[9].north , "");
-	strcpy_s(rooms[9].south , "");
-	strcpy_s(rooms[9].east , "Thorny Path");
-	strcpy_s(rooms[9].west , "");
+	strcpy_s(rooms[9].side.north, "");
+	strcpy_s(rooms[9].side.south, "");
+	strcpy_s(rooms[9].side.east, "Thorny Path");
+	strcpy_s(rooms[9].side.west, "");
 	//Fuel Path
-	strcpy_s(rooms[10].north , "");
-	strcpy_s(rooms[10].south, "");
-	strcpy_s(rooms[10].east , "");
-	strcpy_s(rooms[10].west , "Thorny Path");
+	strcpy_s(rooms[10].side.north, "");
+	strcpy_s(rooms[10].side.south, "");
+	strcpy_s(rooms[10].side.east, "");
+	strcpy_s(rooms[10].side.west, "Thorny Path");
 	//Underwater cave
-	strcpy_s(rooms[11].north , "Thorny Path");
-	strcpy_s(rooms[11].south , "");
-	strcpy_s(rooms[11].east , "");
-	strcpy_s(rooms[11].west , "");
+	strcpy_s(rooms[11].side.north, "Thorny Path");
+	strcpy_s(rooms[11].side.south, "");
+	strcpy_s(rooms[11].side.east, "");
+	strcpy_s(rooms[11].side.west, "");
 	//Jungle
-	strcpy_s(rooms[12].north , "");
-	strcpy_s(rooms[12].south , "");
-	strcpy_s(rooms[12].east , "");
-	strcpy_s(rooms[12].west , "Home Base");
+	strcpy_s(rooms[12].side.north, "");
+	strcpy_s(rooms[12].side.south, "");
+	strcpy_s(rooms[12].side.east, "");
+	strcpy_s(rooms[12].side.west, "Home Base");
 }
 World::~World()
 {
