@@ -7,7 +7,9 @@ class Player
 public:
 	Player();
 	~Player();
-
+	void Go();
+	void Look();
+	void Open();
 private:
 };
 

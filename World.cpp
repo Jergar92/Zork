@@ -40,7 +40,7 @@ void World::createExits() const{
 	strcpy_s(rooms[0].side.east, "Altar");
 	strcpy_s(rooms[0].side.west, "Jungle");
 	//Rock Path
-	rooms[1].closed = true;
+	rooms[1].closed = true;//close the Rock Path
 	strcpy_s(rooms[1].side.north, "Monster Cave");
 	strcpy_s(rooms[1].side.south, "Home Base");
 	strcpy_s(rooms[1].side.east, "Waterfall");

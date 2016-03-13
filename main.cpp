@@ -12,9 +12,53 @@ int main(){
 	while (operation != "exit" || operation != "e"){
 		doit = false;
 		gets_s(operation, 10);
-		if (0 == strcmp(operation, "north") || 0 == strcmp(operation, "n")){
-		
-		
+		if (0 == strcmp(operation, "look")){
+			if (0 == strcmp(operation, "north") || 0 == strcmp(operation, "n")){
+				for (j = 0; j < 13; j++){
+					if (doit == false){
+						if (0 == strcmp(a.rooms[i].side.north, a.rooms[j].name)){
+							doit = true;
+							a.rooms[j].description;
+						}
+					}
+				}
+			}
+			else if (0 == strcmp(operation, "south") || 0 == strcmp(operation, "s")){
+				for (j = 0; j < 13; j++){
+					if (doit == false){
+						if (0 == strcmp(a.rooms[i].side.south, a.rooms[j].name)){
+							doit = true;
+							a.rooms[j].description;
+						}
+					}
+				}
+			}
+			else if (0 == strcmp(operation, "east") || 0 == strcmp(operation, "e")){
+				for (j = 0; j < 13; j++){
+					if (doit == false){
+						if (0 == strcmp(a.rooms[i].side.east, a.rooms[j].name)){
+							doit = true;
+							a.rooms[j].description;
+						}
+					}
+				}
+			}
+			else if (0 == strcmp(operation, "west") || 0 == strcmp(operation, "w")){
+				for (j = 0; j < 13; j++){
+					if (doit == false){
+						if (0 == strcmp(a.rooms[i].side.west, a.rooms[j].name)){
+							doit = true;
+							a.rooms[j].description;
+						}
+					}
+				}
+			}
+			else{
+				printf("I don't understand you\n");
+			}
+		}
+		else if (0 == strcmp(operation, "go")){
+			if (0 == strcmp(operation, "north") || 0 == strcmp(operation, "n")){
 				for (j = 0; j < 13; j++){
 					if (doit == false){
 						if (0 == strcmp(a.rooms[i].side.north, a.rooms[j].name)){
@@ -27,63 +71,108 @@ int main(){
 							}
 						}
 					}
-
 				}
-			
-		}
-		else if (0 == strcmp(operation , "south")){
-			for (j = 0; j < 13; j++){
-				if (doit == false){
-					if (0 == strcmp(a.rooms[i].side.south, a.rooms[j].name)){
-						if (a.rooms[j].closed == true){
-							printf("the door is closed\n");
-						}
-						else{
-							i = j;
-							doit = true;
+			}
+			else if (0 == strcmp(operation, "south") || 0 == strcmp(operation, "s")){
+				for (j = 0; j < 13; j++){
+					if (doit == false){
+						if (0 == strcmp(a.rooms[i].side.south, a.rooms[j].name)){
+							if (a.rooms[j].closed == true){
+								printf("the door is closed\n");
+							}
+							else{
+								i = j;
+								doit = true;
+							}
 						}
 					}
 				}
 			}
-		}
-		else if (0 == strcmp(operation, "east")){
-			for (j = 0; j < 13; j++){
-				if (doit == false){
-					if (0 == strcmp(a.rooms[i].side.east, a.rooms[j].name)){
-						if (a.rooms[j].closed == true){
-							printf("the door is closed\n");
-						}
-						else{
-							i = j;
-							doit = true;
-						}
-					}
-				}
-			}
-		}
-		else if (0 == strcmp(operation, "west")){
-			for (j = 0; j < 13; j++){
-				if (doit == false){
-					if (0 == strcmp(a.rooms[i].side.west, a.rooms[j].name)){
-						if (a.rooms[j].closed == true){
-							printf("the door is closed\n");
-						}
-						else{
-							i = j;
-							doit = true;
+			else if (0 == strcmp(operation, "east") || 0 == strcmp(operation, "e")){
+				for (j = 0; j < 13; j++){
+					if (doit == false){
+						if (0 == strcmp(a.rooms[i].side.east, a.rooms[j].name)){
+							if (a.rooms[j].closed == true){
+								printf("the door is closed\n");
+							}
+							else{
+								i = j;
+								doit = true;
+							}
 						}
 					}
 				}
 			}
+			else if (0 == strcmp(operation, "west") || 0 == strcmp(operation, "w")){
+				for (j = 0; j < 13; j++){
+					if (doit == false){
+						if (0 == strcmp(a.rooms[i].side.west, a.rooms[j].name)){
+							if (a.rooms[j].closed == true){
+								printf("the door is closed\n");
+							}
+							else{
+								i = j;
+								doit = true;
+							}
+						}
+					}
+				}
+			}
+			else{
+				printf("I don't understand you\n");
+			}
+			if (doit == true){
+				printf("%s, %s \n", a.rooms[i].name, a.rooms[i].description);
+			}
 		}
-		else{
-			printf("I don't understand you\n");
-		}
-		if (doit == true){
-			printf("%s, %s \n", a.rooms[i].name, a.rooms[i].description);
+		else if (0 == strcmp(operation, "open")){
+			if (0 == strcmp(operation, "north") || 0 == strcmp(operation, "n")){
+				for (j = 0; j < 13; j++){
+					if (doit == false){
+						if (0 == strcmp(a.rooms[i].side.north, a.rooms[j].name)){
+							doit = true;
+							a.rooms[j].closed = true;
+						}
+					}
+				}
+			}
+			else if (0 == strcmp(operation, "south") || 0 == strcmp(operation, "s")){
+				for (j = 0; j < 13; j++){
+					if (doit == false){
+						if (0 == strcmp(a.rooms[i].side.south, a.rooms[j].name)){
+							doit = true;
+							a.rooms[j].closed = true;
+						}
+					}
+				}
+			}
+			else if (0 == strcmp(operation, "east") || 0 == strcmp(operation, "e")){
+				for (j = 0; j < 13; j++){
+					if (doit == false){
+						if (0 == strcmp(a.rooms[i].side.east, a.rooms[j].name)){
+							doit = true;
+							a.rooms[j].closed = true;
+						}
+					}
+				}
+			}
+			else if (0 == strcmp(operation, "west") || 0 == strcmp(operation, "w")){
+				for (j = 0; j < 13; j++){
+					if (doit == false){
+						if (0 == strcmp(a.rooms[i].side.west, a.rooms[j].name)){
+							doit = true;
+							a.rooms[j].closed = true;
+						}
+					}
+				}
+			}
+			else{
+				printf("I don't understand you\n");
+			}
 		}
 	}
 
+	
 	system("pause");
 	return 0;
 }
