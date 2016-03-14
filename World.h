@@ -17,14 +17,14 @@ class World
 public:
 	Room* rooms = nullptr;
 	Exit* exits = nullptr;
-	Player* players = nullptr;
+	Player* player = nullptr;
 public:
 	World();
 	~World();
 
 	void createWorld() const;
 	void createExits() const;
-
+	int getDirection(char ope[]);
 private:
 
 };

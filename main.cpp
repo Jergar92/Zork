@@ -1,16 +1,31 @@
 #include "World.h"
-
+#define NUM_EXITS 24
 int main(){
 	char operation[10];
-	bool doit = false;
+	//bool doit = false;
 	World a;
 	a.createWorld();
 	a.createExits();
-	int i = 0, j = 0;
-	printf("%s, %s \n", a.rooms[i].name, a.rooms[i].description);
+	int direction=-1, i = 0, j = 0;
+	while (1){
+		printf("%s, %s \n", a.player->location->name, a.player->location->description);
+		gets_s(operation, 10);
+		direction=a.getDirection(operation);
+		for (i = 0; i < NUM_EXITS ; i++){
 
-	while (operation != "exit" || operation != "e"){
-		doit = false;
+			if (0 == strcmp(a.exits[i].origin->name, a.player->location->name))
+			{
+				if (a.exits[i].direction == direction){
+					a.player->location = a.exits[i].destination;
+					break;
+				}
+			}
+		}
+	}
+	/*	
+		while (operation != "exit" || operation != "e"){
+
+	doit = false;
 		gets_s(operation, 10);
 		if (0 == strcmp(operation, "look")){
 			if (0 == strcmp(operation, "north") || 0 == strcmp(operation, "n")){
@@ -172,7 +187,7 @@ int main(){
 		}
 	}
 
-	
+	*/
 	system("pause");
 	return 0;
 }
