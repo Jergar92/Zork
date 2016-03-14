@@ -25,6 +25,11 @@ public:
 	void createWorld() const;
 	void createExits() const;
 	int getDirection(char ope[]);
+	void getOperation(char ope[], char ope2[]);
+	void Torken(char ope[]);
+	void Go(char command[]);
+	void Look(char command[]);
+	void Open(char command[]);
 private:
 
 };

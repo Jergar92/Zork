@@ -1,4 +1,5 @@
 #include "World.h"
+#define NUM_EXITS 24
 
 World::World()
 {
@@ -184,20 +185,114 @@ void World::createExits() const{
 
 }
 int World::getDirection(char ope[]){
-	if (0 == strcmp(ope, "go north") || (0 == strcmp(ope, "north")) || (0 == strcmp(ope, "n"))){
+	if ((0 == strcmp(ope, "north")) || (0 == strcmp(ope, "n"))){
 		return 0;
 	}
-	if (0 == strcmp(ope, "go south") || (0 == strcmp(ope, "south")) || (0 == strcmp(ope, "s"))){
+	if ((0 == strcmp(ope, "south")) || (0 == strcmp(ope, "s"))){
 		return 1;
 	}
-	if (0 == strcmp(ope, "go east") || (0 == strcmp(ope, "east")) || (0 == strcmp(ope, "e"))){
+	if ((0 == strcmp(ope, "east")) || (0 == strcmp(ope, "e"))){
 		return 2;
 	}
-	if (0 == strcmp(ope, "go west") || (0 == strcmp(ope, "west")) || (0 == strcmp(ope, "w"))){
+	if ((0 == strcmp(ope, "west")) || (0 == strcmp(ope, "w"))){
 		return 3;
 	}
 	return -1;
 }
+
+void World::Torken(char ope[]){
+	char operation1[10] = "";
+	char operation2[10] = "";
+	int i = 0, spaces = 0;
+	char *context;
+
+	while (ope[i] != '\0') {//checks for spaces
+		if (ope[i] == ' ') spaces++;
+		i++;
+	}
+	if (spaces == 0){
+		strcpy_s(operation1, ope);
+		strcpy_s(operation2, "\0");
+	}
+	else{
+		strcpy_s(operation1, strtok_s(ope, " ", &context));
+		strcpy_s(operation2, strtok_s(NULL, " ", &context));
+	}
+	getOperation(operation1, operation2);
+}
+
+void World::getOperation(char ope[], char ope2[]){
+	if (0 == strcmp(ope, "north") || 0 == strcmp(ope, "n")){
+		Go(ope);
+	}
+	if (0 == strcmp(ope, "south") || 0 == strcmp(ope, "s")){
+		Go(ope);
+	}
+	if (0 == strcmp(ope, "east") || 0 == strcmp(ope, "e")){
+		Go(ope);
+	}
+	if (0 == strcmp(ope, "west") || 0 == strcmp(ope, "w")){
+		Go(ope);
+	}
+	else if (0 == strcmp(ope, "open")){
+		Open(ope2);
+	}
+	else if (0 == strcmp(ope, "go")){
+		Go(ope2);
+	}
+	else if (0 == strcmp(ope, "look")){
+		Look(ope2);
+	}
+
+}
+void World::Go(char operation[]){
+	int direction = -1, i = 0;
+	direction = getDirection(operation);
+	for (i = 0; i < NUM_EXITS; i++){
+
+		if (0 == strcmp(exits[i].origin->name, player->location->name))
+		{
+			if (exits[i].direction == direction){
+				player->location = exits[i].destination;
+				break;
+			}
+		}
+	}
+}
+void World::Look(char operation[]){
+	int direction = -1, i = 0;
+	direction = getDirection(operation);
+	for (i = 0; i < NUM_EXITS; i++){
+
+		if (0 == strcmp(exits[i].origin->name, player->location->name))
+		{
+			if (exits[i].direction == direction){
+				printf("%s", exits[i].description);
+				break;
+			}
+		}
+	}
+}
+void World::Open(char operation[]){
+	int direction = -1, i = 0;
+	direction = getDirection(operation);
+	for (i = 0; i < NUM_EXITS; i++){
+
+		if (0 == strcmp(exits[i].origin->name, player->location->name))
+		{
+			if (exits[i].direction == direction){
+				if (exits[i].door == true){
+					if (exits[i].closed == true)
+						exits[i].closed = false;
+				}
+				break;
+			}
+		}
+	}
+}
+
+
+
 World::~World()
 {
 	delete[]rooms;

@@ -7,12 +7,11 @@ class Player
 {
 public:
 	Room* location;
+
 public:
 	Player();
 	~Player();
-	void Go();
-	void Look();
-	void Open();
+
 private:
 };
 

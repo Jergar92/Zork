@@ -11,6 +11,8 @@ public:
 	char name[25];
 	char description[250];
 	bool closed = false;
+	bool door = false;
+
 	Room* origin;
 	Room* destination;
 	directions direction;
