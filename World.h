@@ -23,13 +23,17 @@ public:
 	~World();
 
 	void createWorld() const;
-	void createExits() const;
-	int getDirection(char ope[]);
+	void createExits();
+	void Torken(char operation[]);
+	void Help(char operation[]);
+
+private:
+	int getDirection(char operation[]);
 	void getOperation(char ope[], char ope2[]);
-	void Torken(char ope[]);
-	void Go(char command[]);
-	void Look(char command[]);
-	void Open(char command[]);
+	void Go(char operation[]);
+	void Look(char operation[]);
+	void Open(char operation[]);
+	void Close(char operation[]);
 private:
 
 };
