@@ -21,4 +21,5 @@ Utils
  - You can move around the map.
  - You can ask for help and get a basic guide for the game commands.
  - You can quit the game.
+
 More info about the game https://github.com/Jergar92/Zork/wiki
