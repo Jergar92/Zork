@@ -6,12 +6,14 @@ Zork S.O.S_0.2 release
 
 Implemented:
 
-  Movement
+ - Movement
   
-  Open/Close
+ - Open/Close
   
-  Look
+ - Look
   
-  Help
+ - Help
   
-  Quit
+ - Quit
+
+More info on https://github.com/Jergar92/Zork/wiki
