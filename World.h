@@ -22,11 +22,10 @@ public:
 	World();
 	~World();
 
-	void createWorld() const;
-	void createExits();
-	void Torken(char operation[]);
-	void Help(char operation[]);
-
+	void createWorld() const;//this is called on main
+	void createExits() const;//this is called on main
+	void Torken(char operation[]);//this is called on main
+	void Help(char operation[]);//this is called on main
 private:
 	int getDirection(char operation[]);
 	void getOperation(char ope[], char ope2[]);

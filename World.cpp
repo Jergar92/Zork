@@ -64,7 +64,7 @@ void World::createWorld() const{
 	strcpy_s((rooms + 12)->name, "Jungle");
 	strcpy_s((rooms + 12)->description, "you can hear many noises of beasts that you never heard");
 }
-void World::createExits(){
+void World::createExits()const{
 	//Mountain to Home Base
 	strcpy_s((exits + 1)->name, "Rocky path");
 	strcpy_s((exits + 1)->description, "your home base");
@@ -133,8 +133,6 @@ void World::createExits(){
 	(exits + 6)->origin = (rooms + 1);
 	(exits + 6)->destination = (rooms + 3);
 	(exits + 6)->direction = west;
-	(exits + 6)->door = true;
-	(exits + 6)->closed = true;
 	//Mountain to monster Cave
 	strcpy_s((exits + 8)->name, "Rocky path");
 	strcpy_s((exits + 8)->description, "a cave, and many noises come from it");
@@ -217,6 +215,8 @@ void World::createExits(){
 	(exits + 22)->origin = (rooms + 0);
 	(exits + 22)->destination = (rooms + 12);
 	(exits + 22)->direction = west;
+	(exits + 22)->door = true;
+	(exits + 22)->closed = true;
 }
 int World::getDirection(char ope[]){//this defines the direction, if not found returns -1 and the program will exit
 	if ((0 == strcmp(ope, "north")) || (0 == strcmp(ope, "n"))){
@@ -239,19 +239,28 @@ void World::Torken(char ope[]){//this separates the sentence into two if possibl
 	char operation2[10] = "";
 	int i = 0, spaces = 0;
 	char *context;
-
 	while (ope[i] != '\0') {//checks for spaces and remove uppercase
-		ope[i]=(tolower(ope[i]));
-		if (ope[i] == ' ') spaces++;
+		ope[i] = (tolower(ope[i]));
+		if (ope[i] == ' ') {
+			if (ope[i + 1] == '\0'){
+				spaces--;
+			}
+			spaces++;
+		}
 		i++;
 	}
-	if (spaces == 0){
+	if (spaces == 0){//this protect the code from wrong commands
 		strcpy_s(operation1, ope);
 		strcpy_s(operation2, "\0");
 	}
-	else{
-		strcpy_s(operation1, strtok_s(ope, " ", &context));
-		strcpy_s(operation2, strtok_s(NULL, " ", &context));
+	else if (spaces == 1)//This will create two operations
+	{
+		strcpy_s(operation1, strtok_s(ope, " ", &context));//take the word untill ""
+		strcpy_s(operation2, strtok_s(NULL, " ", &context));//take the rest
+	}
+	else {//if you make more than one space, return \0 
+		strcpy_s(operation1, "\0");
+		strcpy_s(operation2, "\0");
 	}
 	getOperation(operation1, operation2);
 }
@@ -286,7 +295,7 @@ void World::getOperation(char ope[], char ope2[]){//list of possible operations
 		return;
 	}
 	else if (0 == strcmp(ope, "close") || 0 == strcmp(ope, "c")){
-		Open(ope2);
+		Close(ope2);
 		return;
 	}
 	else if (0 == strcmp(ope, "help") || 0 == strcmp(ope, "h")){
@@ -301,10 +310,9 @@ void World::getOperation(char ope[], char ope2[]){//list of possible operations
 	}
 }
 
-void World::Go(char operation[]){
+void World::Go(char operation[]){//this move the player if the move is possible
 	int direction = -1, i = 0;
-	bool done = false;
-	direction = getDirection(operation);
+	direction = getDirection(operation);//dat get the right direction
 	if (direction ==-1){
 		printf("wrong operation\n");
 		return;
@@ -314,32 +322,27 @@ void World::Go(char operation[]){
 
 			if (0 == strcmp(exits[i].origin->name, player->location->name))
 			{
-				if (exits[i].direction == direction){
-					if (exits[i].closed == true){
+				if (exits[i].direction == direction){//check if they have the same direction
+					if (exits[i].closed == true){//check if the exit is closed
 						printf("the door is closed\n");
-						done = true;
-						break;
+						return;
 					}
 					else{
-						player->location = exits[i].destination;
-						printf("You are in %s, %s \n", player->location->name, player->location->description);
-
-						done = true;
-						break;
+						player->location = exits[i].destination;//change your location
+						printf("You are in %s, %s \n", player->location->name, player->location->description);//Print your current location
+						return;
 					}
 				}
 			}
 		}
-		if (done == false){
 			printf("you can not pass\n");
-		}
+		
 	}
 }
-void World::Look(char operation[]){
+void World::Look(char operation[]){//this looks the exit if there is any
 	int direction = -1, i = 0;
-	bool done = false;
 
-	direction = getDirection(operation);
+	direction = getDirection(operation);//dat get the right direction
 	if (direction == -1){
 		printf("wrong operation\n");
 		return;
@@ -349,21 +352,18 @@ void World::Look(char operation[]){
 
 			if (0 == strcmp(exits[i].origin->name, player->location->name))
 			{
-				if (exits[i].direction == direction){
+				if (exits[i].direction == direction){//check if they have the same direction
 					printf("You see a %s and you see %s ", exits[i].name,exits[i].description);
-					done = true;
-					break;
+					return;
 				}
 			}
 		}
-		if (done == false){
 		printf("nothing here\n");
-		}
+		
 	}
 }
-void World::Open(char operation[]){
+void World::Open(char operation[]){//this open the door if possible
 	int direction = -1, i = 0;
-	bool done = false;
 	direction = getDirection(operation);
 	if (direction == -1){
 		printf("wrong operation\n");
@@ -379,24 +379,18 @@ void World::Open(char operation[]){
 						if (exits[i].closed == true)
 							exits[i].closed = false;
 							printf("the door is open\n");
-							done = true;
-							break;
-					}
-					else{
-						break;
+							return;
 					}
 				}
 			}
 		}
-		if (done == false){
 		printf("nothing can't be opened\n");
-		}
+		
 	}
 }
-void World::Close(char operation[]){
+void World::Close(char operation[]){//	this close the door if possible
 	int direction = -1, i = 0;
-	bool done = false;
-	direction = getDirection(operation);
+	direction = getDirection(operation);//dat get the right direction
 	if (direction == -1){
 		printf("wrong operation\n");
 		return;
@@ -408,38 +402,34 @@ void World::Close(char operation[]){
 			{
 				if (exits[i].direction == direction){
 					if (exits[i].door == true){//check if we have door
-						if (exits[i].closed == false)
+						if (exits[i].closed == false){
 							exits[i].closed = true;
-						printf("the door is closed\n");
-						done = true;
-						break;
-					}
-					else{
-						break;
+							printf("the door is closed\n");
+							return;
+						}
 					}
 				}
 			}
 		}
-		if (done == false){
 			printf("nothing can't be opened\n");
-		}
+		
 	}
 }
 
 void World::Help(char operation[]){
 	printf("This is Zork S.O.S No man's land");
-	printf("Your ship has crashed on an unknown planet, you must retrieve the necessary parts of your destroyed ship scattered around the area and build a beacon for help, your resources are limited and will have to find more to survive.\n");
+	printf("Your ship has crashed on an unknown planet,\nyou must retrieve the necessary parts of your destroyed ship scattered around the area and build a beacon for help, your resources are limited and will have to find more to survive.\n\n");
 	printf("You can move using the comand Go North G North, North or N\n");
 	printf("You can look using the command Look North, Look N or L N.\n");
 	printf("You can open using the command Open North, Open N or O N.\n");
-	printf("You can quit the program using the command Quit or Q.\n");
+	printf("You can quit the program using the command Quit.\n");
 
 	printf("(or any other direction using the same structure), don't worry about case sensitive\n\n");
 }
 
 World::~World()
 {
-	delete[]player;
+	delete player;
 	delete[]exits;
 	delete[]rooms;
 

@@ -11,7 +11,5 @@ int main(){
 		gets_s(operation, 20);
 		a.Torken(operation);
 	}
-	a.~World();
-	system("pause");
 	return 0;
 }
