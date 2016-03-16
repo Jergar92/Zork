@@ -24,7 +24,7 @@ public:
 	void createWorld() const;
 	void createExits() const;
 	void Torken(char operation[]);
-	void Help(char operation[]);
+	void Help(char operation[])const;
 private:
 	int getDirection(char operation[]);
 	void getOperation(char ope[], char ope2[]);

@@ -426,7 +426,7 @@ void World::Close(char operation[]){
 	}
 }
 
-void World::Help(char operation[]){
+void World::Help(char operation[])const{
 	printf("This is Zork S.O.S No man's land");
 	printf("Your ship has crashed on an unknown planet, you must retrieve the necessary parts of your destroyed ship scattered around the area and build a beacon for help, your resources are limited and will have to find more to survive.\n");
 	printf("You can move using the comand Go North G North, North or N\n");
