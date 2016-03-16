@@ -22,7 +22,7 @@ public:
 	World();
 	~World();
 	void createWorld() const;
-	void createExits();
+	void createExits() const;
 	void Torken(char operation[]);
 	void Help(char operation[]);
 private:
