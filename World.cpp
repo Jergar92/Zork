@@ -64,7 +64,7 @@ void World::createWorld() const{
 	strcpy_s((rooms + 12)->name, "Jungle");
 	strcpy_s((rooms + 12)->description, "you can hear many noises of beasts that you never heard");
 }
-void World::createExits(){
+void World::createExits() const{
 	//Mountain to Home Base
 	strcpy_s((exits + 1)->name, "Rocky path");
 	strcpy_s((exits + 1)->description, "your home base");
