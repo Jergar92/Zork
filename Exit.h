@@ -16,14 +16,6 @@ public:
 	Room* origin;
 	Room* destination;
 	directions direction;
-public:
-	Exit();
-
-	~Exit();
-
-private:
-	
-
 };
 
 

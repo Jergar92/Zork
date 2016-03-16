@@ -8,12 +8,6 @@ class Room
 public:
 	char name[25];
 	char description[250];
-public:
-
-	Room();
-	~Room();
-
-
 };
 
 

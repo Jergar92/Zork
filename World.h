@@ -21,12 +21,10 @@ public:
 public:
 	World();
 	~World();
-
 	void createWorld() const;
 	void createExits();
 	void Torken(char operation[]);
 	void Help(char operation[]);
-
 private:
 	int getDirection(char operation[]);
 	void getOperation(char ope[], char ope2[]);
@@ -34,8 +32,6 @@ private:
 	void Look(char operation[]);
 	void Open(char operation[]);
 	void Close(char operation[]);
-private:
-
 };
 
 #endif _WORLD
