@@ -24,9 +24,9 @@ Utils
 
 How to play?
 
--You can move using the comand Go North G North, North or N\n");
--You can look using the command Look North, Look N or L N.\n");
--You can open using the command Open North, Open N or O N.\n");
--You can quit the program using the command Quit or Q.\n");
+ - You can move using the comand Go North G North, North or N\n");
+ - You can look using the command Look North, Look N or L N.\n");
+ - You can open using the command Open North, Open N or O N.\n");
+ - You can quit the program using the command Quit or Q.\n");
 
 
