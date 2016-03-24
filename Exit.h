@@ -1,15 +1,15 @@
 #ifndef _EXIT
 #define _EXIT
 #include "World.h"
+#include "Entity.h"
 
 class Room;
 
 enum directions{ north, south, east, west };
-class Exit
+
+class Exit: public Entity
 {
 public:
-	char name[25];
-	char description[250];
 	bool closed = false;
 	bool door = false;
 

@@ -371,7 +371,6 @@ void World::Open(char operation[]){//this open the door if possible
 	}
 	else{
 		for (i = 0; i < NUM_EXITS; i++){
-
 			if (0 == strcmp(exits[i].origin->name, player->location->name))
 			{
 				if (exits[i].direction == direction){

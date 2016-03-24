@@ -2,12 +2,11 @@
 #define _ROOM
 #include "World.h"
 
+#include "Entity.h"
 
-class Room
+class Room:public Entity
 {
 public:
-	char name[25];
-	char description[250];
 public:
 
 	Room();

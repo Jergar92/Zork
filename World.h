@@ -1,7 +1,6 @@
 #ifndef _WORLD
 #define _WORLD
 
-#include <iostream>
 #include <string>
 #include <ctime>
 #include <cmath>
@@ -10,8 +9,7 @@
 #include "Player.h"
 #include "Room.h"
 #include "Exit.h"
-using namespace std;
-
+#include "Entity.h"
 class World
 {
 public:
