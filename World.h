@@ -21,16 +21,15 @@ public:
 	~World();
 
 	void createWorld() const;//this is called on main
-	void createExits() const;//this is called on main
-	void Torken(char operation[]);//this is called on main
-	void Help(char operation[]);//this is called on main
+	void Torken(char *operation);//this is called on main
+	void Help(char *operation);//this is called on main
 private:
 	int getDirection(char operation[]);
-	void getOperation(char ope[], char ope2[]);
-	void Go(char operation[]);
-	void Look(char operation[]);
-	void Open(char operation[]);
-	void Close(char operation[]);
+	void getOperation(char *ope, char *ope2);
+	void Go(char *operation);
+	void Look(char *operation);
+	void Open(char *operation);
+	void Close(char *operation);
 private:
 
 };

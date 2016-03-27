@@ -25,6 +25,7 @@ World::World()
 //room + 12 = Jungle
 /************************************************************/
 void World::createWorld() const{
+	//Rooms
 	strcpy_s((rooms + 0)->name, "Home Base");
 	strcpy_s((rooms + 0)->description, "this is your settlement.");
 
@@ -63,8 +64,7 @@ void World::createWorld() const{
 
 	strcpy_s((rooms + 12)->name, "Jungle");
 	strcpy_s((rooms + 12)->description, "you can hear many noises of beasts that you never heard");
-}
-void World::createExits()const{
+	//Exits
 	//Mountain to Home Base
 	strcpy_s((exits + 1)->name, "Rocky path");
 	strcpy_s((exits + 1)->description, "your home base");
@@ -234,9 +234,12 @@ int World::getDirection(char ope[]){//this defines the direction, if not found r
 	return -1;
 }
 
-void World::Torken(char ope[]){//this separates the sentence into two if possible
+void World::Torken(char *ope){//this separates the sentence into two if possible
 	char operation1[10] = "";
 	char operation2[10] = "";
+	char *ope1, *ope2;
+	ope1 = operation1;
+	ope2 = operation2;
 	int i = 0, spaces = 0;
 	char *context;
 	while (ope[i] != '\0') {//checks for spaces and remove uppercase
@@ -262,10 +265,10 @@ void World::Torken(char ope[]){//this separates the sentence into two if possibl
 		strcpy_s(operation1, "\0");
 		strcpy_s(operation2, "\0");
 	}
-	getOperation(operation1, operation2);
+	getOperation(ope1, ope2);
 }
 
-void World::getOperation(char ope[], char ope2[]){//list of possible operations
+void World::getOperation(char *ope, char *ope2){//list of possible operations
 	if (0 == strcmp(ope, "north") || 0 == strcmp(ope, "n")){
 		Go(ope);
 		return;
@@ -310,7 +313,7 @@ void World::getOperation(char ope[], char ope2[]){//list of possible operations
 	}
 }
 
-void World::Go(char operation[]){//this move the player if the move is possible
+void World::Go(char *operation){//this move the player if the move is possible
 	int direction = -1, i = 0;
 	direction = getDirection(operation);//dat get the right direction
 	if (direction ==-1){
@@ -339,7 +342,7 @@ void World::Go(char operation[]){//this move the player if the move is possible
 		
 	}
 }
-void World::Look(char operation[]){//this looks the exit if there is any
+void World::Look(char *operation){//this looks the exit if there is any
 	int direction = -1, i = 0;
 
 	direction = getDirection(operation);//dat get the right direction
@@ -362,7 +365,7 @@ void World::Look(char operation[]){//this looks the exit if there is any
 		
 	}
 }
-void World::Open(char operation[]){//this open the door if possible
+void World::Open(char *operation){//this open the door if possible
 	int direction = -1, i = 0;
 	direction = getDirection(operation);
 	if (direction == -1){
@@ -387,7 +390,7 @@ void World::Open(char operation[]){//this open the door if possible
 		
 	}
 }
-void World::Close(char operation[]){//	this close the door if possible
+void World::Close(char *operation){//	this close the door if possible
 	int direction = -1, i = 0;
 	direction = getDirection(operation);//dat get the right direction
 	if (direction == -1){
@@ -415,7 +418,7 @@ void World::Close(char operation[]){//	this close the door if possible
 	}
 }
 
-void World::Help(char operation[]){
+void World::Help(char *operation){
 	printf("This is Zork S.O.S No man's land");
 	printf("Your ship has crashed on an unknown planet,\nyou must retrieve the necessary parts of your destroyed ship scattered around the area and build a beacon for help, your resources are limited and will have to find more to survive.\n\n");
 	printf("You can move using the comand Go North G North, North or N\n");
