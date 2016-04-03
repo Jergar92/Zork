@@ -1,4 +1,5 @@
 #include "World.h"
+#include "My_String.h"
 #define NUM_EXITS 24
 
 World::World()
@@ -26,192 +27,192 @@ World::World()
 /************************************************************/
 void World::createWorld() const{
 	//Rooms
-	strcpy_s((rooms + 0)->name, "Home Base");
-	strcpy_s((rooms + 0)->description, "this is your settlement.");
+	Set((rooms + 0)->name, "Home Base");
+	Set((rooms + 0)->description, "this is your settlement.");
 
-	strcpy_s((rooms + 1)->name, "Mountain");
-	strcpy_s((rooms + 1)->description, "you're on the top of a mountain with a large rock at the edge of a precipice");
+	Set((rooms + 1)->name, "Mountain");
+	Set((rooms + 1)->description, "you're on the top of a mountain with a large rock at the edge of a precipice");
 
-	strcpy_s((rooms + 2)->name, "Waterfall");
-	strcpy_s((rooms + 2)->description, "you are on the front of the waterfall, in the background can clearly see your robot AAR-88");
+	Set((rooms + 2)->name, "Waterfall");
+	Set((rooms + 2)->description, "you are on the front of the waterfall, in the background can clearly see your robot AAR-88");
 
-	strcpy_s((rooms + 3)->name, "Abandoned Cave");
-	strcpy_s((rooms + 3)->description, "there seems to be nothing , you only see a few rags and a pile of bones");
+	Set((rooms + 3)->name, "Abandoned Cave");
+	Set((rooms + 3)->description, "there seems to be nothing , you only see a few rags and a pile of bones");
 
-	strcpy_s((rooms + 4)->name, "Monster Cave");
-	strcpy_s((rooms + 4)->description, "you can see a piece of your broken ship and you hear noises coming from the cave");
+	Set((rooms + 4)->name, "Monster Cave");
+	Set((rooms + 4)->description, "you can see a piece of your broken ship and you hear noises coming from the cave");
 
-	strcpy_s((rooms + 5)->name, "Altar");
-	strcpy_s((rooms + 5)->description, "you are in a large open area and around you see a pile of bones");
+	Set((rooms + 5)->name, "Altar");
+	Set((rooms + 5)->description, "you are in a large open area and around you see a pile of bones");
 
-	strcpy_s((rooms + 6)->name, "Big Nest");
-	strcpy_s((rooms + 6)->description, "you find yourself on top of a large tree along you see the biggest nest you've seen in your whole life, from there you see a vine down the north");
+	Set((rooms + 6)->name, "Big Nest");
+	Set((rooms + 6)->description, "you find yourself on top of a large tree along you see the biggest nest you've seen in your whole life, from there you see a vine down the north");
 
-	strcpy_s((rooms + 7)->name, "Rubble");
-	strcpy_s((rooms + 7)->description, "Rubble");
+	Set((rooms + 7)->name, "Rubble");
+	Set((rooms + 7)->description, "Rubble");
 
-	strcpy_s((rooms + 8)->name, "Thorn Forest");
-	strcpy_s((rooms + 8)->description, "You can not see anything, you can move forward in any direction");
+	Set((rooms + 8)->name, "Thorn Forest");
+	Set((rooms + 8)->description, "You can not see anything, you can move forward in any direction");
 
-	strcpy_s((rooms + 9)->name, "Thorn Forest East");
-	strcpy_s((rooms + 9)->description, "You can not see anything, you do not see any exit");
+	Set((rooms + 9)->name, "Thorn Forest East");
+	Set((rooms + 9)->description, "You can not see anything, you do not see any exit");
 
-	strcpy_s((rooms + 10)->name, "Thorn Forest West");
-	strcpy_s((rooms + 10)->description, "You can not see anything, you do not see any exit");
+	Set((rooms + 10)->name, "Thorn Forest West");
+	Set((rooms + 10)->description, "You can not see anything, you do not see any exit");
 
-	strcpy_s((rooms + 11)->name, "Underwater Cave");
-	strcpy_s((rooms + 11)->description, "the ceiling of the cave have been destroyed by the impact of your ship probably");
+	Set((rooms + 11)->name, "Underwater Cave");
+	Set((rooms + 11)->description, "the ceiling of the cave have been destroyed by the impact of your ship probably");
 
-	strcpy_s((rooms + 12)->name, "Jungle");
-	strcpy_s((rooms + 12)->description, "you can hear many noises of beasts that you never heard");
+	Set((rooms + 12)->name, "Jungle");
+	Set((rooms + 12)->description, "you can hear many noises of beasts that you never heard");
 	//Exits
 	//Mountain to Home Base
-	strcpy_s((exits + 1)->name, "Rocky path");
-	strcpy_s((exits + 1)->description, "your home base");
+	Set((exits + 1)->name, "Rocky path");
+	Set((exits + 1)->description, "your home base");
 	(exits + 1)->origin = (rooms + 1);
 	(exits + 1)->destination = (rooms + 0);
 	(exits + 1)->direction = south;
 	//Altar to Home Base
-	strcpy_s((exits + 3)->name, "Little path");
-	strcpy_s((exits + 3)->description, "your home base");
+	Set((exits + 3)->name, "Little path");
+	Set((exits + 3)->description, "your home base");
 	(exits + 3)->origin = (rooms + 5);
 	(exits + 3)->destination = (rooms + 0);
 	(exits + 3)->direction = west;
 	//Jungle to Home base
-	strcpy_s((exits + 23)->name, "Jungle path");
-	strcpy_s((exits + 23)->description, "your home base");
+	Set((exits + 23)->name, "Jungle path");
+	Set((exits + 23)->description, "your home base");
 	(exits + 23)->origin = (rooms + 12);
 	(exits + 23)->destination = (rooms + 0);
 	(exits + 23)->direction = east;
 	//Thorny forest to home base
-	strcpy_s((exits + 15)->name, "Thorny path");
-	strcpy_s((exits + 15)->description, "many thorns, but nothing more");
+	Set((exits + 15)->name, "Thorny path");
+	Set((exits + 15)->description, "many thorns, but nothing more");
 	(exits + 15)->origin = (rooms + 8);
 	(exits + 15)->destination = (rooms + 0);
 	(exits + 15)->direction = north;
 	//Home Base to Mountain
-	strcpy_s((exits + 0)->name, "Rocky path");
-	strcpy_s((exits + 0)->description, "a large mountain, on the top see a big rock");
+	Set((exits + 0)->name, "Rocky path");
+	Set((exits + 0)->description, "a large mountain, on the top see a big rock");
 	(exits + 0)->origin = (rooms + 0);
 	(exits + 0)->destination = (rooms + 1);
 	(exits + 0)->direction = north;
 	(exits + 0)->door = true;
 	(exits + 0)->closed = true;
 	//Waterfall to Mountain
-	strcpy_s((exits + 5)->name, "Rocky path");
-	strcpy_s((exits + 5)->description, "a large mountain, on the top see a big rock");
+	Set((exits + 5)->name, "Rocky path");
+	Set((exits + 5)->description, "a large mountain, on the top see a big rock");
 	(exits + 5)->origin = (rooms + 2);
 	(exits + 5)->destination = (rooms + 1);
 	(exits + 5)->direction = west;
 	//Abandoned Cave to Mountain
-	strcpy_s((exits + 7)->name, "Rocky path");
-	strcpy_s((exits + 7)->description, "a large mountain, on the top see a big rock");
+	Set((exits + 7)->name, "Rocky path");
+	Set((exits + 7)->description, "a large mountain, on the top see a big rock");
 	(exits + 7)->origin = (rooms + 3);
 	(exits + 7)->destination = (rooms + 1);
 	(exits + 7)->direction = east;
 	//Monster Cave to Mountain
-	strcpy_s((exits + 9)->name, "Rocky path");
-	strcpy_s((exits + 9)->description, "a large mountain, on the top see a big rock");
+	Set((exits + 9)->name, "Rocky path");
+	Set((exits + 9)->description, "a large mountain, on the top see a big rock");
 	(exits + 9)->origin = (rooms + 4);
 	(exits + 9)->destination = (rooms + 1);
 	(exits + 9)->direction = south;
 	//Mountain to Waterfall
-	strcpy_s((exits + 4)->name, "Rocky path");
-	strcpy_s((exits + 4)->description, "a beautiful waterfall, something seems to shine in it");
+	Set((exits + 4)->name, "Rocky path");
+	Set((exits + 4)->description, "a beautiful waterfall, something seems to shine in it");
 	(exits + 4)->origin = (rooms + 1);
 	(exits + 4)->destination = (rooms + 2);
 	(exits + 4)->direction = east;
 	//Rubble to waterfall
-	strcpy_s((exits + 13)->name, "vine path");
-	strcpy_s((exits + 13)->description, "a waterfall down there, but you know you can not come back here");
+	Set((exits + 13)->name, "vine path");
+	Set((exits + 13)->description, "a waterfall down there, but you know you can not come back here");
 	(exits + 13)->origin = (rooms + 7);
 	(exits + 13)->destination = (rooms + 2);
 	(exits + 13)->direction = west;
 	//Mountain to Abandoned cave
-	strcpy_s((exits + 6)->name, "Rocky path");
-	strcpy_s((exits + 6)->description, "a cave apparently abandoned");
+	Set((exits + 6)->name, "Rocky path");
+	Set((exits + 6)->description, "a cave apparently abandoned");
 	(exits + 6)->origin = (rooms + 1);
 	(exits + 6)->destination = (rooms + 3);
 	(exits + 6)->direction = west;
 	//Mountain to monster Cave
-	strcpy_s((exits + 8)->name, "Rocky path");
-	strcpy_s((exits + 8)->description, "a cave, and many noises come from it");
+	Set((exits + 8)->name, "Rocky path");
+	Set((exits + 8)->description, "a cave, and many noises come from it");
 	(exits + 8)->origin = (rooms + 1);
 	(exits + 8)->destination = (rooms + 4);
 	(exits + 8)->direction = north;
 	//Home Base to Altar
-	strcpy_s((exits + 2)->name, "Little path");
-	strcpy_s((exits + 2)->description, "a large open area, not appear to be dangerous zone");
+	Set((exits + 2)->name, "Little path");
+	Set((exits + 2)->description, "a large open area, not appear to be dangerous zone");
 	(exits + 2)->origin = (rooms + 0);
 	(exits + 2)->destination = (rooms + 5);
 	(exits + 2)->direction = east;
 	(exits + 2)->door = true;
 	(exits + 2)->closed = true;
 	//Big nest to altar
-	strcpy_s((exits + 11)->name, "Little path");
-	strcpy_s((exits + 11)->description, "a large open area, not appear to be dangerous zone");
+	Set((exits + 11)->name, "Little path");
+	Set((exits + 11)->description, "a large open area, not appear to be dangerous zone");
 	(exits + 11)->origin = (rooms + 6);
 	(exits + 11)->destination = (rooms + 5);
 	(exits + 11)->direction = west;
 	//Altar to Big nest
-	strcpy_s((exits + 10)->name, "Little path");
-	strcpy_s((exits + 10)->description, "a big tree, and on top a big nest");
+	Set((exits + 10)->name, "Little path");
+	Set((exits + 10)->description, "a big tree, and on top a big nest");
 	(exits + 10)->origin = (rooms + 5);
 	(exits + 10)->destination = (rooms + 6);
 	(exits + 10)->direction = east;
 	//Big nest to rubble
-	strcpy_s((exits + 12)->name, "vine path");
-	strcpy_s((exits + 12)->description, "a rubble down there, but you know you can not come back here");
+	Set((exits + 12)->name, "vine path");
+	Set((exits + 12)->description, "a rubble down there, but you know you can not come back here");
 	(exits + 12)->origin = (rooms + 6);
 	(exits + 12)->destination = (rooms + 7);
 	(exits + 12)->direction = north;
 	//Home base to Thorny path
-	strcpy_s((exits + 14)->name, "Thorny path");
-	strcpy_s((exits + 14)->description, "many thorns, but nothing more");
+	Set((exits + 14)->name, "Thorny path");
+	Set((exits + 14)->description, "many thorns, but nothing more");
 	(exits + 14)->origin = (rooms + 0);
 	(exits + 14)->destination = (rooms + 8);
 	(exits + 14)->direction = south;
 	(exits + 14)->door = true;
 	(exits + 14)->closed = true;
 	//Gun zone to Thorny path
-	strcpy_s((exits + 17)->name, "Thorny path");
-	strcpy_s((exits + 17)->description, "many thorns, but nothing more");
+	Set((exits + 17)->name, "Thorny path");
+	Set((exits + 17)->description, "many thorns, but nothing more");
 	(exits + 17)->origin = (rooms + 9);
 	(exits + 17)->destination = (rooms + 8);
 	(exits + 17)->direction = east;
 	//Fuel zone to Thorny path
-	strcpy_s((exits + 19)->name, "Thorny path");
-	strcpy_s((exits + 19)->description, "many thorns, but nothing more");
+	Set((exits + 19)->name, "Thorny path");
+	Set((exits + 19)->description, "many thorns, but nothing more");
 	(exits + 19)->origin = (rooms + 10);
 	(exits + 19)->destination = (rooms + 8);
 	(exits + 19)->direction = west;
 	//Underwater Cave to Thorny path
-	strcpy_s((exits + 21)->name, "Thorny path");
-	strcpy_s((exits + 21)->description, "walk with pain in your feet");
+	Set((exits + 21)->name, "Thorny path");
+	Set((exits + 21)->description, "walk with pain in your feet");
 	(exits + 21)->origin = (rooms + 11);
 	(exits + 21)->destination = (rooms + 8);
 	(exits + 21)->direction = north;
 	//Thorny path to gun zone
-	strcpy_s((exits + 16)->name, "Thorny path");
-	strcpy_s((exits + 16)->description, "many thorns, but nothing more");
+	Set((exits + 16)->name, "Thorny path");
+	Set((exits + 16)->description, "many thorns, but nothing more");
 	(exits + 16)->origin = (rooms + 8);
 	(exits + 16)->destination = (rooms + 9);
 	(exits + 16)->direction = west;
 	//Thorny path to fuel zone
-	strcpy_s((exits + 18)->name, "Thorny path");
-	strcpy_s((exits + 18)->description, "many thorns, but nothing more");
+	Set((exits + 18)->name, "Thorny path");
+	Set((exits + 18)->description, "many thorns, but nothing more");
 	(exits + 18)->origin = (rooms + 8);
 	(exits + 18)->destination = (rooms + 10);
 	(exits + 18)->direction = east;
 	//Thorny path to underwater cave
-	strcpy_s((exits + 20)->name, "Thorny path");
-	strcpy_s((exits + 20)->description, "many thorns, but nothing more");
+	Set((exits + 20)->name, "Thorny path");
+	Set((exits + 20)->description, "many thorns, but nothing more");
 	(exits + 20)->origin = (rooms + 8);
 	(exits + 20)->destination = (rooms + 11);
 	(exits + 20)->direction = south;
 	//Home Base to jungle
-	strcpy_s((exits + 22)->name, "Jungle path");
-	strcpy_s((exits + 22)->description, "a huge jungle, probably full of beasts");
+	Set((exits + 22)->name, "Jungle path");
+	Set((exits + 22)->description, "a huge jungle, probably full of beasts");
 	(exits + 22)->origin = (rooms + 0);
 	(exits + 22)->destination = (rooms + 12);
 	(exits + 22)->direction = west;
@@ -219,16 +220,16 @@ void World::createWorld() const{
 	(exits + 22)->closed = true;
 }
 int World::getDirection(char ope[]){//this defines the direction, if not found returns -1 and the program will exit
-	if ((0 == strcmp(ope, "north")) || (0 == strcmp(ope, "n"))){
+	if ((Equals(ope, "north")) || (Equals(ope, "n"))){
 		return 0;
 	}
-	if ((0 == strcmp(ope, "south")) || (0 == strcmp(ope, "s"))){
+	if ((Equals(ope, "south")) || (Equals(ope, "s"))){
 		return 1;
 	}
-	if ((0 == strcmp(ope, "east")) || (0 == strcmp(ope, "e"))){
+	if ((Equals(ope, "east")) || (Equals(ope, "e"))){
 		return 2;
 	}
-	if ((0 == strcmp(ope, "west")) || (0 == strcmp(ope, "w"))){
+	if ((Equals(ope, "west")) || (Equals(ope, "w"))){
 		return 3;
 	}
 	return -1;
@@ -253,59 +254,59 @@ void World::Torken(char *ope){//this separates the sentence into two if possible
 		i++;
 	}
 	if (spaces == 0){//this protect the code from wrong commands
-		strcpy_s(operation1, ope);
-		strcpy_s(operation2, "\0");
+		Set(operation1, ope);
+		Set(operation2, "\0");
 	}
 	else if (spaces == 1)//This will create two operations
 	{
-		strcpy_s(operation1, strtok_s(ope, " ", &context));//take the word untill ""
-		strcpy_s(operation2, strtok_s(NULL, " ", &context));//take the rest
+		Set(operation1, strtok_s(ope, " ", &context));//take the word untill ""
+		Set(operation2, strtok_s(NULL, " ", &context));//take the rest
 	}
 	else {//if you make more than one space, return \0 
-		strcpy_s(operation1, "\0");
-		strcpy_s(operation2, "\0");
+		Set(operation1, "\0");
+		Set(operation2, "\0");
 	}
 	getOperation(ope1, ope2);
 }
 
 void World::getOperation(char *ope, char *ope2){//list of possible operations
-	if (0 == strcmp(ope, "north") || 0 == strcmp(ope, "n")){
+	if (Equals(ope, "north") || Equals(ope, "n")){
 		Go(ope);
 		return;
 	}
-	if (0 == strcmp(ope, "south") || 0 == strcmp(ope, "s")){
+	if (Equals(ope, "south") || Equals(ope, "s")){
 		Go(ope);
 		return;
 	}
-	if (0 == strcmp(ope, "east") || 0 == strcmp(ope, "e")){
+	if (Equals(ope, "east") || Equals(ope, "e")){
 		Go(ope);
 		return;
 	}
-	if (0 == strcmp(ope, "west") || 0 == strcmp(ope, "w")){
+	if (Equals(ope, "west") || Equals(ope, "w")){
 		Go(ope);
 		return;
 	}
-	else if (0 == strcmp(ope, "go") || 0 == strcmp(ope, "g")){
+	else if (Equals(ope, "go") || Equals(ope, "g")){
 		Go(ope2);
 		return;
 	}
-	else if (0 == strcmp(ope, "look") || 0 == strcmp(ope, "l")){
+	else if (Equals(ope, "look") || Equals(ope, "l")){
 		Look(ope2);
 		return;
 	}
-	else if (0 == strcmp(ope, "open") || 0 == strcmp(ope, "o")){
+	else if (Equals(ope, "open") || Equals(ope, "o")){
 		Open(ope2);
 		return;
 	}
-	else if (0 == strcmp(ope, "close") || 0 == strcmp(ope, "c")){
+	else if (Equals(ope, "close") || Equals(ope, "c")){
 		Close(ope2);
 		return;
 	}
-	else if (0 == strcmp(ope, "help") || 0 == strcmp(ope, "h")){
+	else if (Equals(ope, "help") || Equals(ope, "h")){
 		Help(ope);
 		return;
 	}
-	else if (0 == strcmp(ope, "quit") || 0 == strcmp(ope, "q")){
+	else if (Equals(ope, "quit") || Equals(ope, "q")){
 		return;
 	}
 	else{

@@ -1,6 +1,9 @@
 #include "World.h"
+#include "My_String.h"
 #define NUM_EXITS 24
 int main(){
+	My_String orders("orders");
+	
 	char operation[20];
 	char *ope;
 	ope = operation;
@@ -8,9 +11,10 @@ int main(){
 	a.createWorld();
 	a.Help("help");
 	printf("You are in %s, %s \n", a.player->location->name, a.player->location->description);
-	while (0 != strcmp(ope, "quit")){
-		gets_s(ope, 20);
+	while (Equals(orders, "quit")){
+		gets_s(operation, 20);
 		a.Torken(ope);
 	}
+	
 	return 0;
 }
