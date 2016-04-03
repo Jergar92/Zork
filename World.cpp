@@ -235,78 +235,50 @@ int World::getDirection(char ope[]){//this defines the direction, if not found r
 	return -1;
 }
 
-void World::Torken(char *ope){//this separates the sentence into two if possible
-	char operation1[10] = "";
-	char operation2[10] = "";
-	char *ope1, *ope2;
-	ope1 = operation1;
-	ope2 = operation2;
-	int i = 0, spaces = 0;
-	char *context;
-	while (ope[i] != '\0') {//checks for spaces and remove uppercase
-		ope[i] = (tolower(ope[i]));
-		if (ope[i] == ' ') {
-			if (ope[i + 1] == '\0'){
-				spaces--;
-			}
-			spaces++;
-		}
-		i++;
-	}
-	if (spaces == 0){//this protect the code from wrong commands
-		Set(operation1, ope);
-		Set(operation2, "\0");
-	}
-	else if (spaces == 1)//This will create two operations
-	{
-		Set(operation1, strtok_s(ope, " ", &context));//take the word untill ""
-		Set(operation2, strtok_s(NULL, " ", &context));//take the rest
-	}
-	else {//if you make more than one space, return \0 
-		Set(operation1, "\0");
-		Set(operation2, "\0");
-	}
-	getOperation(ope1, ope2);
-}
 
-void World::getOperation(char *ope, char *ope2){//list of possible operations
-	if (Equals(ope, "north") || Equals(ope, "n")){
+
+void World::getOperation(char* ope[]){//list of possible operations
+	if (Equals(ope[0], "north") || Equals(ope[0], "n")){
+		ope[1] = "north";
 		Go(ope);
 		return;
 	}
-	if (Equals(ope, "south") || Equals(ope, "s")){
+	if (Equals(ope[0], "south") || Equals(ope[0], "s")){
+		ope[1] = "south";
 		Go(ope);
 		return;
 	}
-	if (Equals(ope, "east") || Equals(ope, "e")){
+	if (Equals(ope[0], "east") || Equals(ope[0], "e")){
+		ope[1] = "east";
 		Go(ope);
 		return;
 	}
-	if (Equals(ope, "west") || Equals(ope, "w")){
+	if (Equals(ope[0], "west") || Equals(ope[0], "w")){
+		ope[1] = "west";
 		Go(ope);
 		return;
 	}
-	else if (Equals(ope, "go") || Equals(ope, "g")){
-		Go(ope2);
+	else if (Equals(ope[0], "go") || Equals(ope[0], "g")){
+		Go(ope);
 		return;
 	}
-	else if (Equals(ope, "look") || Equals(ope, "l")){
-		Look(ope2);
+	else if (Equals(ope[0], "look") || Equals(ope[0], "l")){
+		Look(ope);
 		return;
 	}
-	else if (Equals(ope, "open") || Equals(ope, "o")){
-		Open(ope2);
+	else if (Equals(ope[0], "open") || Equals(ope[0], "o")){
+		Open(ope);
 		return;
 	}
-	else if (Equals(ope, "close") || Equals(ope, "c")){
-		Close(ope2);
+	else if (Equals(ope[0], "close") || Equals(ope[0], "c")){
+		Close(ope);
 		return;
 	}
-	else if (Equals(ope, "help") || Equals(ope, "h")){
-		Help(ope);
+	else if (Equals(ope[0], "help") || Equals(ope[0], "h")){
+		Help();
 		return;
 	}
-	else if (Equals(ope, "quit") || Equals(ope, "q")){
+	else if (Equals(ope[0], "quit") || Equals(ope[0], "q")){
 		return;
 	}
 	else{
@@ -314,15 +286,15 @@ void World::getOperation(char *ope, char *ope2){//list of possible operations
 	}
 }
 
-void World::Go(char *operation){//this move the player if the move is possible
-	int direction = -1, i = 0;
-	direction = getDirection(operation);//dat get the right direction
+void World::Go(char *operation[]){//this move the player if the move is possible
+	int direction = -1;
+	direction = getDirection(operation[1]);//dat get the right direction
 	if (direction ==-1){
 		printf("wrong operation\n");
 		return;
 	}
 	else{
-		for (i = 0; i < NUM_EXITS; i++){
+		for (int i = 0; i < NUM_EXITS; i++){
 
 			if (0 == strcmp(exits[i].origin->name, player->location->name))
 			{
@@ -340,19 +312,17 @@ void World::Go(char *operation){//this move the player if the move is possible
 			}
 		}
 			printf("you can not pass\n");
-		
 	}
 }
-void World::Look(char *operation){//this looks the exit if there is any
-	int direction = -1, i = 0;
-
-	direction = getDirection(operation);//dat get the right direction
+void World::Look(char *operation[]){//this looks the exit if there is any
+	int direction = -1;
+	direction = getDirection(operation[1]);//dat get the right direction
 	if (direction == -1){
 		printf("wrong operation\n");
 		return;
 	}
 	else{
-		for (i = 0; i < NUM_EXITS; i++){
+		for (int i = 0; i < NUM_EXITS; i++){
 
 			if (0 == strcmp(exits[i].origin->name, player->location->name))
 			{
@@ -366,15 +336,15 @@ void World::Look(char *operation){//this looks the exit if there is any
 		
 	}
 }
-void World::Open(char *operation){//this open the door if possible
-	int direction = -1, i = 0;
-	direction = getDirection(operation);
+void World::Open(char *operation[]){//this open the door if possible
+	int direction = -1;
+	direction = getDirection(operation[1]);
 	if (direction == -1){
 		printf("wrong operation\n");
 		return;
 	}
 	else{
-		for (i = 0; i < NUM_EXITS; i++){
+		for (int i = 0; i < NUM_EXITS; i++){
 			if (0 == strcmp(exits[i].origin->name, player->location->name))
 			{
 				if (exits[i].direction == direction){
@@ -391,15 +361,15 @@ void World::Open(char *operation){//this open the door if possible
 		
 	}
 }
-void World::Close(char *operation){//	this close the door if possible
-	int direction = -1, i = 0;
-	direction = getDirection(operation);//dat get the right direction
+void World::Close(char *operation[]){//	this close the door if possible
+	int direction = -1;
+	direction = getDirection(operation[1]);//dat get the right direction
 	if (direction == -1){
 		printf("wrong operation\n");
 		return;
 	}
 	else{
-		for (i = 0; i < NUM_EXITS; i++){
+		for (int i = 0; i < NUM_EXITS; i++){
 
 			if (0 == strcmp(exits[i].origin->name, player->location->name))
 			{
@@ -419,7 +389,7 @@ void World::Close(char *operation){//	this close the door if possible
 	}
 }
 
-void World::Help(char *operation){
+void World::Help(){
 	printf("This is Zork S.O.S No man's land");
 	printf("Your ship has crashed on an unknown planet,\nyou must retrieve the necessary parts of your destroyed ship scattered around the area and build a beacon for help, your resources are limited and will have to find more to survive.\n\n");
 	printf("You can move using the comand Go North G North, North or N\n");
