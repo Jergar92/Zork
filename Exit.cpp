@@ -1,11 +1,3 @@
 #include "World.h"
 
-Exit::Exit()
-{
-	
-
-}
-
-Exit::~Exit()
-{
-}
+//this will be used in the future

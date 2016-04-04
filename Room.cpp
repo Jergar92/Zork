@@ -1,11 +1,2 @@
 #include "World.h"
-
-Room::Room()
-{
-	
-}
-
-Room::~Room()
-{
-	
-}
+//this will be used in the future

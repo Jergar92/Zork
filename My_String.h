@@ -5,7 +5,6 @@ class MyString
 {
 public: 	
 	char* words[10];
-
 public:
 	MyString();
 	~MyString();

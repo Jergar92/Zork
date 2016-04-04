@@ -22,6 +22,7 @@ public:
 public:
 	World();
 	~World();
+<<<<<<< HEAD
 
 	void createWorld() const;//this is called on main
 	void Help();//this is called on main
@@ -35,6 +36,19 @@ private:
 	void Close(char *words[]);
 private:
 
+=======
+	void createWorld() const;
+	void createExits() const;
+	void Torken(char operation[]);
+	void Help(char operation[])const;
+private:
+	int getDirection(char operation[]);
+	void getOperation(char ope[], char ope2[]);
+	void Go(char operation[]);
+	void Look(char operation[]);
+	void Open(char operation[]);
+	void Close(char operation[]);
+>>>>>>> origin/master
 };
 
 #endif _WORLD

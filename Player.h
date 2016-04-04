@@ -9,12 +9,6 @@ class Player : public Entity
 {
 public:
 	Room* location;
-
-public:
-	Player();
-	~Player();
-
-private:
 };
 
 

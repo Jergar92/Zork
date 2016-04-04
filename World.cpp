@@ -63,9 +63,16 @@ void World::createWorld() const{
 	str->Set((rooms + 11)->name, "Underwater Cave");
 	str->Set((rooms + 11)->description, "the ceiling of the cave have been destroyed by the impact of your ship probably");
 
+<<<<<<< HEAD
 	str->Set((rooms + 12)->name, "Jungle");
 	str->Set((rooms + 12)->description, "you can hear many noises of beasts that you never heard");
 	//Exits
+=======
+	strcpy_s((rooms + 12)->name, "Jungle");
+	strcpy_s((rooms + 12)->description, "you can hear many noises of beasts that you never heard");
+}
+void World::createExits() const{
+>>>>>>> origin/master
 	//Mountain to Home Base
 	str->Set((exits + 1)->name, "Rocky path");
 	str->Set((exits + 1)->description, "your home base");
@@ -389,7 +396,11 @@ void World::Close(char *operation[]){//	this close the door if possible
 	}
 }
 
+<<<<<<< HEAD
 void World::Help(){
+=======
+void World::Help(char operation[])const{
+>>>>>>> origin/master
 	printf("This is Zork S.O.S No man's land");
 	printf("Your ship has crashed on an unknown planet,\nyou must retrieve the necessary parts of your destroyed ship scattered around the area and build a beacon for help, your resources are limited and will have to find more to survive.\n\n");
 	printf("You can move using the comand Go North G North, North or N\n");
