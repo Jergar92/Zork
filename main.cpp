@@ -2,9 +2,7 @@
 #include "My_String.h"
 
 int main(){
-
-	char* words[10];
-	char operation[20];
+	char operation[100];
 	char *ope;
 	ope = operation;
 	World a;
@@ -12,11 +10,11 @@ int main(){
 	a.Help();
 	printf("You are in %s, %s \n", a.player->location->name, a.player->location->description);
 	while (1){
-		gets_s(operation, 20);
-		Token(ope, words);
-		a.getOperation(words);
+		gets_s(operation, 100);
+		a.str->Token(ope, a.str->words);
+		a.getOperation(a.str->words);
 
-		if (Equals(words[0], "quit")){
+		if (a.str->Equals(a.str->words[0], "quit")){
 			break;
 		}
 	}

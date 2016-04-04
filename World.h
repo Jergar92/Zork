@@ -9,12 +9,16 @@
 #include "Room.h"
 #include "Exit.h"
 #include "Entity.h"
+#include "My_String.h"
+class MyString; 
+
 class World
 {
 public:
 	Room* rooms = nullptr;
 	Exit* exits = nullptr;
 	Player* player = nullptr;
+	MyString* str=nullptr;
 public:
 	World();
 	~World();

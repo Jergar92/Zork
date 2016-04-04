@@ -1,5 +1,4 @@
 #include "World.h"
-#include "My_String.h"
 #define NUM_EXITS 24
 
 World::World()
@@ -8,6 +7,7 @@ World::World()
 	rooms = new Room[13];
 	exits = new Exit[24];
 	player = new Player;
+	str = new MyString;
 	player->location = rooms + 0;//player location
 }
 /**********************LOCATIONS*****************************/
@@ -27,192 +27,192 @@ World::World()
 /************************************************************/
 void World::createWorld() const{
 	//Rooms
-	Set((rooms + 0)->name, "Home Base");
-	Set((rooms + 0)->description, "this is your settlement.");
+	str->Set((rooms + 0)->name, "Home Base");
+	str->Set((rooms + 0)->description, "this is your settlement.");
 
-	Set((rooms + 1)->name, "Mountain");
-	Set((rooms + 1)->description, "you're on the top of a mountain with a large rock at the edge of a precipice");
+	str->Set((rooms + 1)->name, "Mountain");
+	str->Set((rooms + 1)->description, "you're on the top of a mountain with a large rock at the edge of a precipice");
 
-	Set((rooms + 2)->name, "Waterfall");
-	Set((rooms + 2)->description, "you are on the front of the waterfall, in the background can clearly see your robot AAR-88");
+	str->Set((rooms + 2)->name, "Waterfall");
+	str->Set((rooms + 2)->description, "you are on the front of the waterfall, in the background can clearly see your robot AAR-88");
 
-	Set((rooms + 3)->name, "Abandoned Cave");
-	Set((rooms + 3)->description, "there seems to be nothing , you only see a few rags and a pile of bones");
+	str->Set((rooms + 3)->name, "Abandoned Cave");
+	str->Set((rooms + 3)->description, "there seems to be nothing , you only see a few rags and a pile of bones");
 
-	Set((rooms + 4)->name, "Monster Cave");
-	Set((rooms + 4)->description, "you can see a piece of your broken ship and you hear noises coming from the cave");
+	str->Set((rooms + 4)->name, "Monster Cave");
+	str->Set((rooms + 4)->description, "you can see a piece of your broken ship and you hear noises coming from the cave");
 
-	Set((rooms + 5)->name, "Altar");
-	Set((rooms + 5)->description, "you are in a large open area and around you see a pile of bones");
+	str->Set((rooms + 5)->name, "Altar");
+	str->Set((rooms + 5)->description, "you are in a large open area and around you see a pile of bones");
 
-	Set((rooms + 6)->name, "Big Nest");
-	Set((rooms + 6)->description, "you find yourself on top of a large tree along you see the biggest nest you've seen in your whole life, from there you see a vine down the north");
+	str->Set((rooms + 6)->name, "Big Nest");
+	str->Set((rooms + 6)->description, "you find yourself on top of a large tree along you see the biggest nest you've seen in your whole life, from there you see a vine down the north");
 
-	Set((rooms + 7)->name, "Rubble");
-	Set((rooms + 7)->description, "Rubble");
+	str->Set((rooms + 7)->name, "Rubble");
+	str->Set((rooms + 7)->description, "Rubble");
 
-	Set((rooms + 8)->name, "Thorn Forest");
-	Set((rooms + 8)->description, "You can not see anything, you can move forward in any direction");
+	str->Set((rooms + 8)->name, "Thorn Forest");
+	str->Set((rooms + 8)->description, "You can not see anything, you can move forward in any direction");
 
-	Set((rooms + 9)->name, "Thorn Forest East");
-	Set((rooms + 9)->description, "You can not see anything, you do not see any exit");
+	str->Set((rooms + 9)->name, "Thorn Forest East");
+	str->Set((rooms + 9)->description, "You can not see anything, you do not see any exit");
 
-	Set((rooms + 10)->name, "Thorn Forest West");
-	Set((rooms + 10)->description, "You can not see anything, you do not see any exit");
+	str->Set((rooms + 10)->name, "Thorn Forest West");
+	str->Set((rooms + 10)->description, "You can not see anything, you do not see any exit");
 
-	Set((rooms + 11)->name, "Underwater Cave");
-	Set((rooms + 11)->description, "the ceiling of the cave have been destroyed by the impact of your ship probably");
+	str->Set((rooms + 11)->name, "Underwater Cave");
+	str->Set((rooms + 11)->description, "the ceiling of the cave have been destroyed by the impact of your ship probably");
 
-	Set((rooms + 12)->name, "Jungle");
-	Set((rooms + 12)->description, "you can hear many noises of beasts that you never heard");
+	str->Set((rooms + 12)->name, "Jungle");
+	str->Set((rooms + 12)->description, "you can hear many noises of beasts that you never heard");
 	//Exits
 	//Mountain to Home Base
-	Set((exits + 1)->name, "Rocky path");
-	Set((exits + 1)->description, "your home base");
+	str->Set((exits + 1)->name, "Rocky path");
+	str->Set((exits + 1)->description, "your home base");
 	(exits + 1)->origin = (rooms + 1);
 	(exits + 1)->destination = (rooms + 0);
 	(exits + 1)->direction = south;
 	//Altar to Home Base
-	Set((exits + 3)->name, "Little path");
-	Set((exits + 3)->description, "your home base");
+	str->Set((exits + 3)->name, "Little path");
+	str->Set((exits + 3)->description, "your home base");
 	(exits + 3)->origin = (rooms + 5);
 	(exits + 3)->destination = (rooms + 0);
 	(exits + 3)->direction = west;
 	//Jungle to Home base
-	Set((exits + 23)->name, "Jungle path");
-	Set((exits + 23)->description, "your home base");
+	str->Set((exits + 23)->name, "Jungle path");
+	str->Set((exits + 23)->description, "your home base");
 	(exits + 23)->origin = (rooms + 12);
 	(exits + 23)->destination = (rooms + 0);
 	(exits + 23)->direction = east;
 	//Thorny forest to home base
-	Set((exits + 15)->name, "Thorny path");
-	Set((exits + 15)->description, "many thorns, but nothing more");
+	str->Set((exits + 15)->name, "Thorny path");
+	str->Set((exits + 15)->description, "many thorns, but nothing more");
 	(exits + 15)->origin = (rooms + 8);
 	(exits + 15)->destination = (rooms + 0);
 	(exits + 15)->direction = north;
 	//Home Base to Mountain
-	Set((exits + 0)->name, "Rocky path");
-	Set((exits + 0)->description, "a large mountain, on the top see a big rock");
+	str->Set((exits + 0)->name, "Rocky path");
+	str->Set((exits + 0)->description, "a large mountain, on the top see a big rock");
 	(exits + 0)->origin = (rooms + 0);
 	(exits + 0)->destination = (rooms + 1);
 	(exits + 0)->direction = north;
 	(exits + 0)->door = true;
 	(exits + 0)->closed = true;
 	//Waterfall to Mountain
-	Set((exits + 5)->name, "Rocky path");
-	Set((exits + 5)->description, "a large mountain, on the top see a big rock");
+	str->Set((exits + 5)->name, "Rocky path");
+	str->Set((exits + 5)->description, "a large mountain, on the top see a big rock");
 	(exits + 5)->origin = (rooms + 2);
 	(exits + 5)->destination = (rooms + 1);
 	(exits + 5)->direction = west;
 	//Abandoned Cave to Mountain
-	Set((exits + 7)->name, "Rocky path");
-	Set((exits + 7)->description, "a large mountain, on the top see a big rock");
+	str->Set((exits + 7)->name, "Rocky path");
+	str->Set((exits + 7)->description, "a large mountain, on the top see a big rock");
 	(exits + 7)->origin = (rooms + 3);
 	(exits + 7)->destination = (rooms + 1);
 	(exits + 7)->direction = east;
 	//Monster Cave to Mountain
-	Set((exits + 9)->name, "Rocky path");
-	Set((exits + 9)->description, "a large mountain, on the top see a big rock");
+	str->Set((exits + 9)->name, "Rocky path");
+	str->Set((exits + 9)->description, "a large mountain, on the top see a big rock");
 	(exits + 9)->origin = (rooms + 4);
 	(exits + 9)->destination = (rooms + 1);
 	(exits + 9)->direction = south;
 	//Mountain to Waterfall
-	Set((exits + 4)->name, "Rocky path");
-	Set((exits + 4)->description, "a beautiful waterfall, something seems to shine in it");
+	str->Set((exits + 4)->name, "Rocky path");
+	str->Set((exits + 4)->description, "a beautiful waterfall, something seems to shine in it");
 	(exits + 4)->origin = (rooms + 1);
 	(exits + 4)->destination = (rooms + 2);
 	(exits + 4)->direction = east;
 	//Rubble to waterfall
-	Set((exits + 13)->name, "vine path");
-	Set((exits + 13)->description, "a waterfall down there, but you know you can not come back here");
+	str->Set((exits + 13)->name, "vine path");
+	str->Set((exits + 13)->description, "a waterfall down there, but you know you can not come back here");
 	(exits + 13)->origin = (rooms + 7);
 	(exits + 13)->destination = (rooms + 2);
 	(exits + 13)->direction = west;
 	//Mountain to Abandoned cave
-	Set((exits + 6)->name, "Rocky path");
-	Set((exits + 6)->description, "a cave apparently abandoned");
+	str->Set((exits + 6)->name, "Rocky path");
+	str->Set((exits + 6)->description, "a cave apparently abandoned");
 	(exits + 6)->origin = (rooms + 1);
 	(exits + 6)->destination = (rooms + 3);
 	(exits + 6)->direction = west;
 	//Mountain to monster Cave
-	Set((exits + 8)->name, "Rocky path");
-	Set((exits + 8)->description, "a cave, and many noises come from it");
+	str->Set((exits + 8)->name, "Rocky path");
+	str->Set((exits + 8)->description, "a cave, and many noises come from it");
 	(exits + 8)->origin = (rooms + 1);
 	(exits + 8)->destination = (rooms + 4);
 	(exits + 8)->direction = north;
 	//Home Base to Altar
-	Set((exits + 2)->name, "Little path");
-	Set((exits + 2)->description, "a large open area, not appear to be dangerous zone");
+	str->Set((exits + 2)->name, "Little path");
+	str->Set((exits + 2)->description, "a large open area, not appear to be dangerous zone");
 	(exits + 2)->origin = (rooms + 0);
 	(exits + 2)->destination = (rooms + 5);
 	(exits + 2)->direction = east;
 	(exits + 2)->door = true;
 	(exits + 2)->closed = true;
 	//Big nest to altar
-	Set((exits + 11)->name, "Little path");
-	Set((exits + 11)->description, "a large open area, not appear to be dangerous zone");
+	str->Set((exits + 11)->name, "Little path");
+	str->Set((exits + 11)->description, "a large open area, not appear to be dangerous zone");
 	(exits + 11)->origin = (rooms + 6);
 	(exits + 11)->destination = (rooms + 5);
 	(exits + 11)->direction = west;
 	//Altar to Big nest
-	Set((exits + 10)->name, "Little path");
-	Set((exits + 10)->description, "a big tree, and on top a big nest");
+	str->Set((exits + 10)->name, "Little path");
+	str->Set((exits + 10)->description, "a big tree, and on top a big nest");
 	(exits + 10)->origin = (rooms + 5);
 	(exits + 10)->destination = (rooms + 6);
 	(exits + 10)->direction = east;
 	//Big nest to rubble
-	Set((exits + 12)->name, "vine path");
-	Set((exits + 12)->description, "a rubble down there, but you know you can not come back here");
+	str->Set((exits + 12)->name, "vine path");
+	str->Set((exits + 12)->description, "a rubble down there, but you know you can not come back here");
 	(exits + 12)->origin = (rooms + 6);
 	(exits + 12)->destination = (rooms + 7);
 	(exits + 12)->direction = north;
 	//Home base to Thorny path
-	Set((exits + 14)->name, "Thorny path");
-	Set((exits + 14)->description, "many thorns, but nothing more");
+	str->Set((exits + 14)->name, "Thorny path");
+	str->Set((exits + 14)->description, "many thorns, but nothing more");
 	(exits + 14)->origin = (rooms + 0);
 	(exits + 14)->destination = (rooms + 8);
 	(exits + 14)->direction = south;
 	(exits + 14)->door = true;
 	(exits + 14)->closed = true;
 	//Gun zone to Thorny path
-	Set((exits + 17)->name, "Thorny path");
-	Set((exits + 17)->description, "many thorns, but nothing more");
+	str->Set((exits + 17)->name, "Thorny path");
+	str->Set((exits + 17)->description, "many thorns, but nothing more");
 	(exits + 17)->origin = (rooms + 9);
 	(exits + 17)->destination = (rooms + 8);
 	(exits + 17)->direction = east;
 	//Fuel zone to Thorny path
-	Set((exits + 19)->name, "Thorny path");
-	Set((exits + 19)->description, "many thorns, but nothing more");
+	str->Set((exits + 19)->name, "Thorny path");
+	str->Set((exits + 19)->description, "many thorns, but nothing more");
 	(exits + 19)->origin = (rooms + 10);
 	(exits + 19)->destination = (rooms + 8);
 	(exits + 19)->direction = west;
 	//Underwater Cave to Thorny path
-	Set((exits + 21)->name, "Thorny path");
-	Set((exits + 21)->description, "walk with pain in your feet");
+	str->Set((exits + 21)->name, "Thorny path");
+	str->Set((exits + 21)->description, "walk with pain in your feet");
 	(exits + 21)->origin = (rooms + 11);
 	(exits + 21)->destination = (rooms + 8);
 	(exits + 21)->direction = north;
 	//Thorny path to gun zone
-	Set((exits + 16)->name, "Thorny path");
-	Set((exits + 16)->description, "many thorns, but nothing more");
+	str->Set((exits + 16)->name, "Thorny path");
+	str->Set((exits + 16)->description, "many thorns, but nothing more");
 	(exits + 16)->origin = (rooms + 8);
 	(exits + 16)->destination = (rooms + 9);
 	(exits + 16)->direction = west;
 	//Thorny path to fuel zone
-	Set((exits + 18)->name, "Thorny path");
-	Set((exits + 18)->description, "many thorns, but nothing more");
+	str->Set((exits + 18)->name, "Thorny path");
+	str->Set((exits + 18)->description, "many thorns, but nothing more");
 	(exits + 18)->origin = (rooms + 8);
 	(exits + 18)->destination = (rooms + 10);
 	(exits + 18)->direction = east;
 	//Thorny path to underwater cave
-	Set((exits + 20)->name, "Thorny path");
-	Set((exits + 20)->description, "many thorns, but nothing more");
+	str->Set((exits + 20)->name, "Thorny path");
+	str->Set((exits + 20)->description, "many thorns, but nothing more");
 	(exits + 20)->origin = (rooms + 8);
 	(exits + 20)->destination = (rooms + 11);
 	(exits + 20)->direction = south;
 	//Home Base to jungle
-	Set((exits + 22)->name, "Jungle path");
-	Set((exits + 22)->description, "a huge jungle, probably full of beasts");
+	str->Set((exits + 22)->name, "Jungle path");
+	str->Set((exits + 22)->description, "a huge jungle, probably full of beasts");
 	(exits + 22)->origin = (rooms + 0);
 	(exits + 22)->destination = (rooms + 12);
 	(exits + 22)->direction = west;
@@ -220,16 +220,16 @@ void World::createWorld() const{
 	(exits + 22)->closed = true;
 }
 int World::getDirection(char ope[]){//this defines the direction, if not found returns -1 and the program will exit
-	if ((Equals(ope, "north")) || (Equals(ope, "n"))){
+	if ((str->Equals(ope, "north")) || (str->Equals(ope, "n"))){
 		return 0;
 	}
-	if ((Equals(ope, "south")) || (Equals(ope, "s"))){
+	if ((str->Equals(ope, "south")) || (str->Equals(ope, "s"))){
 		return 1;
 	}
-	if ((Equals(ope, "east")) || (Equals(ope, "e"))){
+	if ((str->Equals(ope, "east")) || (str->Equals(ope, "e"))){
 		return 2;
 	}
-	if ((Equals(ope, "west")) || (Equals(ope, "w"))){
+	if ((str->Equals(ope, "west")) || (str->Equals(ope, "w"))){
 		return 3;
 	}
 	return -1;
@@ -238,47 +238,47 @@ int World::getDirection(char ope[]){//this defines the direction, if not found r
 
 
 void World::getOperation(char* ope[]){//list of possible operations
-	if (Equals(ope[0], "north") || Equals(ope[0], "n")){
+	if (str->Equals(ope[0], "north") || str->Equals(ope[0], "n")){
 		ope[1] = "north";
 		Go(ope);
 		return;
 	}
-	if (Equals(ope[0], "south") || Equals(ope[0], "s")){
+	if (str->Equals(ope[0], "south") || str->Equals(ope[0], "s")){
 		ope[1] = "south";
 		Go(ope);
 		return;
 	}
-	if (Equals(ope[0], "east") || Equals(ope[0], "e")){
+	if (str->Equals(ope[0], "east") || str->Equals(ope[0], "e")){
 		ope[1] = "east";
 		Go(ope);
 		return;
 	}
-	if (Equals(ope[0], "west") || Equals(ope[0], "w")){
+	if (str->Equals(ope[0], "west") || str->Equals(ope[0], "w")){
 		ope[1] = "west";
 		Go(ope);
 		return;
 	}
-	else if (Equals(ope[0], "go") || Equals(ope[0], "g")){
+	else if (str->Equals(ope[0], "go") || str->Equals(ope[0], "g")){
 		Go(ope);
 		return;
 	}
-	else if (Equals(ope[0], "look") || Equals(ope[0], "l")){
+	else if (str->Equals(ope[0], "look") || str->Equals(ope[0], "l")){
 		Look(ope);
 		return;
 	}
-	else if (Equals(ope[0], "open") || Equals(ope[0], "o")){
+	else if (str->Equals(ope[0], "open") || str->Equals(ope[0], "o")){
 		Open(ope);
 		return;
 	}
-	else if (Equals(ope[0], "close") || Equals(ope[0], "c")){
+	else if (str->Equals(ope[0], "close") || str->Equals(ope[0], "c")){
 		Close(ope);
 		return;
 	}
-	else if (Equals(ope[0], "help") || Equals(ope[0], "h")){
+	else if (str->Equals(ope[0], "help") || str->Equals(ope[0], "h")){
 		Help();
 		return;
 	}
-	else if (Equals(ope[0], "quit") || Equals(ope[0], "q")){
+	else if (str->Equals(ope[0], "quit") || str->Equals(ope[0], "q")){
 		return;
 	}
 	else{
@@ -402,9 +402,9 @@ void World::Help(){
 
 World::~World()
 {
+	delete str;
 	delete player;
 	delete[]exits;
 	delete[]rooms;
-
 }
 
