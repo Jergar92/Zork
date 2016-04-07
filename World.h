@@ -9,6 +9,7 @@
 #include "Room.h"
 #include "Exit.h"
 #include "Entity.h"
+#include "Item.h"
 #include "My_String.h"
 class MyString; 
 
@@ -18,14 +19,14 @@ public:
 	Room* rooms = nullptr;
 	Exit* exits = nullptr;
 	Player* player = nullptr;
+	Item* items = nullptr;
 	MyString* str=nullptr;
 public:
 	World();
 	~World();
-<<<<<<< HEAD
 
 	void createWorld() const;//this is called on main
-	void Help();//this is called on main
+	void Help()const;//this is called on main
 	void getOperation(char* words[]);
 
 private:
@@ -36,19 +37,6 @@ private:
 	void Close(char *words[]);
 private:
 
-=======
-	void createWorld() const;
-	void createExits() const;
-	void Torken(char operation[]);
-	void Help(char operation[])const;
-private:
-	int getDirection(char operation[]);
-	void getOperation(char ope[], char ope2[]);
-	void Go(char operation[]);
-	void Look(char operation[]);
-	void Open(char operation[]);
-	void Close(char operation[]);
->>>>>>> origin/master
 };
 
 #endif _WORLD

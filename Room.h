@@ -7,17 +7,10 @@
 class Room:public Entity
 {
 public:
-<<<<<<< HEAD
 public:
 
-	Room();
-	~Room();
 
 
-=======
-	char name[25];
-	char description[250];
->>>>>>> origin/master
 };
 
 

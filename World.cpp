@@ -7,6 +7,7 @@ World::World()
 	rooms = new Room[13];
 	exits = new Exit[24];
 	player = new Player;
+	items = new Item[2];
 	str = new MyString;
 	player->location = rooms + 0;//player location
 }
@@ -63,16 +64,11 @@ void World::createWorld() const{
 	str->Set((rooms + 11)->name, "Underwater Cave");
 	str->Set((rooms + 11)->description, "the ceiling of the cave have been destroyed by the impact of your ship probably");
 
-<<<<<<< HEAD
 	str->Set((rooms + 12)->name, "Jungle");
 	str->Set((rooms + 12)->description, "you can hear many noises of beasts that you never heard");
-	//Exits
-=======
-	strcpy_s((rooms + 12)->name, "Jungle");
-	strcpy_s((rooms + 12)->description, "you can hear many noises of beasts that you never heard");
-}
-void World::createExits() const{
->>>>>>> origin/master
+
+	//////////////////////EXITS/////////////////////////////
+
 	//Mountain to Home Base
 	str->Set((exits + 1)->name, "Rocky path");
 	str->Set((exits + 1)->description, "your home base");
@@ -225,27 +221,23 @@ void World::createExits() const{
 	(exits + 22)->direction = west;
 	(exits + 22)->door = true;
 	(exits + 22)->closed = true;
-}
-int World::getDirection(char ope[]){//this defines the direction, if not found returns -1 and the program will exit
-	if ((str->Equals(ope, "north")) || (str->Equals(ope, "n"))){
-		return 0;
-	}
-	if ((str->Equals(ope, "south")) || (str->Equals(ope, "s"))){
-		return 1;
-	}
-	if ((str->Equals(ope, "east")) || (str->Equals(ope, "e"))){
-		return 2;
-	}
-	if ((str->Equals(ope, "west")) || (str->Equals(ope, "w"))){
-		return 3;
-	}
-	return -1;
+
+	///////////////////ITEMS///////////////////////
+	str->Set((items + 0)->name, "Laser Gun");
+	str->Set((items + 0)->description, "a powerfull large distance weapon");
+	(items + 0)->location = (rooms + 0);
+
+	str->Set((items + 0)->name, "Gigant Rock");
+	str->Set((items + 0)->description, "It is very big but is on the brink of precipice sure You can push it");
+	(items + 1)->location = (rooms + 1);
+	(items + 1)->canTake = false;
+	(items + 1)->canPush = true;
 }
 
 
 
 void World::getOperation(char* ope[]){//list of possible operations
-	if (str->Equals(ope[0], "north") || str->Equals(ope[0], "n")){
+	if ((ope[0]== "north") || (ope[0]=="n")){
 		ope[1] = "north";
 		Go(ope);
 		return;
@@ -291,6 +283,21 @@ void World::getOperation(char* ope[]){//list of possible operations
 	else{
 		printf("wrong operation\n");
 	}
+}
+int World::getDirection(char ope[]){//this defines the direction, if not found returns -1 and the program will exit
+	if ((str->Equals(ope, "north")) || (str->Equals(ope, "n"))){
+		return 0;
+	}
+	if ((str->Equals(ope, "south")) || (str->Equals(ope, "s"))){
+		return 1;
+	}
+	if ((str->Equals(ope, "east")) || (str->Equals(ope, "e"))){
+		return 2;
+	}
+	if ((str->Equals(ope, "west")) || (str->Equals(ope, "w"))){
+		return 3;
+	}
+	return -1;
 }
 
 void World::Go(char *operation[]){//this move the player if the move is possible
@@ -396,11 +403,8 @@ void World::Close(char *operation[]){//	this close the door if possible
 	}
 }
 
-<<<<<<< HEAD
-void World::Help(){
-=======
-void World::Help(char operation[])const{
->>>>>>> origin/master
+
+void World::Help()const{
 	printf("This is Zork S.O.S No man's land");
 	printf("Your ship has crashed on an unknown planet,\nyou must retrieve the necessary parts of your destroyed ship scattered around the area and build a beacon for help, your resources are limited and will have to find more to survive.\n\n");
 	printf("You can move using the comand Go North G North, North or N\n");
@@ -414,6 +418,7 @@ void World::Help(char operation[])const{
 World::~World()
 {
 	delete str;
+	delete[] items;
 	delete player;
 	delete[]exits;
 	delete[]rooms;

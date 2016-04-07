@@ -9,6 +9,10 @@ class Player : public Entity
 {
 public:
 	Room* location;
+
+	Player();
+	~Player();
+	
 };
 
 
