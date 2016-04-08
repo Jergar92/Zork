@@ -3,7 +3,7 @@
 #include "World.h"
 class MyString
 {
-public: 	
+public:
 	char* string;
 	char* words[10];
 	int maxCapacity = 0;
@@ -12,12 +12,13 @@ public:
 	MyString(const char* str);
 	~MyString();
 	const char* C_Words()const;
-	bool Equals(const char* str1, const char* str2);
-	void Set(char* str1, const char* str2);
-	void Get();
+
 	void Token(char* str, char* str2[]);
 	void operator =(const MyString &other);
+	void operator =(const char* str2);
 	bool operator ==(const char* str2)const;
+	bool operator ==(const MyString &other)const;
+
 	unsigned int MyStrlen()const;
 private:
 

@@ -1,7 +1,6 @@
 #ifndef _EXIT
 #define _EXIT
 #include "World.h"
-#include "Entity.h"
 
 class Room;
 

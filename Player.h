@@ -1,7 +1,6 @@
 #ifndef _PLAYER
 #define _PLAYER
 #include "World.h"
-#include "Entity.h"
 
 class Room;
 

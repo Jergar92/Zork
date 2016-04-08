@@ -2,7 +2,6 @@
 #define _ROOM
 #include "World.h"
 
-#include "Entity.h"
 
 class Room:public Entity
 {

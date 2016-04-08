@@ -1,12 +1,15 @@
 #ifndef _ENTITY
 #define _ENTITY
+#include "World.h"
 
+class MyString;
 
 class Entity
 {
 public:
-	char name[25];
-	char description[250];
+	MyString* name;
+	MyString* description;
+
 public:
 	Entity();
 	~Entity();

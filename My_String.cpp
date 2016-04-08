@@ -1,8 +1,10 @@
-#include "My_String.h"
+#include "World.h"
 
 
 MyString::MyString()
 {
+	maxCapacity = 10;
+	string = new char[maxCapacity];
 }
 MyString::MyString(const char* str)
 {
@@ -24,14 +26,6 @@ MyString::~MyString()
 {
 }
 
-
-bool MyString::Equals(const char* str1, const char* str2){
-	return _stricmp(str1, str2) == 0;
-}
-void MyString::Set(char* str1, const char* str2){
-	int i = strlen(str2) + 1;
-	strcpy_s(str1, i, str2);
-}
 void MyString::Token(char* str, char* word[]){
 	char* single=nullptr;
 	char* save = nullptr;
@@ -51,7 +45,7 @@ void MyString::Token(char* str, char* word[]){
 }
 unsigned int MyString::MyStrlen()const{
 	if (string != NULL){
-		return strlen(string) + 1;
+		return strlen(string);
 	}
 	else{
 		return 0;
@@ -59,27 +53,40 @@ unsigned int MyString::MyStrlen()const{
 	}
 }
 void MyString::operator=(const MyString &other){
-	int primerlen = other.MyStrlen();
+	int primerlen = other.MyStrlen() + 1;
 	if (maxCapacity >= primerlen){
-		strcpy_s(string, primerlen, other.string);
+		strcpy_s(string, maxCapacity, other.string);
 
 	}
 	else{
 		delete[] string;
 		string = new char[primerlen];
-		maxCapacity = MyStrlen();
-		strcpy_s(string, primerlen, other.string);
+		maxCapacity = MyStrlen() + 1;
+		strcpy_s(string, maxCapacity, other.string);
+	}
+
+}
+void MyString::operator=(const char* str2){
+	int primerlen = strlen(str2) + 1;
+	if (maxCapacity >= primerlen){
+		strcpy_s(string, primerlen, str2);
+
+	}
+	else{
+		delete[] string;
+		string = new char[primerlen];
+		maxCapacity = MyStrlen() + 1;
+		strcpy_s(string, primerlen, str2);
 	}
 
 }
 bool MyString::operator ==(const char* str2)const{
 	return (0 == _stricmp(string, str2));
 }
-void MyString::Get(){
-	char operation[100];
-	gets_s(operation, 100);
-	string = operation;
+bool MyString::operator ==(const MyString &other)const{
+	return (0 == _stricmp(string, other.string));
 }
+
 const char* MyString::C_Words()const {
 	return string;
 }

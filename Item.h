@@ -1,7 +1,7 @@
 #ifndef _ITEM
 #define _ITEM
 #include "World.h"
-#include "Entity.h"
+
 
 class Room;
 

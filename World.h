@@ -1,16 +1,16 @@
 #ifndef _WORLD
 #define _WORLD
 
+#include "Entity.h"
+#include "Player.h"
+#include "Room.h"
+#include "Exit.h"
+#include "Item.h"
+#include "My_String.h"
 #include <stdio.h>
 #include <cmath>
 #include <stdlib.h>
 #include <string>
-#include "Player.h"
-#include "Room.h"
-#include "Exit.h"
-#include "Entity.h"
-#include "Item.h"
-#include "My_String.h"
 class MyString; 
 
 class World
