@@ -27,14 +27,14 @@ public:
 
 	void createWorld() const;//this is called on main
 	void Help()const;//this is called on main
-	void getOperation(char* words[]);
+	void getOperation(MyString str2[]);
 
 private:
-	int getDirection(char operation[]);
-	void Go(char *words[]);
-	void Look(char *words[]);
-	void Open(char *words[]);
-	void Close(char *words[]);
+	int getDirection(MyString str2[]);
+	void Go(MyString str2[]);
+	void Look(MyString str2[]);
+	void Open(MyString str2[]);
+	void Close(MyString str2[]);
 private:
 
 };

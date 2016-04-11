@@ -235,23 +235,23 @@ void World::createWorld() const{
 }
 
 
-void World::getOperation(char* ope[]){//list of possible operations
+void World::getOperation(MyString ope[]){//list of possible operations
 	if ((ope[0] == "north") || (ope[0] == "n")){
 		ope[1] = "north";
 		Go(ope);
 		return;
 	}
-	if ((ope[0] == "south") || (ope[0] == "s")){
+	else if ((ope[0] == "south") || (ope[0] == "s")){
 		ope[1] = "south";
 		Go(ope);
 		return;
 	}
-	if ((ope[0] == "east") || (ope[0] == "e")){
+	else if ((ope[0] == "east") || (ope[0] == "e")){
 		ope[1] = "east";
 		Go(ope);
 		return;
 	}
-	if ((ope[0] == "west") || (ope[0] == "w")){
+	else if ((ope[0] == "west") || (ope[0] == "w")){
 		ope[1] = "west";
 		Go(ope);
 		return;
@@ -268,14 +268,11 @@ void World::getOperation(char* ope[]){//list of possible operations
 		Open(ope);
 		return;
 	}
-	else if ((ope[0] == "close") || (ope[0] == "c")){
-		Close(ope);
-		return;
-	}
 	else if ((ope[0] == "help") || (ope[0] == "h")){
 		Help();
 		return;
 	}
+
 	else if ((ope[0] == "quit") || (ope[0] == "q")){
 		return;
 	}
@@ -283,33 +280,33 @@ void World::getOperation(char* ope[]){//list of possible operations
 		printf("wrong operation\n");
 	}
 }
-int World::getDirection(char ope[]){//this defines the direction, if not found returns -1 and the program will exit
-	if (((ope == "north")) || ((ope == "n"))){
+int World::getDirection(MyString ope[]){//this defines the direction, if not found returns -1 and the program will exit
+	if (((ope[1] == "north")) || ((ope[1] == "n"))){
 		return 0;
 	}
-	if (((ope == "south")) || ((ope == "s"))){
+	if (((ope[1] == "south")) || ((ope[1] == "s"))){
 		return 1;
 	}
-	if (((ope == "east")) || ((ope == "e"))){
+	if (((ope[1] == "east")) || ((ope[1] == "e"))){
 		return 2;
 	}
-	if (((ope == "west")) || ((ope == "w"))){
+	if (((ope[1] == "west")) || ((ope[1] == "w"))){
 		return 3;
 	}
 	return -1;
 }
 
-void World::Go(char *operation[]){//this move the player if the move is possible
+void World::Go(MyString operation[]){//this move the player if the move is possible
 	int direction = -1;
-	direction = getDirection(operation[1]);//dat get the right direction
-	if (direction ==-1){
+	direction = getDirection(operation);//dat get the right direction
+	if (direction == -1){
 		printf("wrong operation\n");
 		return;
 	}
 	else{
 		for (int i = 0; i < NUM_EXITS; i++){
 
-			if (exits[i].origin->name->string = player->location->name->string)
+			if (exits[i].origin->name == player->location->name)
 			{
 				if (exits[i].direction == direction){//check if they have the same direction
 					if (exits[i].closed == true){//check if the exit is closed
@@ -318,65 +315,65 @@ void World::Go(char *operation[]){//this move the player if the move is possible
 					}
 					else{
 						player->location = exits[i].destination;//change your location
-						printf("You are in %s, %s \n", player->location->name, player->location->description);//Print your current location
+						printf("You are in %s, %s \n", player->location->name->string, player->location->description->string);
 						return;
 					}
 				}
 			}
 		}
-			printf("you can not pass\n");
+		printf("you can not pass\n");
 	}
 }
-void World::Look(char *operation[]){//this looks the exit if there is any
+void World::Look(MyString operation[]){//this looks the exit if there is any
 	int direction = -1;
-	direction = getDirection(operation[1]);//dat get the right direction
+	direction = getDirection(operation);//dat get the right direction
 	if (direction == -1){
 		printf("wrong operation\n");
 		return;
 	}
-	else{
-		for (int i = 0; i < NUM_EXITS; i++){
-
-			if (exits[i].origin->name->string == player->location->name->string)
-			{
-				if (exits[i].direction == direction){//check if they have the same direction
-					printf("You see a %s and you see %s ", exits[i].name,exits[i].description);
-					return;
-				}
+	for (int i = 0; i < NUM_EXITS; i++)
+	{
+		if (exits[i].origin->name == player->location->name)
+		{
+			if (exits[i].direction == direction){//check if they have the same direction
+				printf("You see a %s and you see %s ", exits[i].name, exits[i].description);
+				return;
 			}
 		}
-		printf("nothing here\n");
-		
 	}
+	printf("nothing here\n");
+
+
 }
-void World::Open(char *operation[]){//this open the door if possible
+
+void World::Open(MyString operation[]){//this open the door if possible
 	int direction = -1;
-	direction = getDirection(operation[1]);
+	direction = getDirection(operation);
 	if (direction == -1){
 		printf("wrong operation\n");
 		return;
 	}
 	else{
 		for (int i = 0; i < NUM_EXITS; i++){
-			if (exits[i].origin->name->string == player->location->name->string)
+			if (exits[i].origin->name == player->location->name)
 			{
 				if (exits[i].direction == direction){
 					if (exits[i].door == true){//check if we have door
 						if (exits[i].closed == true)
 							exits[i].closed = false;
-							printf("the door is open\n");
-							return;
+						printf("the door is open\n");
+						return;
 					}
 				}
 			}
 		}
 		printf("nothing can't be opened\n");
-		
+
 	}
 }
-void World::Close(char *operation[]){//	this close the door if possible
+void World::Close(MyString operation[]){//	this close the door if possible
 	int direction = -1;
-	direction = getDirection(operation[1]);//dat get the right direction
+	direction = getDirection(operation);//dat get the right direction
 	if (direction == -1){
 		printf("wrong operation\n");
 		return;
@@ -384,7 +381,7 @@ void World::Close(char *operation[]){//	this close the door if possible
 	else{
 		for (int i = 0; i < NUM_EXITS; i++){
 
-			if (exits[i].origin->name->string == player->location->name->string)
+			if (exits[i].origin->name == player->location->name)
 			{
 				if (exits[i].direction == direction){
 					if (exits[i].door == true){//check if we have door
@@ -397,8 +394,8 @@ void World::Close(char *operation[]){//	this close the door if possible
 				}
 			}
 		}
-			printf("nothing can't be opened\n");
-		
+		printf("nothing can't be opened\n");
+
 	}
 }
 

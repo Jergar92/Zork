@@ -5,15 +5,12 @@ class MyString
 {
 public:
 	char* string;
-	char* words[10];
 	int maxCapacity = 0;
 public:
 	MyString();
 	MyString(const char* str);
 	~MyString();
-	const char* C_Words()const;
-
-	void Token(char* str, char* str2[]);
+	void Token(MyString &other, MyString str2[]);
 	void operator =(const MyString &other);
 	void operator =(const char* str2);
 	bool operator ==(const char* str2)const;

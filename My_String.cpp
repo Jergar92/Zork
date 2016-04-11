@@ -3,8 +3,9 @@
 
 MyString::MyString()
 {
-	maxCapacity = 10;
+	maxCapacity = 1;
 	string = new char[maxCapacity];
+	*(string + 0) = '\0';
 }
 MyString::MyString(const char* str)
 {
@@ -26,22 +27,21 @@ MyString::~MyString()
 {
 }
 
-void MyString::Token(char* str, char* word[]){
-	char* single=nullptr;
+
+void MyString::Token(MyString &str, MyString str2[]){
+	char* single = nullptr;
 	char* save = nullptr;
-	int i = 0;		
-	single = strtok_s(str, " ,.-", &save);
+
+	int i = 0;
+	single = strtok_s(str.string, " ,.-", &save);
 	while (single != NULL)
-		{
-		word[i] = single;
+	{
+		str.string = single;
+		str2[i] = str;
 		single = strtok_s(NULL, " ,.-_", &save);
 		i++;
 	}
-	while (i<10)
-	{
-		word[i] = "x";
-		i++;
-	}
+
 }
 unsigned int MyString::MyStrlen()const{
 	if (string != NULL){
@@ -53,7 +53,7 @@ unsigned int MyString::MyStrlen()const{
 	}
 }
 void MyString::operator=(const MyString &other){
-	int primerlen = other.MyStrlen() + 1;
+	int primerlen = other.MyStrlen();
 	if (maxCapacity >= primerlen){
 		strcpy_s(string, maxCapacity, other.string);
 
@@ -67,16 +67,16 @@ void MyString::operator=(const MyString &other){
 
 }
 void MyString::operator=(const char* str2){
-	int primerlen = strlen(str2) + 1;
-	if (maxCapacity >= primerlen){
-		strcpy_s(string, primerlen, str2);
+	int capacity = strlen(str2) + 1;
+		if (maxCapacity >= capacity){
+		strcpy_s(string, maxCapacity, str2);
 
 	}
 	else{
 		delete[] string;
-		string = new char[primerlen];
+		string = new char[capacity];
 		maxCapacity = MyStrlen() + 1;
-		strcpy_s(string, primerlen, str2);
+		strcpy_s(string, maxCapacity, str2);
 	}
 
 }
@@ -85,9 +85,5 @@ bool MyString::operator ==(const char* str2)const{
 }
 bool MyString::operator ==(const MyString &other)const{
 	return (0 == _stricmp(string, other.string));
-}
-
-const char* MyString::C_Words()const {
-	return string;
 }
 
