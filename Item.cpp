@@ -4,6 +4,23 @@
 Item::Item(){
 
 }
+Item::Item(const char* n, const char* d, unsigned int _atack, unsigned int _defense, bool _equiped, bool _canTake, bool _onInventory, bool _canPush, Room* _location) :Entity(n, d)
+{
+
+	atack = _atack;
+	defense = _defense;
+	equiped = _equiped;
+	canTake = _canTake;
+	onInventory = _onInventory;
+	canPush = _canPush;
+	location = _location;
+	isType = ITEM;
+
+}
 Item::~Item(){
+
+}
+void Item::Look()const{
+	printf("You see a %s and you see %s ", name, description);
 
 }

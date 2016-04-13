@@ -1,2 +1,10 @@
 #include "World.h"
-//this will be used in the future
+Room::Room(){
+}
+Room::~Room(){
+
+}
+Room::Room(const char* n, const char* d) :Entity(n, d)
+{
+	isType = ROOM;
+}

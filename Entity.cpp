@@ -2,11 +2,19 @@
 
 Entity::Entity()
 {
-	name = new MyString;
-	description = new MyString;
+}
+Entity::Entity(const char* n, const char* d)
+{
+	name = n;
+	description = d;
 }
 
 
 Entity::~Entity()
 {
+}
+
+void Entity::Look()const
+{
+	printf("You are in %s, %s \n", name, description);
 }

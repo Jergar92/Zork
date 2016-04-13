@@ -6,6 +6,7 @@
 #include "Room.h"
 #include "Exit.h"
 #include "Item.h"
+#include "My_Vector.h"
 #include "My_String.h"
 #include <stdio.h>
 #include <cmath>
@@ -16,25 +17,25 @@ class MyString;
 class World
 {
 public:
-	Room* rooms = nullptr;
-	Exit* exits = nullptr;
-	Player* player = nullptr;
-	Item* items = nullptr;
-	MyString* str=nullptr;
+	Vector <Entity*> group;
+
 public:
 	World();
 	~World();
 
-	void createWorld() const;//this is called on main
+	void createWorld();//this is called on main
 	void Help()const;//this is called on main
-	void getOperation(MyString str2[]);
+	void getOperation(Vector<MyString> &strings);
 
 private:
-	int getDirection(MyString str2[]);
-	void Go(MyString str2[]);
+	int getDirection(Vector<MyString> &strings);
+	
+	void Go(Vector<MyString> &strings);
+	/*
 	void Look(MyString str2[]);
 	void Open(MyString str2[]);
 	void Close(MyString str2[]);
+	*/
 private:
 
 };

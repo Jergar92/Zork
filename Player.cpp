@@ -6,10 +6,12 @@ Player::Player()
 {
 
 }
+Player::Player(const char* n, const char* d, int life, int dmg, int def) :Entity(n, d)
+{
+	isType = PLAYER;
+}
 
 Player::~Player()
 {
 }
 
-
-//this will be used in the future

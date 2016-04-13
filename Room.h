@@ -6,6 +6,10 @@
 class Room:public Entity
 {
 public:
+	Room();
+	~Room();
+	Room(const char* n, const char* d);
+
 public:
 
 

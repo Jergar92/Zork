@@ -4,14 +4,16 @@
 
 class Room;
 
-enum directions{ north, south, east, west };
+enum directions{ NORTH, SOUTH, EAST, WEST };
 
 class Exit: public Entity
 {
 public:
+	Exit();
+	Exit(const char* n, const char* d, bool closed, bool door, Room* origin, Room*destination, directions dir);
+	~Exit();
 	bool closed = false;
 	bool door = false;
-
 	Room* origin;
 	Room* destination;
 	directions direction;

@@ -28,20 +28,18 @@ MyString::~MyString()
 }
 
 
-void MyString::Token(MyString &str, MyString str2[]){
+void MyString::Token(MyString &str, Vector<MyString> &strings){
 	char* single = nullptr;
 	char* save = nullptr;
-
 	int i = 0;
 	single = strtok_s(str.string, " ,.-", &save);
 	while (single != NULL)
 	{
 		str.string = single;
-		str2[i] = str;
+		strings.push_back(str);
 		single = strtok_s(NULL, " ,.-_", &save);
 		i++;
 	}
-
 }
 unsigned int MyString::MyStrlen()const{
 	if (string != NULL){

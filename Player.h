@@ -7,11 +7,15 @@ class Room;
 class Player : public Entity
 {
 public:
-	Room* location;
-
 	Player();
+	Player(const char* n, const char* d, int life, int dmg, int def);
+
 	~Player();
-	
+public:
+	Room* location;
+	int hp = 100;
+	unsigned int atack = 1;
+	unsigned int defense = 1;
 };
 
 
