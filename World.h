@@ -17,8 +17,10 @@ class MyString;
 class World
 {
 public:
-	Vector <Entity*> group;
-
+	Vector <Player*> player;
+	Vector <Room*> rooms;
+	Vector <Exit*> exits;
+	Vector <Item*> items;
 public:
 	World();
 	~World();
@@ -29,13 +31,13 @@ public:
 
 private:
 	int getDirection(Vector<MyString> &strings);
-	
+
 	void Go(Vector<MyString> &strings);
-	/*
-	void Look(MyString str2[]);
-	void Open(MyString str2[]);
-	void Close(MyString str2[]);
-	*/
+	void Look(Vector<MyString> &strings);
+	void Open(Vector<MyString> &strings);
+	void Close(Vector<MyString> &strings);
+	void Take(Vector<MyString> &strings);
+	
 private:
 
 };

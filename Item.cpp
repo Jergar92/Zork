@@ -4,7 +4,7 @@
 Item::Item(){
 
 }
-Item::Item(const char* n, const char* d, unsigned int _atack, unsigned int _defense, bool _equiped, bool _canTake, bool _onInventory, bool _canPush, Room* _location) :Entity(n, d)
+Item::Item(const char* n, const char* d, unsigned int _atack, unsigned int _defense, bool _equiped, bool _canTake, bool _onInventory, bool _canPush, Room* _location, itemType _itemType) :Entity(n, d)
 {
 
 	atack = _atack;
@@ -14,6 +14,8 @@ Item::Item(const char* n, const char* d, unsigned int _atack, unsigned int _defe
 	onInventory = _onInventory;
 	canPush = _canPush;
 	location = _location;
+	isItem = _itemType;
+
 	isType = ITEM;
 
 }

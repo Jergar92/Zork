@@ -1,5 +1,6 @@
 #ifndef _VECTOR
 #define _VECTOR
+#include <assert.h>
 
 template <class TYPE>
 class Vector
@@ -48,7 +49,7 @@ public:
 			TYPE* temp = new TYPE[_maxCapacity];
 			_maxCapacity += 5;
 			for (int i = 0; i < _maxCapacity; i++){
-				*(temp + i) = *(_maxCapacity + i);
+				*(temp + i) = *(buffer + i);
 			}
 			delete[] buffer;
 			buffer = temp;
@@ -57,21 +58,31 @@ public:
 			*(buffer + i) = *(buffer + i - 1);
 		}
 		*(buffer + i) = value;
+		numElements++;
+
 	}
+
 
 	bool empty()const{
 		return *(buffer + 0) == '\0'
 	}
 
 	void clear(){
-		//*(buffer + 0) = '\0';
 		numElements = 0;
 	}
-	void size()const{
+	int size()const{
 		return numElements;
 	}
 	void capacity()const{
 		return _maxCapacity;
+	}
+	TYPE &operator [](unsigned int index){
+		assert(index >= 0 && index < numElements);
+		return buffer[index];
+	}
+	TYPE operator [](unsigned int index)const{
+		assert(index >= 0 && index < numElements);
+		return buffer[index];
 	}
 	void pop_back(){
 		for (int = numElements; i > 0; i--){
