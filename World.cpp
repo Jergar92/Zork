@@ -201,19 +201,18 @@ void World::Go(Vector<MyString> &strings){//this move the player if the move is 
 				{
 					//check if they have the same direction
 					if (exits[i]->closed == true){//check if the exit is closed
-						printf("the door is closed\n");
+						printf("The door is closed\n");
 						return;
 					}
 					else{
 						player[0]->location = exits[i]->destination;//change your location
-						player[0]->location->Look();
-
+						Look();
 						return;
 					}
 				}
 			}
 		}
-		printf("you can not pass\n");
+		printf("You can not pass\n");
 	}
 }
 void World::Look(Vector<MyString> &strings){//this move the player if the move is possible
@@ -230,6 +229,11 @@ void World::Look(Vector<MyString> &strings){//this move the player if the move i
 			player[0]->Look();
 			return;
 
+		}
+		else if (strings[1] == "inventory"){
+			for (int i = 0; i < inventory.size(); i++){
+				inventory[i]->Look();
+			}
 		}
 		else
 		{
@@ -256,9 +260,21 @@ void World::Look(Vector<MyString> &strings){//this move the player if the move i
 			}
 		}
 	}
-	printf("you don't see nothing here\n");
+	printf("You don't see nothing here\n");
 }
 
+void World::Look()const{
+	player[0]->location->Look();
+	for (int i = 0; i < NUM_ITEMS; i++)
+	{
+		if (items[i]->location->name == player[0]->location->name){
+			if (items[i]->onInventory == false && items[i]->equiped == false){
+				printf("You see a %s\n", items[i]->name);
+			}
+		}
+
+	}
+}
 void World::Open(Vector<MyString> &strings){//this move the player if the move is possible
 	int direction = -1;
 	direction = getDirection(strings);//dat get the right direction
@@ -327,11 +343,78 @@ void World::Take(Vector<MyString> &strings){//this move the player if the move i
 		{
 			if (items[i]->location->name == player[0]->location->name){
 				if (strings[j] == items[i]->name){
-					if (items[i]->isItem != ENVIROMENT){
-						items[i]->canTake = true;
-						printf("You take %s", items[i]->name);
+					if (items[i]->isItem != ENVIROMENT && items[i]->onInventory == false){
+						items[i]->onInventory = true;
+						inventory.push_back(items[i]);
+						printf("You take %s\n", items[i]->name);
 					}
+					else{
+						printf("You can take %s\n", items[i]->name);
+					}
+				}
+			}
+		}
+	}
+}
 
+void World::Drop(Vector<MyString> &strings){//this move the player if the move is possible
+	for (int j = 0; j < strings.size(); j++){
+		for (int i = 0; i < inventory.size(); i++)
+		{
+			if (strings[j] == inventory[i]->name){
+				if (inventory[i]->equiped == false){
+
+					inventory[i]->onInventory = false;
+					inventory[i]->location = player[0]->location;
+					printf("You drop %s\n", inventory[i]->name);
+					inventory.clean_selected(i);
+				}
+				else{
+					printf("You can not throw a equipped object");
+				}
+			}
+		}
+	}
+}
+void World::Equip(Vector<MyString> &strings){//this move the player if the move is possible
+	for (int j = 0; j < strings.size(); j++){
+		for (int i = 0; i < inventory.size(); i++)
+		{
+			if (strings[j] == inventory[i]->name){
+				if (items[i]->isItem == BOOTS || items[i]->isItem == ARMOR || items[i]->isItem == WEAPON){
+					if (items[i]->equiped == false){
+						inventory[i]->equiped = true;
+						player[0]->atack += inventory[i]->atack;
+						player[0]->defense += inventory[i]->defense;
+						printf("You equiped %s\n", inventory[i]->name);
+						return;
+					}
+					else{
+						printf("Already was equipped");
+						return;
+					}
+				}
+			}
+		}
+	}
+}
+void World::UnEquip(Vector<MyString> &strings){//this move the player if the move is possible
+	for (int j = 0; j < strings.size(); j++){
+		for (int i = 0; i < inventory.size(); i++)
+		{
+			if (strings[j] == inventory[i]->name){
+				if (items[i]->isItem == BOOTS || items[i]->isItem == ARMOR || items[i]->isItem == WEAPON){
+					if (items[i]->equiped == true){
+						inventory[i]->equiped = false;
+						player[0]->atack -= inventory[i]->atack;
+						player[0]->defense -= inventory[i]->defense;
+						printf("You have taken away %s\n", inventory[i]->name);
+						return;
+					}
+					else{
+						printf("You do not have this object equipped");
+						return;
+					}
 				}
 			}
 		}

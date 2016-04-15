@@ -23,6 +23,6 @@ Item::~Item(){
 
 }
 void Item::Look()const{
-	printf("You see a %s and you see %s ", name, description);
+	printf("This is a %s, %s ", name.buffer, description.buffer);
 
 }

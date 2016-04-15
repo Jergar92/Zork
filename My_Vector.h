@@ -59,14 +59,18 @@ public:
 		}
 		*(buffer + i) = value;
 		numElements++;
-
 	}
-
-
+	void clean_selected(unsigned int index){
+		int i = 0;
+		for (i = index; i < size(); i++){
+			buffer[i] = buffer[i + 1];
+		}
+		buffer[i] = '\0';
+		numElements--;
+	}
 	bool empty()const{
 		return *(buffer + 0) == '\0'
 	}
-
 	void clear(){
 		numElements = 0;
 	}

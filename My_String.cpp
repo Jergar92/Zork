@@ -1,87 +1,72 @@
 #include "World.h"
 
-
 MyString::MyString()
 {
 	maxCapacity = 1;
-	string = new char[maxCapacity];
-	*(string + 0) = '\0';
+	buffer = new char[maxCapacity];
+	*(buffer + 0) = '\0';
 }
 MyString::MyString(const char* str)
 {
 	int i;
 	if (str != NULL){
-		i = strlen(str) + 1;
-
-		string = new char[i];
-		printf("se ha creado un new\n");
-		strcpy_s(string, i, str);
+		i = strlen(str);
+		maxCapacity = i + 1;
+		buffer = new char[maxCapacity];
+		strcpy_s(buffer, maxCapacity, str);
 	}
 	else{
 		i = 0;
-		string = nullptr;
+		buffer = nullptr;
 	}
-	maxCapacity = MyStrlen();
+
+
 }
 MyString::~MyString()
 {
+	delete[]buffer;
 }
-
-
-void MyString::Token(MyString &str, Vector<MyString> &strings){
+void MyString::Token(char* str, Vector<MyString> &strings){
 	char* single = nullptr;
 	char* save = nullptr;
 	int i = 0;
-	single = strtok_s(str.string, " ,.-", &save);
+	single = strtok_s(str, " ,.-", &save);
 	while (single != NULL)
 	{
-		str.string = single;
-		strings.push_back(str);
+		strings.push_back(single);
 		single = strtok_s(NULL, " ,.-_", &save);
 		i++;
 	}
 }
 unsigned int MyString::MyStrlen()const{
-	if (string != NULL){
-		return strlen(string);
-	}
-	else{
-		return 0;
-
-	}
+	return strlen(buffer);
 }
-void MyString::operator=(const MyString &other){
-	int primerlen = other.MyStrlen();
-	if (maxCapacity >= primerlen){
-		strcpy_s(string, maxCapacity, other.string);
-
+void MyString::operator = (const MyString& other){
+	int len = other.MyStrlen() + 1;
+	if (maxCapacity <= len)
+	{
+		delete[] buffer;
+		buffer = new char[len];
+		maxCapacity = len;
 	}
-	else{
-		delete[] string;
-		string = new char[primerlen];
-		maxCapacity = MyStrlen() + 1;
-		strcpy_s(string, maxCapacity, other.string);
-	}
+	strcpy_s(buffer, maxCapacity, other.buffer);
 
 }
 void MyString::operator=(const char* str2){
-	int capacity = strlen(str2) + 1;
-		if (maxCapacity >= capacity){
-		strcpy_s(string, maxCapacity, str2);
-
+	int len = strlen(str2) + 1;
+	if (maxCapacity <= len)
+	{
+		delete[] buffer;
+		buffer = new char[len];
+		maxCapacity = len;
 	}
-	else{
-		delete[] string;
-		string = new char[capacity];
-		maxCapacity = MyStrlen() + 1;
-		strcpy_s(string, maxCapacity, str2);
-	}
-
+	strcpy_s(buffer, len, str2);
 }
+
 bool MyString::operator ==(const char* str2)const{
-	return (0 == _stricmp(string, str2));
+	return (0 == _stricmp(buffer, str2));
 }
 bool MyString::operator ==(const MyString &other)const{
-	return (0 == _stricmp(string, other.string));
+	return (0 == _stricmp(buffer, other.buffer));
 }
 

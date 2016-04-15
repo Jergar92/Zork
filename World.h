@@ -21,6 +21,8 @@ public:
 	Vector <Room*> rooms;
 	Vector <Exit*> exits;
 	Vector <Item*> items;
+	Vector <Item*> inventory;
+
 public:
 	World();
 	~World();
@@ -28,6 +30,8 @@ public:
 	void createWorld();//this is called on main
 	void Help()const;//this is called on main
 	void getOperation(Vector<MyString> &strings);
+	void Look()const;
+
 
 private:
 	int getDirection(Vector<MyString> &strings);
@@ -37,6 +41,9 @@ private:
 	void Open(Vector<MyString> &strings);
 	void Close(Vector<MyString> &strings);
 	void Take(Vector<MyString> &strings);
+	void Drop(Vector<MyString> &strings);
+	void Equip(Vector<MyString> &strings);
+	void UnEquip(Vector<MyString> &strings);s
 	
 private:
 

@@ -6,13 +6,14 @@
 class MyString
 {
 public:
-	char* string;
+	char* buffer;
 	int maxCapacity = 0;
 public:
 	MyString();
 	MyString(const char* str);
 	~MyString();
-	void Token(MyString &str, Vector<MyString> &strings);
+
+	void Token(char* str, Vector<MyString> &strings);
 	void operator =(const MyString &other);
 	void operator =(const char* str2);
 	bool operator ==(const char* str2)const;
