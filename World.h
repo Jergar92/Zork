@@ -43,8 +43,8 @@ private:
 	void Take(Vector<MyString> &strings);
 	void Drop(Vector<MyString> &strings);
 	void Equip(Vector<MyString> &strings);
-	void UnEquip(Vector<MyString> &strings);s
-	
+	void UnEquip(Vector<MyString> &strings);
+	void Push(Vector<MyString> &strings);
 private:
 
 };

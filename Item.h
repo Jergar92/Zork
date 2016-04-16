@@ -14,6 +14,7 @@ public:
 
 	~Item();
 	void Look() const;
+	void Stats()const;
 public:
 
 	unsigned int atack = 0;

@@ -6,19 +6,23 @@ int main(){
 	char operation[100];
 	MyString words;
 	World a;
+
 	a.createWorld();
 	a.Help();
+	a.Look();
+
 	while (1){
+		Vector<MyString>strings;
 		gets_s(operation, 100);
-		words = operation;
-		words.Token(words, strings);
+		words.Token(operation, strings);
 		a.getOperation(strings);
 		strings.clear();
 
-	/*	if ((strings[0] == "quit")){
-			break;
-		}*/
+		//	if ((strings == "quit")){
+		//	break;
+		//}
 	}
-	
+
 	return 0;
 }
+

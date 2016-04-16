@@ -9,8 +9,9 @@ class Player : public Entity
 public:
 	Player();
 	Player(const char* n, const char* d, int life, int dmg, int def);
-
 	~Player();
+	void Stats()const;
+
 public:
 	Room* location;
 	int hp = 100;

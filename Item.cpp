@@ -26,3 +26,6 @@ void Item::Look()const{
 	printf("This is a %s, %s ", name.buffer, description.buffer);
 
 }
+void Item::Stats()const{
+	printf("%s have %i atack and %i defense\n", name.buffer, atack, defense);
+}

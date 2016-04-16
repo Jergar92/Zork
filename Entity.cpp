@@ -16,5 +16,5 @@ Entity::~Entity()
 
 void Entity::Look()const
 {
-	printf("You are in %s, %s \n", name, description);
+	printf("You are in %s, %s \n", name.buffer, description.buffer);
 }

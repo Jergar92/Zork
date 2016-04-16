@@ -1,16 +1,16 @@
 #ifndef _VECTOR
 #define _VECTOR
 #include <assert.h>
-
+#define AMPLIATION 10
 template <class TYPE>
 class Vector
 {
 private:
 	int _maxCapacity = 10;
 	int numElements = 0;
+	TYPE* buffer;
 
 public:
-	TYPE* buffer;
 
 public:
 
@@ -26,19 +26,24 @@ public:
 			buffer[i] = copy.buffer[i];
 		}
 	}
+	Vector(unsigned int num){
+		maxCapacity = num;
+		buffer = new TYPE[maxCapacity];
+	}
 	~Vector()
 	{
 	}
 	void push_back(const TYPE &value){
 
 		if (numElements >= _maxCapacity){
-			_maxCapacity += 5;
+			_maxCapacity += AMPLIATION;
 			TYPE* temp = new TYPE[_maxCapacity];
-			for (int i = 0; i < _maxCapacity; i++){
-				*(temp + i) = *(buffer + i);
+			for (int i = 0; i < _maxCapacity - AMPLIATION; i++){
+				temp[i] = buffer[i];
 			}
 			delete[] buffer;
 			buffer = temp;
+
 		}
 		*(buffer + numElements++) = value;
 
@@ -47,8 +52,8 @@ public:
 		int i = 0;
 		if (numElements + 1 >= _maxCapacity){
 			TYPE* temp = new TYPE[_maxCapacity];
-			_maxCapacity += 5;
-			for (int i = 0; i < _maxCapacity; i++){
+			_maxCapacity += AMPLIATION;
+			for (int i = 0; i < _maxCapacity - AMPLIATION; i++){
 				*(temp + i) = *(buffer + i);
 			}
 			delete[] buffer;
@@ -59,18 +64,14 @@ public:
 		}
 		*(buffer + i) = value;
 		numElements++;
+
 	}
-	void clean_selected(unsigned int index){
-		int i = 0;
-		for (i = index; i < size(); i++){
-			buffer[i] = buffer[i + 1];
-		}
-		buffer[i] = '\0';
-		numElements--;
-	}
+
+
 	bool empty()const{
 		return *(buffer + 0) == '\0'
 	}
+
 	void clear(){
 		numElements = 0;
 	}
@@ -81,17 +82,31 @@ public:
 		return _maxCapacity;
 	}
 	TYPE &operator [](unsigned int index){
-		assert(index >= 0 && index < numElements);
+		assert(index >= 0 && index < _maxCapacity);
 		return buffer[index];
 	}
 	TYPE operator [](unsigned int index)const{
-		assert(index >= 0 && index < numElements);
+		assert(index >= 0 && index < _maxCapacity);
 		return buffer[index];
 	}
-	void pop_back(){
-		for (int = numElements; i > 0; i--){
-			*(buffer + i - 1) = *(buffer + i)
+	bool pop_back(TYPE &value){
+		if (numElements > 0){
+			value = buffer[numElements];
+			numElements--;
+			return true;
 		}
+		else{
+			return false;
+		}
+
+	}
+	void clean_selected(unsigned int index){
+		int i = 0;
+		for (i = index; i < size(); i++){
+			buffer[i] = buffer[i + 1];
+		}
+		buffer[i] = '\0';
+		numElements--;
 	}
 	void shrink_to_fit(){
 		_maxCapacity = numElements;
@@ -106,4 +121,5 @@ public:
 
 };
 #endif // !1
+
 
