@@ -23,6 +23,7 @@ Utils
  - You can take/drop items.
  - You can equip/unequip objects and improve yours stats.
  - You can push especific objects (only Rock)
+ - You can put/get items into/from trunk(only one trunk)
  - You can look the path of any direction.
  - You can move around the map.
  - You can type for help you get a basic guide for the game commands(same as "How to play?" section).
@@ -35,7 +36,21 @@ How to play?
  - You can open/close using the command Open/Close North, Open/Close N or O/C N.
  - You can take/drop items using the command Take/Drop, T/D.
  - You can equip/unequip items using the command Equip/Unequip.
+ - You can put/get items into/from trunk using the command Put/Get Into/From.
  - You can push items using the command Push.
  - You can quit the program using the command Quit or Q.
+
+Example commands
+
+ - Look here == Look
+ - Look hero, Look hero stats
+ - Look <name_item>, Look <name_item> stats
+ - Look inside trunk
+ - Put <item> into trunk
+ - Get <item> from trunk
+ - Equip <item>
+ - Unequip <item>
+ - Push rock to north/east/west/south
+ 
 
 

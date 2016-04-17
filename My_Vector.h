@@ -9,7 +9,6 @@ private:
 	int _maxCapacity = 10;
 	int numElements = 0;
 	TYPE* buffer;
-
 public:
 
 public:
@@ -38,7 +37,7 @@ public:
 		if (numElements >= _maxCapacity){
 			_maxCapacity += AMPLIATION;
 			TYPE* temp = new TYPE[_maxCapacity];
-			for (int i = 0; i < _maxCapacity - AMPLIATION; i++){
+			for (int i = 0; i < numElements; i++){
 				temp[i] = buffer[i];
 			}
 			delete[] buffer;
@@ -53,7 +52,7 @@ public:
 		if (numElements + 1 >= _maxCapacity){
 			TYPE* temp = new TYPE[_maxCapacity];
 			_maxCapacity += AMPLIATION;
-			for (int i = 0; i < _maxCapacity - AMPLIATION; i++){
+			for (int i = 0; i < numElements; i++){
 				*(temp + i) = *(buffer + i);
 			}
 			delete[] buffer;

@@ -69,4 +69,6 @@ bool MyString::operator ==(const char* str2)const{
 bool MyString::operator ==(const MyString &other)const{
 	return (0 == _stricmp(buffer, other.buffer));
 }
-
+char* MyString::C_Str()const{
+	return buffer;
+}

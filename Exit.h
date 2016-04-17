@@ -12,6 +12,7 @@ public:
 	Exit();
 	Exit(const char* n, const char* d, bool closed, bool door, Room* origin, Room*destination, directions dir);
 	~Exit();
+public:
 	bool closed = false;
 	bool door = false;
 	Room* origin;

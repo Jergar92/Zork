@@ -5,8 +5,10 @@
 
 class MyString
 {
-public:
+private:
 	char* buffer;
+
+public:
 	int maxCapacity = 0;
 public:
 	MyString();
@@ -18,9 +20,8 @@ public:
 	void operator =(const char* str2);
 	bool operator ==(const char* str2)const;
 	bool operator ==(const MyString &other)const;
-
+	char* C_Str()const;
 	unsigned int MyStrlen()const;
-private:
 
 };
 

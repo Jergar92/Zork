@@ -35,7 +35,6 @@ public:
 
 private:
 	int getDirection(Vector<MyString> &strings);
-
 	void Go(Vector<MyString> &strings);
 	void Look(Vector<MyString> &strings);
 	void Open(Vector<MyString> &strings);
@@ -45,6 +44,10 @@ private:
 	void Equip(Vector<MyString> &strings);
 	void UnEquip(Vector<MyString> &strings);
 	void Push(Vector<MyString> &strings);
+	void PutInto(Vector<MyString> &strings);
+	void GetFrom(Vector<MyString> &strings);
+
+	
 private:
 
 };
