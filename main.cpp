@@ -13,10 +13,11 @@ int main(){
 	myWorld.createWorld();
 	myWorld.Help();
 	myWorld.Look();
-	Vector<MyString>strings;
 
 
 	while (1){
+		Vector<MyString>strings;
+
 		gets_s(operation, 100);
 		words.Token(operation, strings);
 		myWorld.getOperation(strings);

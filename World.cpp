@@ -216,7 +216,11 @@ if ((strings[0] == "north") || (strings[0] == "n")){
 
 		return;
 	}
-	else if ((strings[0] == "quit") || (strings[0] == "q")){
+	else if ((strings[0] == "help") || (strings[0] == "h")){
+		Help();
+		return;
+	}
+	else if (strings[0] == "quit"){
 		return;
 	}
 	
@@ -417,9 +421,7 @@ void World::Close(Vector<MyString> &strings){
 	}
 	else{
 		for (int i = 0; i < exits.size(); i++){
-			if (exits[i]->direction == direction && exits[i]->origin->name == player[0]->location->name)
-			{		
-				//check if they have the same direction
+			if (exits[i]->direction == direction && exits[i]->origin->name == player[0]->location->name){//check if they have the same direction			
 				if (exits[i]->door == true){//check if the exit is closed
 					if (exits[i]->closed == false){//check if the exit is closed
 						exits[i]->closed = true;
@@ -455,12 +457,12 @@ void World::Take(Vector<MyString> &strings){//TAKE OBJECTS
 
 void World::Drop(Vector<MyString> &strings){
 		for (int i = 0; i < inventory.size(); i++){
-			if (strings[1] == inventory[i]->name){
+			if (strings[1] == inventory[i]->name){//Look if you have this item on you inventory
 				if (inventory[i]->equiped == false){
-					items.push_back(inventory[i]);
+					items.push_back(inventory[i]);//drop item on current room
 					inventory[i]->location = player[0]->location;
 					printf("You drop %s\n", inventory[i]->name);
-					inventory.clean_selected(i);
+					inventory.clean_selected(i);//delete item on inventory
 				}
 				else{
 					printf("You can not throw a equipped object\n");
@@ -473,7 +475,7 @@ void World::Equip(Vector<MyString> &strings){
 		for (int i = 0; i < inventory.size(); i++)
 		{
 			if (strings[1] == inventory[i]->name && items[i]->isItem == BOOTS || items[i]->isItem == ARMOR || items[i]->isItem == WEAPON){
-				if (items[i]->equiped == false){
+				if (items[i]->equiped == false){//equip and items give you stats
 					inventory[i]->equiped = true;
 					player[0]->atack += inventory[i]->atack;
 					player[0]->defense += inventory[i]->defense;
@@ -492,7 +494,7 @@ void World::UnEquip(Vector<MyString> &strings){
 		for (int i = 0; i < inventory.size(); i++)
 		{
 			if (strings[1] == inventory[i]->name && inventory[i]->isItem == BOOTS || items[i]->isItem == ARMOR || items[i]->isItem == WEAPON){
-				if (inventory[i]->equiped == true){
+				if (inventory[i]->equiped == true){//unequip and lost stats
 					inventory[i]->equiped = false;
 					player[0]->atack -= inventory[i]->atack;
 					player[0]->defense -= inventory[i]->defense;
@@ -522,7 +524,7 @@ void World::Push(Vector<MyString> &strings){
 						items[i]->location = exits[j]->destination;//change your location
 							if (items[i]->location->name == "Abandoned Cave"){
 								printf("You have blocked the entrance to the Abandoned cave\n");
-								for (int j = 0; j < exits.size(); j++){
+								for (int j = 0; j < exits.size(); j++){//BLOCK EXIT
 									if (items[i]->location == exits[j]->origin){
 										exits[j]->closed = true;//block the exit
 										items[i]->canPush = false;
@@ -530,13 +532,15 @@ void World::Push(Vector<MyString> &strings){
 								}
 							}
 							else if (items[i]->location->name == "Monster Cave"){
-								items[i]->description = "The big rock now block the cave";
+								printf("the big rock block the cave\n");
+								items[i]->description = "The big rock now block the cave";//change description of the item
 								items[i]->canPush = false;
 								//this blocks the fight against the monster (monsters not implemented)
 							}
 							else if (items[i]->location->name == "Waterfall"){
-								items[i]->description = "The big rock now block the water";
-								for (int j = 0; j < items.size(); j++){
+								printf("the big rock block the water\n");
+								items[i]->description = "The big rock now block the water";//change description of the item
+								for (int j = 0; j < items.size(); j++){//ITEM robot now we can take
 									if (items[i]->location == items[j]->location && items[j]->name == "Robot"){
 										items[j]->canTake = true;
 										items[j]->description = "this robot is in perfect condition";//block the exit
@@ -546,7 +550,7 @@ void World::Push(Vector<MyString> &strings){
 							}
 							else{
 								printf("You have blocked the entrance to your base, congratulations you have committed suicide\n");
-								for (int j = 0; j < exits.size(); j++){
+								for (int j = 0; j < exits.size(); j++){//BLOCK EXIT
 									if (items[i]->location == exits[j]->destination){
 										exits[j]->closed = true;//block the exit
 									}
@@ -567,31 +571,33 @@ void World::Push(Vector<MyString> &strings){
 
 void World::PutInto(Vector<MyString> &strings){
 		for (int j = 0; j < inventory.size(); j++){
-			if (strings[1] == inventory[j]->name&&inventory[j]->equiped == false){
-				for (int i = 0; i < items.size(); i++){
-					if (items[i]->isItem == TRUNK && items[i]->location == player[0]->location){
-						items[i]->trunk.push_back(inventory[j]);
-						printf("You put %s into %s\n", inventory[j]->name.C_Str(), items[i]->name.C_Str());
-						inventory.clean_selected(j);
-						return;
+			if (strings[1] == inventory[j]->name){
+				if (inventory[j]->equiped == false){
+					for (int i = 0; i < items.size(); i++){
+						if (items[i]->isItem == TRUNK && items[i]->location == player[0]->location){
+							items[i]->trunk.push_back(inventory[j]);//put item on trunk
+							printf("You put %s into %s\n", inventory[j]->name.C_Str(), items[i]->name.C_Str());
+							inventory.clean_selected(j);//delete item from inventory
+							return;
+						}
 					}
 				}
-			}				
-			else{
-				printf("You can not put a equipped object\n");
-			}
 			
+				else{
+				printf("You can not put a equipped object\n");
+				}
+			}
 		}
 		printf("There is no trunk in the floor to perform this action.\n");
 }
-void World::GetFrom(Vector<MyString> &strings){
+void World::GetFrom(Vector<MyString> &strings){//Get items froms trunk
 	for (int i = 0; i < items.size(); i++){
-		if (items[i]->isItem == TRUNK && items[i]->location == player[0]->location){
+		if (items[i]->isItem == TRUNK && items[i]->location == player[0]->location){//check if is trunk item
 			for (int j = 0; j < items[i]->trunk.size(); j++){
 				if (strings[1] == items[i]->trunk[j]->name){
-					inventory.push_back(items[i]->trunk[j]);
+					inventory.push_back(items[i]->trunk[j]);//put item on inventory
 					printf("You get %s from %s\n", items[i]->trunk[j]->name.C_Str(), items[i]->name.C_Str());
-					items[i]->trunk.clean_selected(j);
+					items[i]->trunk.clean_selected(j);//delete item from trunk
 					return;
 				}
 			}
@@ -610,7 +616,7 @@ void World::Help()const{
 	printf("You can put/get items into/from trunk using the command Put/Get<ITEM>Into/From.\n");
 	printf("You can push items using the command Push <ITEM> to North.\n");
 	printf("You can quit the program using the command Quit.\n");
-	printf("for more information look README \n");
+	printf("for more information look README and use Help command for show this text again\n");
 
 	printf("(or any other direction using the same structure), don't worry about case sensitive\n\n");
 

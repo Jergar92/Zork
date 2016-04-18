@@ -15,7 +15,9 @@ Item::Item(const char* n, const char* d, unsigned int _atack, unsigned int _defe
 }
 
 Item::~Item(){
-	
+	for (int i = 0; i < trunk.size(); i++){
+			delete trunk[i];
+	}
 }
 void Item::Look()const{
 	printf("This is a %s, %s ", name.C_Str(), description.C_Str());
