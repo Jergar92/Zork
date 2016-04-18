@@ -12,6 +12,7 @@ Entity::Entity(const char* n, const char* d)
 
 Entity::~Entity()
 {
+
 }
 
 void Entity::Look()const

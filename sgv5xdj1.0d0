@@ -1,9 +1,11 @@
 #include "World.h"
+#include "MemLeaks.h"
 
 World::World()
 {}
 World::~World()
 {
+	ReportMemoryLeaks();
 }
 void World::createWorld(){
 	
@@ -558,14 +560,12 @@ void World::Push(Vector<MyString> &strings){
 void World::PutInto(Vector<MyString> &strings){
 		for (int j = 0; j < inventory.size(); j++){
 			if (strings[1] == inventory[j]->name){
-				if (inventory[j]->equiped == false){
-					for (int i = 0; i < items.size(); i++){
-						if (items[i]->isItem == TRUNK){
-							items[i]->trunk.push_back(inventory[j]);
-							printf("You put %s into %s\n", inventory[j]->name.C_Str(), items[i]->name.C_Str());
-							inventory.clean_selected(j);
-							return;
-						}					
+				for (int i = 0; i < items.size(); i++){
+					if (items[i]->isItem == TRUNK){
+						items[i]->trunk.push_back(inventory[j]);
+						printf("You put %s into %s\n", inventory[j]->name.C_Str(), items[i]->name.C_Str());
+						inventory.clean_selected(j);
+						return;
 					}
 				}
 			}

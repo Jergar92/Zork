@@ -29,13 +29,11 @@ MyString::~MyString()
 void MyString::Token(char* str, Vector<MyString> &strings){
 	char* single = nullptr;
 	char* save = nullptr;
-	int i = 0;
-	single = strtok_s(str, " ,.-", &save);
+	single = strtok_s(str, " ,.-_", &save);
 	while (single != NULL)
 	{
 		strings.push_back(single);
 		single = strtok_s(NULL, " ,.-_", &save);
-		i++;
 	}
 }
 unsigned int MyString::MyStrlen()const{

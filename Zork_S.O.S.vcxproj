@@ -76,6 +76,7 @@
   <ItemGroup>
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Exit.h" />
+    <ClInclude Include="MemLeaks.h" />
     <ClInclude Include="My_Vector.h" />
     <ClInclude Include="My_String.h" />
     <ClInclude Include="Item.h" />

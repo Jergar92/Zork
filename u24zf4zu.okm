@@ -1,9 +1,6 @@
 #include "World.h"
 #include "MemLeaks.h"
-
-
 int main(){
-	ReportMemoryLeaks();
 
 	Vector<MyString>strings;
 
@@ -21,12 +18,13 @@ int main(){
 		words.Token(operation, strings);
 		a.getOperation(strings);
 		if ((strings[0] == "quit")){
-			break;
+			return 0;
 		}
 		strings.clear();
 	}
 
 	return 0;
+	ReportMemoryLeaks();
 
 }
 
