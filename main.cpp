@@ -25,7 +25,9 @@ int main(){
 			break;
 		}
 		strings.clear();
+		printf("\n");
 	}
+
 
 	return 0;
 

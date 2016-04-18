@@ -121,7 +121,7 @@ void World::createWorld(){
 	Item* core = new Item("Core", "a energy core, this will give power to the beacon", NULL, NULL, false, true,  false, bigNest, PICK);
 	Item* transmitter = new Item("Transmitter", "with this transmitter you can send a help message", NULL, NULL, false, true,  false, monsterCave, PICK);
 	Item* robot = new Item("Robot", "at the bottom of the waterfall you can see your assistant robot, it would be helpful but due to the strong current of water is impossible to remove you if something stop the waterfall...", NULL, NULL, false, false, false, waterfall, PICK);
-	Item* trunk = new Item("Trunk", "it is spacious and seems to fit everything", NULL, NULL, false, false, false, home, TRUNK);
+	Item* trunk = new Item("Trunk", "it is spacious and seems to fit everything", NULL, NULL, false, false, false, home, TRUNK);//I decided that it can not move , but if you change "canTake" to true you can move and work fine
 
 	items.push_back(laserGun);
 	items.push_back(bigRock);
@@ -303,9 +303,11 @@ void World::Look(Vector<MyString> &strings){
 		}
 		else if (strings[1] == "inventory"){//LOOK ALL INVENTORY
 			for (int i = 0; i < inventory.size(); i++){
+				printf("Inside inventory you see:\n");
 				inventory[i]->Look();
 				printf("\n");
 			}
+			return;
 		}
 		else if (strings[1] == "inside"){//LOOK INSIDE TRUNK ITEMS
 			for (int i = 0; i < items.size(); i++){
