@@ -11,6 +11,7 @@ Implemented commands:
  - Look.
  - Take/Drop.
  - Equip/Unequip.
+ - Put/Get <ITEM> Into/From.
  - Push.
  - Help.
  - Quit.
@@ -22,7 +23,7 @@ Utils
  - You can open/close the door of the Home base.
  - You can take/drop items.
  - You can equip/unequip objects and improve yours stats.
- - You can push especific objects (only Rock)
+ - You can push especific objects (only Rock)<--special feature.
  - You can put/get items into/from trunk(only one trunk)
  - You can look the path of any direction.
  - You can move around the map.
@@ -40,7 +41,7 @@ How to play?
  - You can push items using the command Push.
  - You can quit the program using the command Quit or Q.
 
-Example commands
+Example complex commands
 
  - Look here == Look
  - Look hero, Look hero stats
@@ -51,6 +52,7 @@ Example commands
  - Equip <item>
  - Unequip <item>
  - Push rock to north/east/west/south
+ 
  
 
 

@@ -2,9 +2,9 @@
 
 MyString::MyString()
 {
-	maxCapacity = 1;
+	maxCapacity = 10;
 	buffer = new char[maxCapacity];
-	*(buffer + 0) = '\0';
+	buffer[0] = '\0';
 }
 MyString::MyString(const char* str)
 {
@@ -67,6 +67,6 @@ bool MyString::operator ==(const char* str2)const{
 bool MyString::operator ==(const MyString &other)const{
 	return (0 == _stricmp(buffer, other.buffer));
 }
-char* MyString::C_Str()const{
+const char* MyString::C_Str()const{
 	return buffer;
 }

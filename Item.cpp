@@ -15,7 +15,7 @@ Item::Item(const char* n, const char* d, unsigned int _atack, unsigned int _defe
 }
 
 Item::~Item(){
-
+	
 }
 void Item::Look()const{
 	printf("This is a %s, %s ", name.C_Str(), description.C_Str());

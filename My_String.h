@@ -20,7 +20,7 @@ public:
 	void operator =(const char* str2);
 	bool operator ==(const char* str2)const;
 	bool operator ==(const MyString &other)const;
-	char* C_Str()const;
+	const char* C_Str()const;
 	unsigned int MyStrlen()const;
 
 };

@@ -13,7 +13,7 @@ public:
 public:
 	Entity();
 	Entity(const char* name, const char* description);
-	~Entity();
+	virtual ~Entity();
 
 	virtual void Look() const;
 private:

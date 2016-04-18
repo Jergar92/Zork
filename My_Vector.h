@@ -6,7 +6,7 @@ template <class TYPE>
 class Vector
 {
 private:
-	int _maxCapacity = 10;
+	int _maxCapacity = AMPLIATION;
 	int numElements = 0;
 	TYPE* buffer;
 public:
@@ -42,9 +42,8 @@ public:
 			}
 			delete[] buffer;
 			buffer = temp;
-
 		}
-		*(buffer + numElements++) = value;
+		buffer[numElements++] = value;
 
 	}
 	void push_front(const TYPE &value){

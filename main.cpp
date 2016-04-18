@@ -5,21 +5,21 @@
 int main(){
 	ReportMemoryLeaks();
 
-	Vector<MyString>strings;
 
 	char operation[100];
 	MyString words;
-	World a;
+	World myWorld;
 
-	a.createWorld();
-	a.Help();
-	a.Look();
+	myWorld.createWorld();
+	myWorld.Help();
+	myWorld.Look();
+	Vector<MyString>strings;
+
 
 	while (1){
-		Vector<MyString>strings;
 		gets_s(operation, 100);
 		words.Token(operation, strings);
-		a.getOperation(strings);
+		myWorld.getOperation(strings);
 		if ((strings[0] == "quit")){
 			break;
 		}

@@ -22,7 +22,6 @@ public:
 	unsigned int defense = 0;
 	bool equiped = false;
 	bool canTake = true;
-	bool onInventory = false;
 	bool canPush = false;
 	Room* location;
 	itemType isItem;

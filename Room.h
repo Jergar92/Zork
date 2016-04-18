@@ -11,7 +11,7 @@ public:
 	Room(const char* n, const char* d);
 
 public:
-
+	
 
 
 };
