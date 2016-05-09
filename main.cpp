@@ -1,5 +1,6 @@
 #include "World.h"
 #include "MemLeaks.h"
+#include <conio.h>
 
 
 int main(){
@@ -7,25 +8,41 @@ int main(){
 
 
 	char operation[100];
+	char key = 'x';
+	int next = 0;
 	MyString words;
 	World myWorld;
+
 
 	myWorld.createWorld();
 	myWorld.Help();
 	myWorld.Look();
+	while (1)
 
-
-	while (1){
+	{
 		Vector<MyString>strings;
 
-		gets_s(operation, 100);
-		words.Token(operation, strings);
-		myWorld.getOperation(strings);
+		if (_kbhit() != 0)
+		{
+			key = _getch();
+			operation[next++] = key;
+			printf("%c", key);
+			if (key == '\r'){
+				operation[next++] = '\0';
+				words.Token(operation, strings);
+				myWorld.getOperation(strings);
+				strings.clear();
+				printf("\n");
+				next = 0;
+			}
+			else if (key == '\b'&& next > 0){
+				next--;
+				next--;
+			}
+		}
 		if ((strings[0] == "quit")){
 			break;
 		}
-		strings.clear();
-		printf("\n");
 	}
 
 
