@@ -8,15 +8,15 @@ class Player : public Entity
 {
 public:
 	Player();
-	Player(const char* n, const char* d, int life, int dmg, int def);
+	Player(const char* name, const char* description, int life, int atack, int armor);
 	~Player();
 	void Stats()const;
 
 public:
 	Room* location;
-	int hp = 100;
+	int life = 100;
 	unsigned int atack = 1;
-	unsigned int defense = 1;
+	unsigned int armor = 1;
 };
 
 

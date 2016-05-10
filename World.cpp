@@ -480,7 +480,7 @@ void World::Equip(Vector<MyString> &strings){
 				if (items[i]->equiped == false){//equip and items give you stats
 					inventory[i]->equiped = true;
 					player[0]->atack += inventory[i]->atack;
-					player[0]->defense += inventory[i]->defense;
+					player[0]->armor += inventory[i]->defense;
 					printf("You equiped %s\n", inventory[i]->name);
 					return;
 				}
@@ -499,7 +499,7 @@ void World::UnEquip(Vector<MyString> &strings){
 				if (inventory[i]->equiped == true){//unequip and lost stats
 					inventory[i]->equiped = false;
 					player[0]->atack -= inventory[i]->atack;
-					player[0]->defense -= inventory[i]->defense;
+					player[0]->armor -= inventory[i]->defense;
 					printf("You have taken away %s\n", inventory[i]->name);
 					return;
 				}

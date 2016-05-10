@@ -68,5 +68,8 @@
     <ClInclude Include="MemLeaks.h">
       <Filter>Archivos de recursos</Filter>
     </ClInclude>
+    <ClInclude Include="My_DobleList.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

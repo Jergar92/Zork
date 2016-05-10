@@ -4,7 +4,7 @@ Room::Room(){
 Room::~Room(){
 
 }
-Room::Room(const char* n, const char* d) :Entity(n, d)
+Room::Room(const char* name, const char* description) :Entity(name, description)
 {
 	isType = ROOM;
 }
