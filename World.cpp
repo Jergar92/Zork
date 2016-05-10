@@ -44,19 +44,19 @@ void World::createWorld(){
 	Room* jungle = new Room("Jungle", "you can hear many noises of beasts that you never heard");
 
 
-	rooms.push_back(home);
-	rooms.push_back(mountain);
-	rooms.push_back(waterfall);
-	rooms.push_back(abandonedCave);
-	rooms.push_back(monsterCave);
-	rooms.push_back(altar);
-	rooms.push_back(bigNest);
-	rooms.push_back(rubble);
-	rooms.push_back(thornForest);
-	rooms.push_back(thornForestWest);
-	rooms.push_back(thornForestEast);
-	rooms.push_back(underwaterCave);
-	rooms.push_back(jungle);
+	container.push_back(home);
+	container.push_back(mountain);
+	container.push_back(waterfall);
+	container.push_back(abandonedCave);
+	container.push_back(monsterCave);
+	container.push_back(altar);
+	container.push_back(bigNest);
+	container.push_back(rubble);
+	container.push_back(thornForest);
+	container.push_back(thornForestWest);
+	container.push_back(thornForestEast);
+	container.push_back(underwaterCave);
+	container.push_back(jungle);
 	//////////////////////EXITS/////////////////////////////
 
 	Exit* mountain_To_Home = new Exit("Rocky path", "your home base", false, false, mountain, home, SOUTH);
@@ -85,30 +85,30 @@ void World::createWorld(){
 	Exit* home_To_Jungle = new Exit("Jungle path", "a huge jungle, probably full of beasts", false, false, home, jungle, WEST);
 
 
-	exits.push_back(mountain_To_Home);
-	exits.push_back(altar_To_Home);
-	exits.push_back(jungle_To_Home);
-	exits.push_back(thorny_To_Home);
-	exits.push_back(home_To_Mountain);
-	exits.push_back(waterfall_To_Mountain);
-	exits.push_back(abandonedCave_To_Mountain);
-	exits.push_back(monsterCave_To_Mountain);
-	exits.push_back(mountain_To_Waterfall);
-	exits.push_back(rubble_To_Waterfall);
-	exits.push_back(mountain_To_AbandonedCave);
-	exits.push_back(mountain_To_MonsterCave);
-	exits.push_back(home_To_Altar);
-	exits.push_back(bigNest_To_Altar);
-	exits.push_back(altar_To_BigNest);
-	exits.push_back(bigNest_To_Rubble);
-	exits.push_back(home_To_Thorny);
-	exits.push_back(thornyWest_To_Thorny);
-	exits.push_back(thornyEast_To_Thorny);
-	exits.push_back(underwaterCave_To_Thorny);
-	exits.push_back(thorny_To_UnderwaterCave);
-	exits.push_back(thorny_To_ThornyEast);
-	exits.push_back(thorny_To_ThornyWest);
-	exits.push_back(home_To_Jungle);
+	container.push_back(mountain_To_Home);
+	container.push_back(altar_To_Home);
+	container.push_back(jungle_To_Home);
+	container.push_back(thorny_To_Home);
+	container.push_back(home_To_Mountain);
+	container.push_back(waterfall_To_Mountain);
+	container.push_back(abandonedCave_To_Mountain);
+	container.push_back(monsterCave_To_Mountain);
+	container.push_back(mountain_To_Waterfall);
+	container.push_back(rubble_To_Waterfall);
+	container.push_back(mountain_To_AbandonedCave);
+	container.push_back(mountain_To_MonsterCave);
+	container.push_back(home_To_Altar);
+	container.push_back(bigNest_To_Altar);
+	container.push_back(altar_To_BigNest);
+	container.push_back(bigNest_To_Rubble);
+	container.push_back(home_To_Thorny);
+	container.push_back(thornyWest_To_Thorny);
+	container.push_back(thornyEast_To_Thorny);
+	container.push_back(underwaterCave_To_Thorny);
+	container.push_back(thorny_To_UnderwaterCave);
+	container.push_back(thorny_To_ThornyEast);
+	container.push_back(thorny_To_ThornyWest);
+	container.push_back(home_To_Jungle);
 
 
 	////////////////////////ITEMS///////////////////////
@@ -123,22 +123,22 @@ void World::createWorld(){
 	Item* robot = new Item("Robot", "at the bottom of the waterfall you can see your assistant robot, it would be helpful but due to the strong current of water is impossible to remove you if something stop the waterfall...", NULL, NULL, false, false, false, waterfall, PICK);
 	Item* trunk = new Item("Trunk", "it is spacious and seems to fit everything", NULL, NULL, false, false, false, home, TRUNK);//I decided that it can not move , but if you change "canTake" to true you can move and work fine
 
-	items.push_back(laserGun);
-	items.push_back(bigRock);
-	items.push_back(powerArmor);
-	items.push_back(jumpBoots);
-	items.push_back(fuel);
-	items.push_back(antenna);
-	items.push_back(core);
-	items.push_back(transmitter);
-	items.push_back(robot);
-	items.push_back(trunk);
+	container.push_back(laserGun);
+	container.push_back(bigRock);
+	container.push_back(powerArmor);
+	container.push_back(jumpBoots);
+	container.push_back(fuel);
+	container.push_back(antenna);
+	container.push_back(core);
+	container.push_back(transmitter);
+	container.push_back(robot);
+	container.push_back(trunk);
 
 
 	////////////////////////PLAYER//////////////////////
 
 	Player* hero = new Player("Hero", "ieeje", 100, 5, 5);
-	player.push_back(hero);
+	container.push_back(hero);
 
 	hero->location = home;
 

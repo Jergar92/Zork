@@ -8,6 +8,7 @@
 #include "Item.h"
 #include "My_Vector.h"
 #include "My_String.h"
+#include "My_DobleList.h"
 #include <stdio.h>
 #include <cmath>
 #include <stdlib.h>
@@ -22,6 +23,7 @@ public:
 	Vector <Exit*> exits;
 	Vector <Item*> items;
 	Vector <Item*> inventory;
+	Vector <Entity*> container;
 
 public:
 	World();

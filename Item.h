@@ -10,7 +10,7 @@ class Item : public Entity
 {
 public:
 	Item();
-	Item(const char* n, const char* d, unsigned int atack, unsigned int defense, bool equiped, bool canTake, bool canPush, Room* location, itemType isItem);
+	Item(const char*name, const char* description, unsigned int atack, unsigned int defense, bool equiped, bool canTake, bool canPush, Room* location, itemType isItem);
 
 	~Item();
 	void Look() const;

@@ -2,7 +2,7 @@
 #define _ENTITY
 #include "World.h"
 #include "My_String.h"
-
+#include "My_DobleList.h"
 enum typeClass{EXIT,ITEM,PLAYER,ROOM};
 class Entity
 {
@@ -10,6 +10,7 @@ public:
 	MyString name;
 	MyString description;
 	typeClass isType;
+	List <Entity*> container;
 public:
 	Entity();
 	Entity(const char* name, const char* description);

@@ -28,7 +28,7 @@ int main(){
 			operation[next++] = key;
 			printf("%c", key);
 			if (key == '\r'){
-				operation[next++] = '\0';
+				operation[--next] = '\0';
 				words.Token(operation, strings);
 				myWorld.getOperation(strings);
 				strings.clear();
