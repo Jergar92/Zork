@@ -2,11 +2,11 @@
 #include "MemLeaks.h"
 #include <conio.h>
 
-
+World* App = nullptr;
 int main(){
 	ReportMemoryLeaks();
 
-
+	App=new World;
 	char operation[100];
 	char key = 'x';
 	int next = 0;

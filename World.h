@@ -54,4 +54,5 @@ private:
 
 };
 
+extern World* App;
 #endif _WORLD
