@@ -11,12 +11,12 @@ int main(){
 	char key = 'x';
 	int next = 0;
 	MyString words;
-	World myWorld;
 
 
-	myWorld.createWorld();
-	myWorld.Help();
-	myWorld.Look();
+
+	App->createWorld();
+	App->Help();
+	App->hero->Look();
 	while (1)
 
 	{
@@ -30,7 +30,7 @@ int main(){
 			if (key == '\r'){
 				operation[--next] = '\0';
 				words.Token(operation, strings);
-				myWorld.getOperation(strings);
+				App->getOperation(strings);
 				strings.clear();
 				printf("\n");
 				next = 0;
