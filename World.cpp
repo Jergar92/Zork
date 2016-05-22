@@ -121,8 +121,7 @@ void World::createWorld(){
 	container.push_back(hero);
 	for (int i = 0; i < container.size(); i++){
 		if (container[i]->isType == PLAYER){
-			hero = ((Player*)container[i]);
-			hero->location = home;
+			((Player*)container[i])->location = home;
 
 		}
 	}

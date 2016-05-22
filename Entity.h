@@ -3,7 +3,7 @@
 #include "World.h"
 #include "My_String.h"
 #include "My_DobleList.h"
-enum typeClass{EXIT,ITEM,PLAYER,ROOM};
+enum typeClass{ EXIT, ITEM, PLAYER, ROOM, MONSTER };
 class Entity
 {
 public:

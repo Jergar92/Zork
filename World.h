@@ -6,6 +6,8 @@
 #include "Room.h"
 #include "Exit.h"
 #include "Item.h"
+#include "Creature.h"
+#include "MonkeyMonster.h"
 #include "My_Vector.h"
 #include "My_String.h"
 #include "My_DobleList.h"

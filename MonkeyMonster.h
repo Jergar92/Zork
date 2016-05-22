@@ -1,17 +1,17 @@
-#ifndef _PLAYER
-#define _PLAYER
+#ifndef _MONKEY_MONSTER
+#define _MONKEY_MONSTER
 #include "World.h"
 #include "Item.h"
 #include "Creature.h"
 class Room;
 
-class Player : public Creature
+class Monkey : public Creature
 {
 public:
-	Player();
-	Player(const char* name, const char* description, int life, int atack, int armor);
-	~Player();
-	void Stats()const;
+	Monkey();
+	Monkey(const char* name, const char* description, int life, int atack, int armor);
+	~Monkey();
+	/*void Stats()const;
 	void Go(Vector<MyString> &strings);
 	void Look(Vector<MyString> &strings);
 	void Open(Vector<MyString> &strings);
@@ -24,7 +24,7 @@ public:
 	void PutInto(Vector<MyString> &strings);
 	void GetFrom(Vector<MyString> &strings);
 	void Look()const;
-
+	*/
 public:
 	Room* location;
 	Vector <Item*> inventory;
@@ -33,6 +33,4 @@ public:
 	unsigned int atack = 1;
 	unsigned int armor = 1;
 };
-
-
-#endif _PLAYER
+#endif _MONKEY_MONSTER

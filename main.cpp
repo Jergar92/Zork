@@ -16,6 +16,11 @@ int main(){
 
 	App->createWorld();
 	App->Help();
+
+
+
+
+
 	App->hero->Look();
 	while (1)
 
