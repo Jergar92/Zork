@@ -10,7 +10,7 @@ public:
 	MyString name;
 	MyString description;
 	typeClass isType;
-	List <Entity*> container;
+	List <Entity*> list;
 public:
 	Entity();
 	Entity(const char* name, const char* description);

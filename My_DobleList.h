@@ -10,8 +10,8 @@ public:
 	struct Node
 	{
 	private:
-		TYPE data;
 	public:
+		TYPE data;
 		Node* next = nullptr;
 		Node* prev = nullptr;
 

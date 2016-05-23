@@ -4,7 +4,9 @@ World::World()
 {}
 World::~World()
 {
-
+	for (int i = 0; i < container.size(); i++){
+		delete container[i];
+	}
 }
 void World::createWorld(){
 	
@@ -117,14 +119,20 @@ void World::createWorld(){
 
 	////////////////////////PLAYER//////////////////////
 
-	Player* hero = new Player("Hero", "ieeje", 100, 5, 5);
-	container.push_back(hero);
+	container.push_back(new Player("Hero", "ieeje", 100, 5, 5));
 	for (int i = 0; i < container.size(); i++){
 		if (container[i]->isType == PLAYER){
-			((Player*)container[i])->location = home;
+			hero = ((Player*)container[i]);
+			hero->location = home;
 
 		}
 	}
+
+
+	//////////////////////////////PutItems/////////////////////////////
+	abandonedCave->list.Push_back(powerArmor);
+	home->list.Push_back(trunk);
+
 }
 
 

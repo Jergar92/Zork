@@ -31,7 +31,7 @@ void Player::Go(Vector<MyString> &strings){//this move the player if the move is
 	else{
 		for (int i = 0; i < App->container.size(); i++){
 			if (App->container[i]->isType == EXIT){
-				if (((Exit*)App->container[i])->direction && ((Exit*)App->container[i])->origin->name.C_Str() == location->name.C_Str()){
+				if (((Exit*)App->container[i])->direction==direction && ((Exit*)App->container[i])->origin->name.C_Str() == location->name.C_Str()){
 					if (((Exit*)App->container[i])->closed == true){//check if the exit is closed
 						if (((Exit*)App->container[i])->door == true){//check if the exit is closed
 							printf("the door is closed\n");
@@ -59,17 +59,20 @@ void Player::Go(Vector<MyString> &strings){//this move the player if the move is
 	}
 }
 void Player::Look()const{//LOOK CURRENT ROOM AND HIS ITEMS
+	printf("You are in a %s, %s \n", location->name.C_Str(),location->description.C_Str());
 	for (int i = 0; i < App->container.size(); i++){
-		if (App->container[i]->isType == ITEM){
-
-			if (((Item*)App->container[i])->location->name == location->name){
-				printf("You see a %s\n", ((Item*)App->container[i])->name);
+		if (App->container[i]->isType == PLAYER){
+			if (!((Player*)App->container[i])->location->list.empty()){
+					for (int j = 0;j< ((Player*)App->container[i])->location->list.size(); j++){
+						//printf("You see a %s\n", ((Player*)App->container[i])->location->list.);
+					}
+				}
 
 			}
 		}
 	}
 
-}
+
 void Player::Look(Vector<MyString> &strings){
 	int direction = -1;
 	direction =App->getDirection(strings);//dat get the right direction
@@ -323,7 +326,7 @@ void Player::Push(Vector<MyString> &strings){
 								((Item*)App->container[i])->location = ((Exit*)App->container[j])->destination;//change your location
 								if (((Item*)App->container[i])->location->name == "Abandoned Cave"){
 									printf("You have blocked the entrance to the Abandoned cave\n");
-									for (int j = 0; j < container.size(); j++){//BLOCK EXIT
+									for (int j = 0; j < App->container.size(); j++){//BLOCK EXIT
 										if (App->container[i]->isType == EXIT){
 											if (((Item*)App->container[i])->location == ((Exit*)App->container[j])->origin){
 												((Exit*)App->container[j])->closed = true;//block the exit
@@ -342,7 +345,7 @@ void Player::Push(Vector<MyString> &strings){
 							else if (((Item*)App->container[i])->location->name == "Waterfall"){
 								printf("the big rock block the water\n");
 								((Item*)App->container[i])->description = "The big rock now block the water";//change description of the item
-								for (int j = 0; j < container.size(); j++){//ITEM robot now we can take
+								for (int j = 0; j <	App->container.size(); j++){//ITEM robot now we can take
 									if (App->container[j]->isType == ITEM){
 
 										if (((Item*)App->container[i])->location == ((Item*)App->container[j])->location && ((Item*)App->container[j])->name == "Robot"){
@@ -355,7 +358,7 @@ void Player::Push(Vector<MyString> &strings){
 							}
 							else{
 								printf("You have blocked the entrance to your base, congratulations you have committed suicide\n");
-								for (int j = 0; j < container.size(); j++){//BLOCK EXIT
+								for (int j = 0; j < App->container.size(); j++){//BLOCK EXIT
 									if (App->container[i]->isType == EXIT){
 
 										if (((Item*)App->container[i])->location == ((Exit*)App->container[j])->destination){

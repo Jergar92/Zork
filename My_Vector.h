@@ -67,7 +67,7 @@ public:
 
 
 	bool empty()const{
-		return *(buffer + 0) == '\0'
+		return *(buffer + 0) == '\0';
 	}
 
 	void clear(){

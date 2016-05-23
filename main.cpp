@@ -11,6 +11,7 @@ int main(){
 	char key = 'x';
 	int next = 0;
 	MyString words;
+	Vector<MyString>strings;
 
 
 
@@ -23,9 +24,7 @@ int main(){
 
 	App->hero->Look();
 	while (1)
-
 	{
-		Vector<MyString>strings;
 
 		if (_kbhit() != 0)
 		{
