@@ -35,4 +35,4 @@ public:
 };
 
 
-#endif _PLAYER
+#endif //_PLAYER

@@ -103,8 +103,8 @@ public:
 		if (temp != nullptr){
 			if (temp->prev == nullptr){
 				temp = temp->next;
-				temp->prev = nullptr;
 				first_data = temp;
+
 			}
 			else if (temp->next == nullptr){
 				temp->prev->next = nullptr;

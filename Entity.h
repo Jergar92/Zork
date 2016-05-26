@@ -17,6 +17,8 @@ public:
 	virtual ~Entity();
 
 	virtual void Look() const;
+	virtual void Stats() const;
+
 private:
 
 };

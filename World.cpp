@@ -132,6 +132,13 @@ void World::createWorld(){
 	//////////////////////////////PutItems/////////////////////////////
 	abandonedCave->list.Push_back(powerArmor);
 	home->list.Push_back(trunk);
+	thornForestEast->list.Push_back(laserGun);
+	thornForestWest->list.Push_back(fuel);
+	mountain->list.Push_back(bigRock);
+	rubble->list.Push_back(jumpBoots);
+	monsterCave->list.Push_back(core);
+	bigNest->list.Push_back(transmitter);
+	underwaterCave->list.Push_back(antenna);
 
 }
 

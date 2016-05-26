@@ -16,7 +16,6 @@ public:
 	void Look() const;
 	void Stats()const;
 public:
-	Vector<Item*>trunk;
 
 	unsigned int atack = 0;
 	unsigned int defense = 0;

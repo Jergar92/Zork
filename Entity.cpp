@@ -16,3 +16,7 @@ void Entity::Look()const
 {
 	printf("You are in %s, %s \n", name.C_Str(), description.C_Str());
 }
+void Entity::Stats()const
+{
+	printf("You are in %s, %s \n", name.C_Str(), description.C_Str());
+}
