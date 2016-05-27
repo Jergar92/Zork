@@ -27,7 +27,6 @@ public:
 
 public:
 	Room* location;
-	Vector <Item*> inventory;
 
 	int life = 100;
 	unsigned int atack = 1;

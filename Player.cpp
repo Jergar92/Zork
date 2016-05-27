@@ -44,9 +44,6 @@ void Player::Go(Vector<MyString> &strings){//this move the player if the move is
 					}
 					else{
 						location = ((Exit*)App->container[i])->destination;//change your location
-						for (int i = 0; i < inventory.size(); i++){
-							inventory[i]->location = location;
-						}
 						Look();
 						return;
 
@@ -152,7 +149,6 @@ void Player::Look(Vector<MyString> &strings){
 				}
 			}
 			for (int i = 0; i < list.size(); i++){//LOOK SPECIFIC OBJECTS(iventory items)
-				if (inventory[i]->location->name == location->name){
 					if (!list.empty()){
 						const List<Entity*>::Node* item = list.first_data;
 						for (; item != nullptr; item = item->next){
@@ -169,7 +165,7 @@ void Player::Look(Vector<MyString> &strings){
 							}
 						}
 					}
-				}
+				
 			}
 		}
 	}
@@ -258,7 +254,7 @@ void Player::Take(Vector<MyString> &strings){//TAKE OBJECTS
 				{
 					if (((Item*)item->data)->name == strings[1]){
 						if (((Item*)item->data)->isItem != ENVIROMENT && ((Item*)item->data)->canTake == true){//Check if is enviroment item and if you can take
-							list.Push_back(((Item*)item));
+							this->list.Push_back(((Item*)item->data));
 							printf("You take %s\n", ((Item*)item->data)->name.C_Str());
 							location->list.Erase(item);
 							break;
@@ -283,17 +279,19 @@ void Player::Take(Vector<MyString> &strings){//TAKE OBJECTS
 
 void Player::Drop(Vector<MyString> &strings){
 	
-		if (!list.empty()){
-		List<Entity*>::Node* item = list.first_data;
+	if (! this->list.empty()){
+			List<Entity*>::Node* item = this->list.first_data;
 		for (; item != nullptr; item = item->next){
 			if (strings[1] == ((Item*)item->data)->name){//Look if you have this item on you inventory
 				if (((Item*)item->data)->equiped == false){
-					location->list.Push_back(((Item*)item));
+					location->list.Push_back(((Item*)item->data));
 					printf("You drop %s\n", ((Item*)item->data)->name.C_Str());
-					list.Erase(item);
+					this->list.Erase(item);
+					break;
 				}
 				else{
 					printf("You can not throw a equipped object\n");
+					break;
 				}
 			}
 		}
@@ -305,8 +303,8 @@ void Player::Drop(Vector<MyString> &strings){
 }
 
 void Player::Equip(Vector<MyString> &strings){
-	if (!list.empty()){
-		List<Entity*>::Node* item = list.first_data;
+	if (!this->list.empty()){
+		List<Entity*>::Node* item = this->list.first_data;
 		for (; item != nullptr; item = item->next){
 			if (strings[1] == ((Item*)item->data)->name && ((Item*)item->data)->isItem == BOOTS || ((Item*)item->data)->isItem == ARMOR || ((Item*)item->data)->isItem == WEAPON){
 				if (((Item*)item->data)->equiped == false){//equip and items give you stats
@@ -330,8 +328,8 @@ void Player::Equip(Vector<MyString> &strings){
 }
 
 void Player::UnEquip(Vector<MyString> &strings){
-	if (!list.empty()){
-		List<Entity*>::Node* item = list.first_data;
+	if (!this->list.empty()){
+		List<Entity*>::Node* item = this->list.first_data;
 		for (; item != nullptr; item = item->next){
 			if (strings[1] == ((Item*)item->data)->name && ((Item*)item->data)->isItem == BOOTS || ((Item*)item->data)->isItem == ARMOR || ((Item*)item->data)->isItem == WEAPON){
 				if (((Item*)item->data)->equiped == true){//unequip and lost stats
@@ -373,17 +371,17 @@ void Player::Push(Vector<MyString> &strings){
 								//(((Item*)item->data)->location = ((Exit*)App->container[j])->destination;//change your location
 								if (((Exit*)App->container[j])->destination->name == "Abandoned Cave"){
 									printf("You have blocked the entrance to the Abandoned cave\n");
-									((Exit*)App->container[j])->destination->list.Push_back(((Item*)item));
+									((Exit*)App->container[j])->destination->list.Push_back(((Item*)item->data));
+									((Item*)item->data)->canPush = false;
 									((Exit*)App->container[j])->origin->list.Erase(item);
 									((Exit*)App->container[j])->closed = true;//block the exit
-									((Item*)item->data)->canPush = false;
 								}
 							}
 							else if (((Exit*)App->container[j])->direction == direction && ((Exit*)App->container[j])->destination->name == "Monster Cave"){
 								printf("the big rock block the cave\n");
 								((Item*)item->data)->description = "The big rock now block the cave";//change description of the item
 								((Item*)item->data)->canPush = false;
-								((Exit*)App->container[j])->destination->list.Push_back(((Item*)item));
+								((Exit*)App->container[j])->destination->list.Push_back(((Item*)item->data));
 								((Exit*)App->container[j])->origin->list.Erase(item);
 								//this blocks the fight against the monster (monsters not implemented)
 							}
@@ -391,7 +389,7 @@ void Player::Push(Vector<MyString> &strings){
 								printf("the big rock block the water\n");
 								((Item*)item->data)->description = "The big rock now block the water";//change description of the item
 								((Item*)item->data)->canPush = false;
-								((Exit*)App->container[j])->destination->list.Push_back(((Item*)item));
+								((Exit*)App->container[j])->destination->list.Push_back(((Item*)item->data));
 								((Exit*)App->container[j])->origin->list.Erase(item);
 								for (int j = 0; j <	App->container.size(); j++){//ITEM robot now we can take
 									if (App->container[j]->isType == ITEM && App->container[j]->name=="Robot"){
@@ -406,8 +404,7 @@ void Player::Push(Vector<MyString> &strings){
 								printf("You have blocked the entrance to your base, congratulations you have committed suicide\n");
 									((Exit*)App->container[j])->closed = true;//block the exit
 									((Item*)item->data)->canPush = false;
-
-									((Exit*)App->container[j])->destination->list.Push_back(((Item*)item));
+									((Exit*)App->container[j])->destination->list.Push_back(((Item*)item->data));
 									((Exit*)App->container[j])->origin->list.Erase(item);
 
 								}
@@ -420,8 +417,8 @@ void Player::Push(Vector<MyString> &strings){
 
 void Player::PutInto(Vector<MyString> &strings){
 
-	if (!list.empty()){
-		List<Entity*>::Node* item = list.first_data;
+	if (!this->list.empty()){
+		List<Entity*>::Node* item = this->list.first_data;
 		for (; item != nullptr; item = item->next){
 			if (strings[1] == ((Item*)item->data)->name){
 				if (((Item*)item->data)->equiped == false){
@@ -430,7 +427,7 @@ void Player::PutInto(Vector<MyString> &strings){
 						for (; otherItem != nullptr; otherItem = otherItem->next){
 							if (((Item*)otherItem->data)->isType == ITEM){
 								if (((Item*)otherItem->data)->isItem == TRUNK){
-									(((Item*)otherItem->data)->list.Push_back((Item*)item));//put item on trunk
+									(((Item*)otherItem->data)->list.Push_back((Item*)item->data));//put item on trunk
 									printf("You put %s into %s\n", ((Item*)item->data)->name.C_Str(), ((Item*)otherItem->data)->name.C_Str());
 									return;
 								}
@@ -460,7 +457,10 @@ void Player::GetFrom(Vector<MyString> &strings){//Get items froms trunk
 					for (; InsideItem != nullptr; InsideItem = InsideItem->next){
 						if (strings[1] == ((Item*)InsideItem->data)->name){
 							printf("You get %s from %s\n", ((Item*)InsideItem->data)->name.C_Str(), ((Item*)item->data)->name.C_Str());
+							this->list.Push_back(((Item*)InsideItem->data));
+
 							((Item*)item->data)->list.Erase(InsideItem);
+
 							return;
 
 						}
