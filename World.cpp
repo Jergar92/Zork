@@ -41,10 +41,10 @@ void World::createWorld(){
 	container.push_back(jungle);
 	//////////////////////EXITS/////////////////////////////
 
-	Exit* mountain_To_Home = new Exit("Rocky path", "your home base", false, false, mountain, home, SOUTH);
-	Exit* altar_To_Home = new Exit("Little path", "your home base", false, false, altar, home, WEST);
-	Exit* jungle_To_Home = new Exit("Little path", "your home base", false, false, jungle, home, EAST);
-	Exit* thorny_To_Home = new Exit("Little path", "your home base", false, false, thornForest, home, NORTH);
+	Exit* mountain_To_Home = new Exit("Rocky path", "your home base", true, true, mountain, home, SOUTH);
+	Exit* altar_To_Home = new Exit("Little path", "your home base", true, true, altar, home, WEST);
+	Exit* jungle_To_Home = new Exit("Little path", "your home base", true, true, jungle, home, EAST);
+	Exit* thorny_To_Home = new Exit("Little path", "your home base", true, true, thornForest, home, NORTH);
 	Exit* home_To_Mountain = new Exit("Rocky path", "a large mountain", true, true, home, mountain, NORTH);
 	Exit* waterfall_To_Mountain = new Exit("Rocky path", "a large mountain", false, false, waterfall, mountain, WEST);
 	Exit* abandonedCave_To_Mountain = new Exit("Rocky path", "a large mountain", false, false, abandonedCave, mountain, EAST);
@@ -64,7 +64,7 @@ void World::createWorld(){
 	Exit* underwaterCave_To_Thorny = new Exit("Thorny path", "many thorns, but nothing more", false, false, underwaterCave, thornForest, NORTH);
 	Exit* thorny_To_ThornyEast = new Exit("Thorny path", "many thorns, but nothing more", false, false, thornForest, thornForestEast, EAST);
 	Exit* thorny_To_ThornyWest = new Exit("Thorny path", "many thorns, but nothing more", false, false, thornForest, thornForestWest, WEST);
-	Exit* home_To_Jungle = new Exit("Jungle path", "a huge jungle, probably full of beasts", false, false, home, jungle, WEST);
+	Exit* home_To_Jungle = new Exit("Jungle path", "a huge jungle, probably full of beasts", true, true, home, jungle, WEST);
 
 
 	container.push_back(mountain_To_Home);
@@ -119,11 +119,10 @@ void World::createWorld(){
 
 	////////////////////////PLAYER//////////////////////
 
-	container.push_back(new Player("Hero", "ieeje", 100, 5, 5));
+	container.push_back(new Player("Hero", "ieeje", 100, 5, 5,home));
 	for (int i = 0; i < container.size(); i++){
 		if (container[i]->isType == PLAYER){
 			hero = ((Player*)container[i]);
-			hero->location = home;
 
 		}
 	}

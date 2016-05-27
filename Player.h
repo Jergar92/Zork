@@ -9,7 +9,7 @@ class Player : public Creature
 {
 public:
 	Player();
-	Player(const char* name, const char* description, int life, int atack, int armor);
+	Player(const char* name, const char* description, int life, int atack, int armor,Room* location);
 	~Player();
 	void Stats()const;
 	void Go(Vector<MyString> &strings);

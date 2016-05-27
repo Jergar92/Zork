@@ -6,7 +6,7 @@ Player::Player()
 {
 
 }
-Player::Player(const char* name, const char* description, int life, int atack, int armor) :Creature(name, description,life,atack,armor)
+Player::Player(const char* name, const char* description, int life, int atack, int armor,Room* location) :Creature(name, description,life,atack,armor,location)
 {
 	isType = PLAYER;
 }
@@ -201,6 +201,13 @@ void Player::Open(Vector<MyString> &strings){
 					if (((Exit*)App->container[i])->door == true){//check if the exit is closed
 						if (((Exit*)App->container[i])->closed == true){//check if the exit is closed
 							((Exit*)App->container[i])->closed = false;
+							for (int j = 0; j < App->container.size(); j++){
+								if (App->container[j]->isType == EXIT){
+									if (((Exit*)App->container[i])->origin == ((Exit*)App->container[j])->destination && ((Exit*)App->container[i])->destination == ((Exit*)App->container[j])->origin){
+										((Exit*)App->container[j])->closed = false;
+									}
+								}
+							}
 							printf("the door is open\n");
 							return;
 						}
@@ -231,6 +238,13 @@ void Player::Close(Vector<MyString> &strings){
 					if (((Exit*)App->container[i])->door == true){//check if the exit is closed
 						if (((Exit*)App->container[i])->closed == false){//check if the exit is closed
 							((Exit*)App->container[i])->closed = true;
+							for (int j = 0; j < App->container.size(); j++){
+								if (App->container[j]->isType == EXIT){
+									if (((Exit*)App->container[i])->origin == ((Exit*)App->container[j])->destination && ((Exit*)App->container[i])->destination == ((Exit*)App->container[j])->origin){
+										((Exit*)App->container[j])->closed = true;
+									}
+								}
+							}
 							printf("the door is closed\n");
 							return;
 						}
@@ -356,6 +370,7 @@ void Player::Push(Vector<MyString> &strings){
 		for (; item != nullptr; item = item->next){
 			if (strings[1] == ((Item*)item->data)->name && ((Item*)item->data)->isItem == ENVIROMENT && ((Item*)item->data)->canPush == true){//check if is enviroment item (only rock is enviroment)
 				direction = App->getDirection(strings);//dat get the direction you push
+				break;
 				if (direction == -1){
 					printf("wrong direction.\n");
 					return;
@@ -367,52 +382,49 @@ void Player::Push(Vector<MyString> &strings){
 		}
 					for (int j = 0; j < App->container.size(); j++){
 						if (App->container[j]->isType == EXIT){
-							if (((Exit*)App->container[j])->direction == direction && ((Exit*)App->container[j])->origin->name == location->name){//check if they have the same direction
-								//(((Item*)item->data)->location = ((Exit*)App->container[j])->destination;//change your location
-								if (((Exit*)App->container[j])->destination->name == "Abandoned Cave"){
-									printf("You have blocked the entrance to the Abandoned cave\n");
-									((Exit*)App->container[j])->destination->list.Push_back(((Item*)item->data));
-									((Item*)item->data)->canPush = false;
-									((Exit*)App->container[j])->origin->list.Erase(item);
-									((Exit*)App->container[j])->closed = true;//block the exit
+							if (((Exit*)App->container[j])->origin == location){
+								if (((Exit*)App->container[j])->direction == direction && (((Exit*)App->container[j])->destination->name == "Abandoned Cave")){//check if they have the same direction
+									//(((Item*)item->data)->location = ((Exit*)App->container[j])->destination;//change your location
+								
+										printf("You have blocked the entrance to the Abandoned cave\n");
+										((Exit*)App->container[j])->destination->list.Push_back(((Item*)item->data));
+										((Item*)item->data)->canPush = false;
+										((Exit*)App->container[j])->origin->list.Erase(item);
+										((Exit*)App->container[j])->closed = true;//block the exit
 								}
-							}
-							else if (((Exit*)App->container[j])->direction == direction && ((Exit*)App->container[j])->destination->name == "Monster Cave"){
-								printf("the big rock block the cave\n");
-								((Item*)item->data)->description = "The big rock now block the cave";//change description of the item
-								((Item*)item->data)->canPush = false;
-								((Exit*)App->container[j])->destination->list.Push_back(((Item*)item->data));
-								((Exit*)App->container[j])->origin->list.Erase(item);
-								//this blocks the fight against the monster (monsters not implemented)
-							}
-							else if (((Exit*)App->container[j])->direction == direction && ((Exit*)App->container[j])->destination->name == "Waterfall"){
-								printf("the big rock block the water\n");
-								((Item*)item->data)->description = "The big rock now block the water";//change description of the item
-								((Item*)item->data)->canPush = false;
-								((Exit*)App->container[j])->destination->list.Push_back(((Item*)item->data));
-								((Exit*)App->container[j])->origin->list.Erase(item);
-								for (int j = 0; j <	App->container.size(); j++){//ITEM robot now we can take
-									if (App->container[j]->isType == ITEM && App->container[j]->name=="Robot"){
+								else if (((Exit*)App->container[j])->direction == direction && ((Exit*)App->container[j])->destination->name == "Monster Cave"){
+									printf("the big rock block the cave\n");
+									((Item*)item->data)->description = "The big rock now block the cave";//change description of the item
+									((Item*)item->data)->canPush = false;
+									((Exit*)App->container[j])->destination->list.Push_back(((Item*)item->data));
+									((Exit*)App->container[j])->origin->list.Erase(item);
+									//this blocks the fight against the monster (monsters not implemented)
+								}
+								else if (((Exit*)App->container[j])->direction == direction && ((Exit*)App->container[j])->destination->name == "Waterfall"){
+									printf("the big rock block the water\n");
+									((Item*)item->data)->description = "The big rock now block the water";//change description of the item
+									((Item*)item->data)->canPush = false;
+									((Exit*)App->container[j])->destination->list.Push_back(((Item*)item->data));
+									((Exit*)App->container[j])->origin->list.Erase(item);
+									for (int j = 0; j < App->container.size(); j++){//ITEM robot now we can take
+										if (App->container[j]->isType == ITEM && App->container[j]->name == "Robot"){
 											((Item*)App->container[j])->canTake = true;
 											((Item*)App->container[j])->description = "this robot is in perfect condition";//block the exit
 										}
 									}
 								}
-							
-							else if (((Exit*)App->container[j])->direction == direction && ((Exit*)App->container[j])->destination->name == "Home Base"){
-					
-								printf("You have blocked the entrance to your base, congratulations you have committed suicide\n");
+								else if (((Exit*)App->container[j])->direction == direction && ((Exit*)App->container[j])->destination->name == "Home Base"){
+									printf("You have blocked the entrance to your base, congratulations you have committed suicide\n");
 									((Exit*)App->container[j])->closed = true;//block the exit
 									((Item*)item->data)->canPush = false;
 									((Exit*)App->container[j])->destination->list.Push_back(((Item*)item->data));
 									((Exit*)App->container[j])->origin->list.Erase(item);
-
 								}
 							}
 						}
 					}
-
 				}
+			}
 
 
 void Player::PutInto(Vector<MyString> &strings){

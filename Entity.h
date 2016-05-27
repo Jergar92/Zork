@@ -18,7 +18,7 @@ public:
 
 	virtual void Look() const;
 	virtual void Stats() const;
-
+	virtual void Update();
 private:
 
 };

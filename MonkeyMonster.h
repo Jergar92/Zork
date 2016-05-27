@@ -9,9 +9,8 @@ class Monkey : public Creature
 {
 public:
 	Monkey();
-	Monkey(const char* name, const char* description, int life, int atack, int armor);
+	Monkey(const char* name, const char* description, int life, int atack, int armor,Room* location);
 	~Monkey();
-	/*void Stats()const;
 	void Go(Vector<MyString> &strings);
 	void Open(Vector<MyString> &strings);
 	void Close(Vector<MyString> &strings);
@@ -19,7 +18,8 @@ public:
 	void Drop(Vector<MyString> &strings);
 	void Equip(Vector<MyString> &strings);
 	void UnEquip(Vector<MyString> &strings);
-	*/
+	void Look()const;
+
 public:
 	Room* location;
 
