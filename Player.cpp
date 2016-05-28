@@ -1,4 +1,5 @@
 #include "World.h"
+#include <Windows.h>
 
 
 
@@ -15,15 +16,18 @@ Player::Player(const char* name, const char* description, int life, int atack, i
 
 Player::~Player()
 {
+	
 }
 void Player::Stats()const{
 	printf("You have %i hp, %i atack and %i defense\n", life, atack, armor);
 }
 void Player::Update(){
-
+	currentAtackTime = GetTickCount();
 	if (currentAtackTime >= (lastAtackTime + 3000)){
 			lastAtackTime = currentTime;
-			AtackTarget(Target);
+			if (Target != nullptr){
+				AtackTarget(Target);
+			}
 	}
 }
 
@@ -40,7 +44,7 @@ void Player::AtackTarget(Creature* target){
 			printf("%s hit to %s and do %i damage\n", name.C_Str(), target->name.C_Str(), 1);
 		}
 	}
-	if (target->life >= 0){
+	if (target->life <= 0){
 		Target = nullptr;
 	}
 }

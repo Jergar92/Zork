@@ -55,7 +55,7 @@ int main(){
 		}
 	}
 
-
+	App->CleanUp();
 	return 0;
 
 }

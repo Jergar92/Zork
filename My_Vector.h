@@ -100,10 +100,9 @@ public:
 	}
 	void clean_selected(unsigned int index){
 		int i = 0;
-		for (i = index; i < size(); i++){
-			buffer[i] = buffer[i + 1];
+		for (i = size(); i > index; i--){
+			buffer[i-1] = buffer[i];
 		}
-		buffer[i] = '\0';
 		numElements--;
 	}
 	void shrink_to_fit(){

@@ -90,10 +90,10 @@ public:
 		}
 	}
 	void Pop_front(){
+		Node* temp = first_data;
+
 		if (temp != nullptr){
-			Node* temp = first_data;
 			first_data = temp->next;
-			first_data->prev = nullptr;
 			delete temp;
 		}
 	}

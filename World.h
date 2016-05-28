@@ -33,7 +33,7 @@ public:
 	void Help()const;//this is called on main
 	void getOperation(Vector<MyString> &strings);
 	int getDirection(Vector<MyString> &strings);
-
+	void CleanUp();
 
 private:
 	

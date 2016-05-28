@@ -30,7 +30,7 @@ public:
 	int life = 100;
 	unsigned int atack = 1;
 	unsigned int armor = 1;
-	bool dead = false;
+	bool isDead = false;
 	TypeCreature CreatureType;
 
 };

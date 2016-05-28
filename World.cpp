@@ -4,9 +4,7 @@ World::World()
 {}
 World::~World()
 {
-	for (int i = 0; i < container.size(); i++){
-		delete container[i];
-	}
+	
 }
 void World::createWorld(){
 	
@@ -144,7 +142,11 @@ void World::createWorld(){
 
 }
 
-
+void World::CleanUp(){
+	for (int i = 0; i < container.size(); i++){
+		delete container[i];
+	}
+}
 void World::getOperation(Vector<MyString> &strings){//list of possible operations
 if ((strings[0] == "north") || (strings[0] == "n")){
 		strings[1] = "north";

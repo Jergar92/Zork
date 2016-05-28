@@ -21,6 +21,9 @@ Monkey::~Monkey()
 {
 }
 void Monkey::Update(){
+	if (isDead == true){
+		return;
+	}
 	int i = 0;
 	currentTime = GetTickCount();
 	if (currentTime >= (lastTime + 3000)){
@@ -40,7 +43,7 @@ void Monkey::Update(){
 			
 			else if (this->CreatureType == HOSTILE_PLAYER){
 
-				if (this->location != App->hero->location&&App->hero->dead != true){
+				if (this->location != App->hero->location&&App->hero->isDead != true){
 					if (!CheckTake()){
 						currentState = MOVE;
 					}
@@ -53,7 +56,7 @@ void Monkey::Update(){
 				}
 			}
 			else if (this->CreatureType == HOSTILE_ALL){
-				if (this->location != App->hero->location&&App->hero->dead != true){
+				if (this->location != App->hero->location&&App->hero->isDead != true){
 			
 					if (!CheckTake()){
 						currentState = MOVE;
@@ -272,15 +275,17 @@ void Monkey::Die(){
 				}
 					location->list.Push_back(((Item*)item->data));
 					printf("%s\n", ((Item*)item->data)->name.C_Str());
-					this->list.Erase(item);
+					if (item->next == nullptr){
+						this->list.Pop_front();
+
+						break;
+					}
+					this->list.Pop_front();
+
 			}			
 		}
 	printf("the %s is dead\n", name.C_Str());
-	for (int i = 0; i < App->container.size(); i++){
-		if (App->container[i]->isType == MONSTER && App->container[i] == this){
-			App->container.clean_selected(i);
-		}
-	}
+	isDead = true;
 	}
 
 
