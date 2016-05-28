@@ -119,14 +119,17 @@ void World::createWorld(){
 
 	////////////////////////PLAYER//////////////////////
 
-	container.push_back(new Player("Hero", "ieeje", 100, 5, 5,home));
+	container.push_back(new Player("Hero", "ieeje", 100, 10,10,100,home));
 	for (int i = 0; i < container.size(); i++){
 		if (container[i]->isType == PLAYER){
 			hero = ((Player*)container[i]);
 
 		}
 	}
+	///////////////////////NPC/////////////////////////
 
+	Monkey* monkey = new Monkey("Monkey", "Uah uah", 25, 15, 2, jungle);
+	container.push_back(monkey);
 
 	//////////////////////////////PutItems/////////////////////////////
 	abandonedCave->list.Push_back(powerArmor);
@@ -210,6 +213,11 @@ if ((strings[0] == "north") || (strings[0] == "n")){
 
 	else if ((strings[0] == "get") && (strings[2] == "from")){
 		hero->GetFrom(strings);
+
+		return;
+	}
+	else if ((strings[0] == "atack")){
+		hero->Atack(strings);
 
 		return;
 	}

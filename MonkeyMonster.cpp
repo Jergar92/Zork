@@ -1,6 +1,7 @@
 #include "World.h"
-
-
+#include "time.h"
+#include <Windows.h>
+#include "MonkeyMonster.h"
 
 Monkey::Monkey()
 {
@@ -8,82 +9,160 @@ Monkey::Monkey()
 }
 Monkey::Monkey(const char* name, const char* description, int life, int atack, int armor,Room* location) :Creature(name, description, life, atack, armor,location)
 {
+	Item*  meat = new Item("Meat", "a good piece of meat that give me energy",20,true, MEAT);
+	App->container.push_back(meat);
+	list.Push_back(meat);
 	isType = MONSTER;
+	CreatureType = NO_HOSTILE;
+	currentState = MOVE;
 }
 
 Monkey::~Monkey()
 {
 }
+void Monkey::Update(){
+	int i = 0;
+	currentTime = GetTickCount();
+	if (currentTime >= (lastTime + 3000)){
+		if (life > 0){
+			lastTime = currentTime;
+			if (this->CreatureType == NO_HOSTILE){
+				if (!CheckTake()){
+						currentState = MOVE;
+					}
+					else if (location == App->hero->location && !App->hero->list.empty()){
+						currentState = STEAL;
+					}
+					else{
+						currentState = TAKE;
+					}
+				}
+			
+			else if (this->CreatureType == HOSTILE_PLAYER){
+
+				if (this->location != App->hero->location&&App->hero->dead != true){
+					if (!CheckTake()){
+						currentState = MOVE;
+					}
+					else{
+						currentState = TAKE;
+					}
+				}
+				else{
+					currentState = ATACK_HERO;
+				}
+			}
+			else if (this->CreatureType == HOSTILE_ALL){
+				if (this->location != App->hero->location&&App->hero->dead != true){
+			
+					if (!CheckTake()){
+						currentState = MOVE;
+					}
+					else if (CheckTake()){
+						currentState = TAKE;
+					}
+					for (i = 0; i < App->container.size(); i++){
+
+						if (App->container[i]->isType == MONSTER && App->container[i] != this){
+							if (((Creature*)App->container[i])->location == location){
+								currentState = ATACK_NPC;
+							}
+
+						}
+					}
+				}
+					else{
+					for (i = 0; i < App->container.size(); i++){
+
+						if (App->container[i]->isType == MONSTER && App->container[i] != this){
+							if (((Creature*)App->container[i])->location == location){
+								currentState = ATACK_NPC;
+							}
+
+						}
+						else if (App->container[i]->isType == PLAYER)
+						{
+							if (App->hero->location == location){
+								currentState = ATACK_HERO;
+							}
+						}
+
+					}
+				}
+				
+			}
+		}
+		else{
+			currentState = DIE;
+		}
+		switch (currentState)
+		{
+		case MOVE:
+			Go();
+			break;
+		case TAKE:
+			Take();
+			break;
+		case STEAL:
+			Steal();
+			break;
+		case ATACK_HERO:
+			Atack(App->hero);
+			break;
+		case ATACK_NPC:
+			Atack(((Creature*)App->container[i]));
+			break;
+		case DIE:
+			Die();
+			break;
+		default:
+			break;
+		}
+	}
+}
 
 
+void Monkey::Atack(Player* hero){
+	if (hero->armor < atack){
+		hero->life -= (atack - hero->armor);
+		printf("%s hit to %s and do %i damage\n", name.C_Str(), hero->name.C_Str(), (atack - hero->armor));
 
-
-void Monkey::Go(Vector<MyString> &strings){//this move the player if the move is possible
-	int direction = -1;
-	direction = App->getDirection(strings);//dat get the right direction
-	if (direction == -1){
-		printf("wrong operation\n");
-		return;
 	}
 	else{
+		hero->life -= 1;
+		printf("%s hit to %s and do %i damage\n", name.C_Str(), hero->name.C_Str(), 1);
+	}
+}
+void Monkey::Atack(Creature* monster){
+	if (monster->armor < atack){
+		monster->life -= (atack - monster->armor);
+		printf("%s hit to %s and do %i damage\n", name.C_Str(), monster->name.C_Str(), monster->armor);
+
+	}
+	else{
+		monster->life -= 1;
+		printf("%s hit to %s and do %i damage\n", name.C_Str(), monster->name.C_Str(), 1);
+	}
+}
+
+
+
+void Monkey::Go(){//this move the player if the move is possible
+
+	int direction = rand() % 4;
+	
 		for (int i = 0; i < App->container.size(); i++){
 			if (App->container[i]->isType == EXIT){
 				if (((Exit*)App->container[i])->direction == direction && ((Exit*)App->container[i])->origin->name.C_Str() == location->name.C_Str()){
 					if (((Exit*)App->container[i])->closed == true){//check if the exit is closed
 						if (((Exit*)App->container[i])->door == true){//check if the exit is closed
-							printf("the door is closed\n");
-							return;
-						}
-						else{
-							printf("You can not pass, is bloqued\n");
-							return;
-						}
-					}
-					else{
-						location = ((Exit*)App->container[i])->destination;//change your location
-						Look();
-						return;
-
-					}
-				}
-
-			}
-		}
-		printf("You can not pass\n");
-	}
-}
-void Monkey::Look()const{//LOOK CURRENT ROOM AND HIS ITEMS
-	printf("You are in a %s, %s \n", location->name.C_Str(), location->description.C_Str());
-	for (int i = 0; i < App->container.size(); i++){
-		if (App->container[i]->isType == PLAYER){
-			if (!((Player*)App->container[i])->location->list.empty()){
-				const List<Entity*>::Node* item = ((Player*)App->container[i])->location->list.first_data;
-				for (; item != nullptr; item = item->next)
-				{
-					printf("You see a %s\n", item->data->name.C_Str());
-				}
-			}
-
-		}
-	}
-}
-
-
-void Monkey::Open(Vector<MyString> &strings){
-	int direction = -1;
-	direction = App->getDirection(strings);//dat get the right direction
-	if (direction == -1){
-		printf("wrong operation\n");
-		return;
-	}
-	else{
-		for (int i = 0; i < App->container.size(); i++){
-			if (App->container[i]->isType == EXIT){
-
-				if (((Exit*)App->container[i])->direction == direction && ((Exit*)App->container[i])->origin->name == location->name){//check if they have the same direction
-					if (((Exit*)App->container[i])->door == true){//check if the exit is closed
-						if (((Exit*)App->container[i])->closed == true){//check if the exit is closed
 							((Exit*)App->container[i])->closed = false;
+							if (((Exit*)App->container[i])->destination == App->hero->location){
+								printf("the %s open the door from %s to %s\n", name.C_Str(), location->name.C_Str(), ((Exit*)App->container[i])->destination->name.C_Str());
+							}
+							else if (((Exit*)App->container[i])->origin == App->hero->location){
+								printf("the %s open the door from %s to %s\n", name.C_Str(), location->name.C_Str(), ((Exit*)App->container[i])->destination->name.C_Str());
+							}
 							for (int j = 0; j < App->container.size(); j++){
 								if (App->container[j]->isType == EXIT){
 									if (((Exit*)App->container[i])->origin == ((Exit*)App->container[j])->destination && ((Exit*)App->container[i])->destination == ((Exit*)App->container[j])->origin){
@@ -91,136 +170,134 @@ void Monkey::Open(Vector<MyString> &strings){
 									}
 								}
 							}
-							printf("the door is open\n");
 							return;
 						}
 					}
 					else{
-						printf("is alredy opened\n");
-						return;
-					}
-
-				}
-			}
-		}
-		printf("you can not pass\n");
-	}
-}
-void Monkey::Close(Vector<MyString> &strings){
-	int direction = -1;
-	direction = App->getDirection(strings);//dat get the right direction
-	if (direction == -1){
-		printf("wrong operation\n");
-		return;
-	}
-	else{
-		for (int i = 0; i < App->container.size(); i++){
-			if (App->container[i]->isType == EXIT){
-
-				if (((Exit*)App->container[i])->direction == direction && ((Exit*)App->container[i])->origin->name == location->name){//check if they have the same direction			
-					if (((Exit*)App->container[i])->door == true){//check if the exit is closed
-						if (((Exit*)App->container[i])->closed == false){//check if the exit is closed
-							((Exit*)App->container[i])->closed = true;
-							for (int j = 0; j < App->container.size(); j++){
-								if (App->container[j]->isType == EXIT){
-									if (((Exit*)App->container[i])->origin == ((Exit*)App->container[j])->destination && ((Exit*)App->container[i])->destination == ((Exit*)App->container[j])->origin){
-										((Exit*)App->container[j])->closed = true;
-									}
-								}
-							}
-							printf("the door is closed\n");
-							return;
+						if (((Exit*)App->container[i])->destination == App->hero->location){
+							printf("the %s enter in the %s from %s \n", this->name.C_Str(), App->hero->location->name.C_Str(),((Exit*)App->container[i])->origin->name.C_Str());
 						}
-					}
-					else{
-						printf("is alredy closed\n");
+						else if (((Exit*)App->container[i])->origin == App->hero->location){
+							printf("the %s left the %s and go to %s\n", this->name.C_Str(), App->hero->location->name.C_Str(), ((Exit*)App->container[i])->destination->name.C_Str());
+						}
+						location = ((Exit*)App->container[i])->destination;//change your location
+
 						return;
 					}
-
 				}
+
 			}
 		}
-		printf("you can not pass\n");
-	}
+	
 }
-void Monkey::Take(Vector<MyString> &strings){//TAKE OBJECTS
+bool Monkey::CheckTake(){
+	if (!location->list.empty()){
+		List<Entity*>::Node* item = location->list.first_data;
+		for (; item != nullptr; item = item->next)
+		{
+			if (((Item*)item->data)->isItem != ENVIROMENT && ((Item*)item->data)->canTake == true){//Check if is enviroment item and if you can take
+				
+				return true;
+				//	contai.clean_selected(i); end erase
+			}
+
+
+		}
+	}
+	return false;
+
+}
+
+
+void Monkey::Take(){//TAKE OBJECTS
 
 	if (!location->list.empty()){
 		List<Entity*>::Node* item = location->list.first_data;
 		for (; item != nullptr; item = item->next)
 		{
-			if (((Item*)item->data)->name == strings[1]){
 				if (((Item*)item->data)->isItem != ENVIROMENT && ((Item*)item->data)->canTake == true){//Check if is enviroment item and if you can take
 					this->list.Push_back(((Item*)item->data));
-					printf("You take %s\n", ((Item*)item->data)->name.C_Str());
+					if (this->location == App->hero->location){
+						printf("%s take %s\n", name.C_Str(),((Item*)item->data)->name.C_Str());
+					}
+					if (((Item*)item->data)->isItem == BOOTS || ((Item*)item->data)->isItem == ARMOR || ((Item*)item->data)->isItem == WEAPON){
+						Equip();
+					}
 					location->list.Erase(item);
 					break;
 					//	contai.clean_selected(i); end erase
 				}
-				else{
-					printf("You can't take %s\n", ((Item*)item->data)->name.C_Str());
-					break;
-
-				}
-			}
+				
+			
 		}
 	}
-	else{
-		printf("No items here");
+	
+}
+void Monkey::Steal(){//TAKE OBJECTS
 
+	if (!App->hero->list.empty()){
+		List<Entity*>::Node* item = App->hero->list.first_data;
+		for (; item != nullptr; item = item->next)
+		{
+			if (((Item*)item->data)->isItem != ENVIROMENT && ((Item*)item->data)->canTake == true && ((Item*)item->data)->equiped==false){//Check if is enviroment item and if you can take
+				this->list.Push_back(((Item*)item->data));
+				if (this->location == App->hero->location){
+					printf("%s steal %s from you\n", name.C_Str(), ((Item*)item->data)->name.C_Str());
+				}
+				if (((Item*)item->data)->isItem == BOOTS || ((Item*)item->data)->isItem == ARMOR || ((Item*)item->data)->isItem == WEAPON){
+					Equip();
+				}
+				App->hero->list.Erase(item);
+				break;
+				//	contai.clean_selected(i); end erase
+			}
+
+
+		}
 	}
+
 }
 
 
 
 
-void Monkey::Drop(Vector<MyString> &strings){
+void Monkey::Die(){
 
 	if (!this->list.empty()){
 		List<Entity*>::Node* item = this->list.first_data;
+		printf("%s drop after die:\n", name.C_Str(), ((Item*)item->data)->name.C_Str());
 		for (; item != nullptr; item = item->next){
-			if (strings[1] == ((Item*)item->data)->name){//Look if you have this item on you inventory
 				if (((Item*)item->data)->equiped == false){
+					((Item*)item->data)->equiped = false;
+				}
 					location->list.Push_back(((Item*)item->data));
-					printf("You drop %s\n", ((Item*)item->data)->name.C_Str());
+					printf("%s\n", ((Item*)item->data)->name.C_Str());
 					this->list.Erase(item);
-					break;
-				}
-				else{
-					printf("You can not throw a equipped object\n");
-					break;
-				}
-			}
+			}			
+		}
+	printf("the %s is dead\n", name.C_Str());
+	for (int i = 0; i < App->container.size(); i++){
+		if (App->container[i]->isType == MONSTER && App->container[i] == this){
+			App->container.clean_selected(i);
 		}
 	}
-	else{
-		printf("You don't have items");
-
 	}
-}
 
-void Monkey::Equip(Vector<MyString> &strings){
+
+void Monkey::Equip(){
 	if (!this->list.empty()){
 		List<Entity*>::Node* item = this->list.first_data;
 		for (; item != nullptr; item = item->next){
-			if (strings[1] == ((Item*)item->data)->name && ((Item*)item->data)->isItem == BOOTS || ((Item*)item->data)->isItem == ARMOR || ((Item*)item->data)->isItem == WEAPON){
+			if (((Item*)item->data)->isItem == BOOTS || ((Item*)item->data)->isItem == ARMOR || ((Item*)item->data)->isItem == WEAPON){
 				if (((Item*)item->data)->equiped == false){//equip and items give you stats
 					((Item*)item->data)->equiped = true;
 					atack += ((Item*)item->data)->atack;
 					armor += ((Item*)item->data)->defense;
-					printf("You equiped %s\n", ((Item*)item->data)->name);
 					return;
 				}
-				else{
-					printf("Already was equipped\n");
-					return;
-				}
+				
 			}
 		}
-	}
-	else{
-		printf("You don't have items");
-
 	}
 }
 

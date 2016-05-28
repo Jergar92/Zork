@@ -7,6 +7,11 @@ Item::Item(const char* name, const char* description, unsigned int atack, unsign
 {
 	isType = ITEM;
 }
+Item::Item(const char*name, const char* description, unsigned int energy, bool canTake, itemType isItem) : Entity(name, description)
+, energy(energy), canTake(canTake)
+{
+	isType = ITEM;
+}
 
 Item::~Item(){
 	

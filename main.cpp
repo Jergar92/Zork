@@ -1,7 +1,7 @@
 #include "World.h"
 #include "MemLeaks.h"
 #include <conio.h>
-
+#include <Windows.h>
 World* App = nullptr;
 int main(){
 	ReportMemoryLeaks();
@@ -12,7 +12,7 @@ int main(){
 	int next = 0;
 	MyString words;
 	Vector<MyString>strings;
-
+	unsigned int currentTime, lastTime = 0;
 
 
 	App->createWorld();
@@ -25,7 +25,13 @@ int main(){
 	App->hero->Look();
 	while (1)
 	{
-
+		currentTime = GetTickCount();
+			if (currentTime >= (lastTime + 1000)){
+				lastTime = currentTime;
+				for (int i = 0; i < App->container.size(); i++){
+					App->container[i]->Update();
+				}
+			}
 		if (_kbhit() != 0)
 		{
 			key = _getch();

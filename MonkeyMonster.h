@@ -4,27 +4,26 @@
 #include "Item.h"
 #include "Creature.h"
 class Room;
-
+enum State{ MOVE, TAKE, STEAL,ATACK_HERO, ATACK_NPC, DIE };
 class Monkey : public Creature
 {
 public:
 	Monkey();
 	Monkey(const char* name, const char* description, int life, int atack, int armor,Room* location);
 	~Monkey();
-	void Go(Vector<MyString> &strings);
-	void Open(Vector<MyString> &strings);
-	void Close(Vector<MyString> &strings);
-	void Take(Vector<MyString> &strings);
-	void Drop(Vector<MyString> &strings);
-	void Equip(Vector<MyString> &strings);
+	void Go();
+	void Take();
+	void Steal();
+	void Die();
+	void Equip();
 	void UnEquip(Vector<MyString> &strings);
-	void Look()const;
-
+	void Update();
+	void Atack(Creature* container);
+	void Atack(Player* hero);
+	bool CheckTake();
+	State currentState;
 public:
-	Room* location;
+	unsigned int currentTime, lastTime = 0;
 
-	int life = 100;
-	unsigned int atack = 1;
-	unsigned int armor = 1;
 };
-#endif _MONKEY_MONSTER
+#endif// _MONKEY_MONSTER

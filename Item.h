@@ -2,7 +2,7 @@
 #define _ITEM
 #include "World.h"
 
-enum itemType{ WEAPON, ARMOR, BOOTS, PICK, ENVIROMENT, TRUNK };
+enum itemType{ WEAPON, ARMOR, BOOTS, PICK, ENVIROMENT, TRUNK,MEAT };
 
 class Room;
 
@@ -11,6 +11,7 @@ class Item : public Entity
 public:
 	Item();
 	Item(const char*name, const char* description, unsigned int atack, unsigned int defense, bool equiped, bool canTake, bool canPush, Room* location, itemType isItem);
+	Item(const char*name, const char* description, unsigned int energy, bool canTake, itemType isItem);
 
 	~Item();
 	void Look() const;
@@ -19,6 +20,7 @@ public:
 
 	unsigned int atack = 0;
 	unsigned int defense = 0;
+	unsigned int energy = 0;
 	bool equiped = false;
 	bool canTake = true;
 	bool canPush = false;
