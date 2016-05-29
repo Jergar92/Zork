@@ -26,8 +26,13 @@ void Player::Update(){
 	if (currentAtackTime >= (lastAtackTime + 3000)){
 			lastAtackTime = currentTime;
 			if (Target != nullptr){
+				if (Target->isDead == true){
+					Target = nullptr;
+					return;
+				}
 				AtackTarget(Target);
 			}
+			
 	}
 }
 
@@ -117,6 +122,12 @@ void Player::Look()const{//LOOK CURRENT ROOM AND HIS ITEMS
 				}
 			}
 
+		}
+		else if (App->container[i]->isType == MONSTER){
+			for (int i = 0; i < App->container.size(); i++){
+				location == ((Creature*)App->container[i])->location;
+				printf("You see a %s", ((Creature*)App->container[i])->name.C_Str());
+			}
 		}
 	}
 }

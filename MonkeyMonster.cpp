@@ -32,9 +32,9 @@ void Monkey::Update(){
 			if (this->CreatureType == NO_HOSTILE){
 				if (!CheckTake()){
 						currentState = MOVE;
-					}
-					else if (location == App->hero->location && !App->hero->list.empty()){
-						currentState = STEAL;
+						if (location == App->hero->location && !App->hero->list.empty()){
+							currentState = STEAL;
+						}
 					}
 					else{
 						currentState = TAKE;
@@ -267,20 +267,15 @@ void Monkey::Steal(){//TAKE OBJECTS
 void Monkey::Die(){
 
 	if (!this->list.empty()){
-		List<Entity*>::Node* item = this->list.first_data;
-		printf("%s drop after die:\n", name.C_Str(), ((Item*)item->data)->name.C_Str());
-		for (; item != nullptr; item = item->next){
-				if (((Item*)item->data)->equiped == false){
-					((Item*)item->data)->equiped = false;
+		printf("%s drop after die:\n", name.C_Str(), list.first_data->data->name.C_Str());
+		for (; list.first_data != nullptr; list.first_data = list.first_data->next){
+			if (((Item*)list.first_data->data)->equiped == true){
+				((Item*)list.first_data->data)->equiped = false;
 				}
-					location->list.Push_back(((Item*)item->data));
-					printf("%s\n", ((Item*)item->data)->name.C_Str());
-					if (item->next == nullptr){
-						this->list.Pop_front();
+			location->list.Push_back(list.first_data->data);
+			printf("%s\n", list.first_data->data->name.C_Str());
+	
 
-						break;
-					}
-					this->list.Pop_front();
 
 			}			
 		}
@@ -306,23 +301,4 @@ void Monkey::Equip(){
 	}
 }
 
-void Monkey::UnEquip(Vector<MyString> &strings){
-	if (!this->list.empty()){
-		List<Entity*>::Node* item = this->list.first_data;
-		for (; item != nullptr; item = item->next){
-			if (strings[1] == ((Item*)item->data)->name && ((Item*)item->data)->isItem == BOOTS || ((Item*)item->data)->isItem == ARMOR || ((Item*)item->data)->isItem == WEAPON){
-				if (((Item*)item->data)->equiped == true){//unequip and lost stats
-					((Item*)item->data)->equiped = false;
-					atack -= ((Item*)item->data)->atack;
-					armor -= ((Item*)item->data)->defense;
-					printf("You have taken away %s\n", ((Item*)item->data)->name);
-					return;
-				}
-				else{
-					printf("You do not have this object equipped\n");
-					return;
-				}
-			}
-		}
-	}
-}
+

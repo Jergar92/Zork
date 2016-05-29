@@ -29,7 +29,15 @@ int main(){
 			if (currentTime >= (lastTime + 1000)){
 				lastTime = currentTime;
 				for (int i = 0; i < App->container.size(); i++){
+					if (App->container[i] == nullptr){
+						continue;
+					}
 					App->container[i]->Update();
+					if (((Creature*)App->container[i])->isDead == true){
+						delete App->container[i];
+						App->container[i]=nullptr;
+						App->container.clean_selected(i);
+					}
 				}
 			}
 		if (_kbhit() != 0)

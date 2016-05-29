@@ -8,6 +8,7 @@
 #include "Item.h"
 #include "Creature.h"
 #include "MonkeyMonster.h"
+#include "Seller.h"
 #include "My_Vector.h"
 #include "My_String.h"
 #include "My_DobleList.h"

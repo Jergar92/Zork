@@ -4,6 +4,8 @@
 #include "Item.h"
 class Room;
 enum TypeCreature{HERO,SELLER,NO_HOSTILE,HOSTILE_PLAYER,HOSTILE_ALL};
+enum State{IDLE, MOVE, TAKE, STEAL, ATACK_HERO, ATACK_NPC, DIE };
+
 class Creature : public Entity
 {
 public:
@@ -32,6 +34,7 @@ public:
 	unsigned int armor = 1;
 	bool isDead = false;
 	TypeCreature CreatureType;
+	State currentState;
 
 };
 
