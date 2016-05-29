@@ -7,8 +7,8 @@ Item::Item(const char* name, const char* description, unsigned int atack, unsign
 {
 	isType = ITEM;
 }
-Item::Item(const char*name, const char* description, unsigned int energy, bool canTake, itemType isItem) : Entity(name, description)
-, energy(energy), canTake(canTake)
+Item::Item(const char*name, const char* description, unsigned int life, unsigned int energy, bool canTake, itemType isItem) : Entity(name, description)
+,life(life), energy(energy), canTake(canTake), isItem(isItem)
 {
 	isType = ITEM;
 }

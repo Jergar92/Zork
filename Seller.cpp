@@ -18,24 +18,32 @@ Seller::~Seller()
 {
 }
 void Seller::Update(){
-	int i = 0;
-		switch (currentState)
-		{
-		case IDLE:
-			break;
-		case ATACK_HERO:
-			Atack(App->hero);
-			break;
-		case ATACK_NPC:
-			Atack(((Creature*)App->container[i]));
-			break;
-		case DIE:
-			Die();
-			break;
-		default:
-			break;
+	currentTime = GetTickCount();
+	if (currentTime >= (lastTime + 20000)){
+		lastTime = currentTime;
+
+		if (!list.empty()){
+			List<Entity*>::Node* item = list.first_data;
+			for (; item != nullptr; item = item->next)
+			{
+
+				if (((Item*)item->data)->isItem == MEAT){
+				 if (location == App->hero->location){
+					 printf("Selter - Human I finished processing the meat");
+				 }
+					((Item*)item->data)->toDestroy = true;
+					location->list.Erase(item);
+					Item*  potion = new Item("Meat", "a good piece of meat that give me energy", 20, 0, true, MEAT);
+					App->container.push_back(potion);
+					list.Push_back(potion);
+					break;
+					//	contai.clean_selected(i); end erase
+				}
+			}
 		}
 	}
+}
+	
 
 
 
@@ -50,15 +58,21 @@ void Seller::Atack(Player* hero){
 		printf("%s hit to %s and do %i damage\n", name.C_Str(), hero->name.C_Str(), 1);
 	}
 }
-void Seller::Atack(Creature* monster){
-	if (monster->armor < atack){
-		monster->life -= (atack - monster->armor);
-		printf("%s hit to %s and do %i damage\n", name.C_Str(), monster->name.C_Str(), monster->armor);
-
+void Seller::Inventory(){
+	if (!list.empty()){
+		for (int i = 0; i < list.size(); i++){
+			if (!list.empty()){
+				const List<Entity*>::Node* item = list.first_data;
+				printf("Seller - This is my inventory:\n");
+				for (; item != nullptr; item = item->next)
+				{
+					printf("You see a %s\n", item->data->name.C_Str());
+				}
+			}
+		}
 	}
 	else{
-		monster->life -= 1;
-		printf("%s hit to %s and do %i damage\n", name.C_Str(), monster->name.C_Str(), 1);
+		printf("You don't have nothing");
 	}
 }
 void Seller::Die(){

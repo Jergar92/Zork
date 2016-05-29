@@ -9,7 +9,7 @@ Monkey::Monkey()
 }
 Monkey::Monkey(const char* name, const char* description, int life, int atack, int armor,Room* location) :Creature(name, description, life, atack, armor,location)
 {
-	Item*  meat = new Item("Meat", "a good piece of meat that give me energy",20,true, MEAT);
+	Item*  meat = new Item("Meat", "a good piece of meat that give me energy",0,20,true, MEAT);
 	App->container.push_back(meat);
 	list.Push_back(meat);
 	isType = MONSTER;

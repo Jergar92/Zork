@@ -100,7 +100,7 @@ public:
 	}
 	void clean_selected(unsigned int index){
 		int i = 0;
-		for (i = size(); i > index; i--){
+		for (i = size()-1; i > index; i--){
 			buffer[i-1] = buffer[i];
 		}
 		numElements--;

@@ -13,7 +13,7 @@ public:
 	~Seller();
 	void Die();
 	void Update();
-	void Atack(Creature* container);
+	void Inventory();
 	void Atack(Player* hero);
 public:
 	unsigned int currentTime, lastTime = 0;

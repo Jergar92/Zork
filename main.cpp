@@ -38,6 +38,11 @@ int main(){
 						App->container[i]=nullptr;
 						App->container.clean_selected(i);
 					}
+					else if (((Item*)App->container[i])->toDestroy == true){
+						delete App->container[i];
+						App->container[i] = nullptr;
+						App->container.clean_selected(i);
+					}
 				}
 			}
 		if (_kbhit() != 0)

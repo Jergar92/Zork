@@ -129,6 +129,8 @@ void World::createWorld(){
 	Monkey* monkey = new Monkey("Monkey", "Uah uah", 25, 15, 2, jungle);
 	container.push_back(monkey);
 
+	Seller* seller = new Seller("Seller", "A food processing machine", 100, 100, 100, altar);
+	container.push_back(seller);
 	//////////////////////////////PutItems/////////////////////////////
 	abandonedCave->list.Push_back(powerArmor);
 	home->list.Push_back(trunk);
@@ -220,6 +222,21 @@ if ((strings[0] == "north") || (strings[0] == "n")){
 	}
 	else if ((strings[0] == "atack")){
 		hero->Atack(strings);
+
+		return;
+	}
+	else if ((strings[0] == "eat" || strings[0] == "drink")){
+		hero->Eat_Drink(strings);
+
+		return;
+	}
+	else if (strings[0] == "buy"){
+		hero->Buy(strings);
+
+		return;
+	}
+	else if (strings[0] == "sell" ){
+		hero->Sell(strings);
 
 		return;
 	}

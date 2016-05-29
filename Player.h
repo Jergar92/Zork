@@ -17,6 +17,9 @@ public:
 	void Open(Vector<MyString> &strings);
 	void Close(Vector<MyString> &strings);
 	void Take(Vector<MyString> &strings);
+	void Eat_Drink(Vector<MyString> &strings);
+	void Buy(Vector<MyString> &strings);
+	void Sell(Vector<MyString> &strings);
 	void Drop(Vector<MyString> &strings);
 	void Equip(Vector<MyString> &strings);
 	void UnEquip(Vector<MyString> &strings);
