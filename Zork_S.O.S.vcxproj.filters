@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Creatures Header">
+      <UniqueIdentifier>{29c152ee-36c6-44b4-9261-b94241eff720}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Creatures Cpp">
+      <UniqueIdentifier>{17da159c-26bd-46f8-b629-e2cd37e2c8e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="World.cpp">
@@ -30,23 +36,32 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="My_String.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="Creature.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="MonkeyMonster.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
+    <ClCompile Include="EelMonster.cpp">
+      <Filter>Creatures Cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="BearMonster.cpp">
+      <Filter>Creatures Cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="HawkMonster.cpp">
+      <Filter>Creatures Cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="MonkeyMonster.cpp">
+      <Filter>Creatures Cpp</Filter>
+    </ClCompile>
     <ClCompile Include="Seller.cpp">
-      <Filter>Archivos de código fuente</Filter>
+      <Filter>Creatures Cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="My_String.cpp">
+      <Filter>Archivos de recursos</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,26 +83,35 @@
     <ClInclude Include="Item.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="My_String.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="My_Vector.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="MemLeaks.h">
       <Filter>Archivos de recursos</Filter>
-    </ClInclude>
-    <ClInclude Include="My_DobleList.h">
-      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Creature.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="BearMonster.h">
+      <Filter>Creatures Header</Filter>
+    </ClInclude>
+    <ClInclude Include="EelMonster.h">
+      <Filter>Creatures Header</Filter>
+    </ClInclude>
+    <ClInclude Include="HawkMonster.h">
+      <Filter>Creatures Header</Filter>
+    </ClInclude>
     <ClInclude Include="MonkeyMonster.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Creatures Header</Filter>
     </ClInclude>
     <ClInclude Include="Seller.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Creatures Header</Filter>
+    </ClInclude>
+    <ClInclude Include="My_DobleList.h">
+      <Filter>Archivos de recursos</Filter>
+    </ClInclude>
+    <ClInclude Include="My_String.h">
+      <Filter>Archivos de recursos</Filter>
+    </ClInclude>
+    <ClInclude Include="My_Vector.h">
+      <Filter>Archivos de recursos</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

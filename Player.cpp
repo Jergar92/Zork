@@ -58,23 +58,45 @@ void Player::Atack(Vector<MyString> &strings){
 		if (App->container[i]->isType == MONSTER){
 
 			if (((Creature*)App->container[i])->name == strings[1] && ((Creature*)App->container[i])->location == location){
+				Target = ((Creature*)App->container[i]);
 				if (((Creature*)App->container[i])->armor < atack){
+					if (((Creature*)App->container[i])->CreatureType == NO_HOSTILE){
+						((Creature*)App->container[i])->CreatureType = HOSTILE_PLAYER;
+					}
 					((Creature*)App->container[i])->life -= (atack - ((Creature*)App->container[i])->armor);
 					printf("%s hit to %s and do %i damage\n", name.C_Str(), ((Creature*)App->container[i])->name.C_Str(), (atack - ((Creature*)App->container[i])->armor));
-
+					return;
 				}
 				else{
+					if (((Creature*)App->container[i])->CreatureType == NO_HOSTILE){
+						((Creature*)App->container[i])->CreatureType = HOSTILE_PLAYER;
+					}
 					((Creature*)App->container[i])->life -= 1;
 					printf("%s hit to %s and do %i damage\n", name.C_Str(), ((Creature*)App->container[i])->name.C_Str(), 1);
+					return;
+
 				}
-				if (((Creature*)App->container[i])->CreatureType == NO_HOSTILE){
-					((Creature*)App->container[i])->CreatureType = HOSTILE_PLAYER;
-				}
-				Target = ((Creature*)App->container[i]);
+			
 			}
 		}
 	}
 }
+void Player::Speak(Vector<MyString> &strings){//this move the player if the move is possible
+
+	for (int i = 0; i < App->container.size(); i++){
+		if (((Creature*)App->container[i])->CreatureType == SELLER){
+			if (((Creature*)App->container[i])->name == strings[1] && ((Creature*)App->container[i])->location == location){
+				((Seller*)App->container[i])->Speak();
+			}
+			else{
+				printf("You can not talk to anyone here");
+			}
+		}
+	}
+}
+
+
+
 
 void Player::Go(Vector<MyString> &strings){//this move the player if the move is possible
 	int direction = -1;

@@ -114,7 +114,19 @@ public:
 		delete[] buffer;
 		buffer = temp;
 	}
-
+	bool erase(unsigned int index){
+		if (index == numElements - 1 && index != 0){
+			numElements--;
+		}
+		else if (index < numElements){
+			for (int i = index; i < numElements - 1; i++){
+				buffer[i] = buffer[i + 1];
+			}
+			numElements--;
+			return true;
+		}
+		return false;
+	}
 
 };
 #endif // !1

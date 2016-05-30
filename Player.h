@@ -12,6 +12,8 @@ public:
 	Player(const char* name, const char* description, int life, int atack, int armor, unsigned int energy, Room* location);
 	~Player();
 	void Stats()const;
+	void Speak(Vector<MyString> &strings);
+
 	void Go(Vector<MyString> &strings);
 	void Look(Vector<MyString> &strings);
 	void Open(Vector<MyString> &strings);

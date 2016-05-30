@@ -1,11 +1,12 @@
 #include "World.h"
-
+#include <Windows.h>
 World::World()
 {}
 World::~World()
 {
 	
 }
+
 void World::createWorld(){
 	
 
@@ -92,10 +93,10 @@ void World::createWorld(){
 
 
 	////////////////////////ITEMS///////////////////////
-	Item* laserGun = new Item("Gun", "a powerfull large distance weapon", 5, 0, false, true,  false, thornForestWest, WEAPON);
+	Item* laserGun = new Item("Gun", "a powerfull large distance weapon", 20, 0, false, true,  false, thornForestWest, WEAPON);
 	Item* bigRock = new Item("Rock", "It is very big but is on the brink of precipice sure You can push it", NULL, NULL, false, false,  true, mountain, ENVIROMENT);
-	Item* powerArmor = new Item("Armor", "a powerful power armor, you will be more safe with this", 0, 5, false, true,  false, abandonedCave, ARMOR);
-	Item* jumpBoots = new Item("Boots", "a stunning jump boots, with it you can move faster", 1, 1, false, true,  false, rubble, BOOTS);
+	Item* powerArmor = new Item("Armor", "a powerful power armor, you will be more safe with this", 0, 20, false, true,  false, abandonedCave, ARMOR);
+	Item* jumpBoots = new Item("Boots", "a stunning jump boots, with it you can move faster", 5, 5, false, true,  false, rubble, BOOTS);
 	Item* fuel = new Item("Fuel", "a container fuel, could be useful", NULL, NULL, false, true,  false, thornForestEast, PICK);
 	Item* antenna = new Item("Antenna", "with this the beacon signal reached everywhere", NULL, NULL, false, true,  false, underwaterCave, PICK);
 	Item* core = new Item("Core", "a energy core, this will give power to the beacon", NULL, NULL, false, true,  false, bigNest, PICK);
@@ -117,7 +118,7 @@ void World::createWorld(){
 
 	////////////////////////PLAYER//////////////////////
 
-	container.push_back(new Player("Hero", "ieeje", 100, 10,10,100,home));
+	container.push_back(new Player("Hero", "ieeje", 100, 20,10,100,home));
 	for (int i = 0; i < container.size(); i++){
 		if (container[i]->isType == PLAYER){
 			hero = ((Player*)container[i]);
@@ -125,10 +126,16 @@ void World::createWorld(){
 		}
 	}
 	///////////////////////NPC/////////////////////////
-
+	/*
 	Monkey* monkey = new Monkey("Monkey", "Uah uah", 25, 15, 2, jungle);
 	container.push_back(monkey);
-
+	*/
+	Bear* bear = new Bear("Bear", "look prety agressive", 75, 25, 10, monsterCave);
+	container.push_back(bear);
+	Hawk* hawk = new Hawk("Hawk", "A giant hawk", 50, 10, 10, bigNest);
+	container.push_back(hawk);
+	Eel* eel = new Eel("Eel", "It has many teeth", 40, 20, 5, underwaterCave);
+	container.push_back(eel);
 	Seller* seller = new Seller("Seller", "A food processing machine", 100, 100, 100, altar);
 	container.push_back(seller);
 	//////////////////////////////PutItems/////////////////////////////
@@ -138,10 +145,25 @@ void World::createWorld(){
 	thornForestWest->list.Push_back(fuel);
 	mountain->list.Push_back(bigRock);
 	rubble->list.Push_back(jumpBoots);
-	monsterCave->list.Push_back(core);
-	bigNest->list.Push_back(transmitter);
-	underwaterCave->list.Push_back(antenna);
+	bear->list.Push_back(core);
+	hawk->list.Push_back(transmitter);
+	eel->list.Push_back(antenna);
 
+}
+void World::Update(){
+	int i = 0;
+	currentTime = GetTickCount();
+	if (currentTime >= (lastTime + 50000) && MonkeyNumber<2){
+		for (i = 0; i < container.size(); i++){
+			if (((Room*)container[i])->name == "Jungle"){
+				break;
+			}
+		}
+		lastTime = currentTime;
+		Monkey* monkey = new Monkey("Monkey", "Uah uah", 25, 15, 5, ((Room*)container[i]));
+		container.push_back(monkey);
+		MonkeyNumber++;
+	}
 }
 
 void World::CleanUp(){

@@ -14,6 +14,7 @@ public:
 	void Die();
 	void Update();
 	void Inventory();
+	void Speak();
 	void Atack(Player* hero);
 public:
 	unsigned int currentTime, lastTime = 0;

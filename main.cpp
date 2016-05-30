@@ -27,6 +27,7 @@ int main(){
 	{
 		currentTime = GetTickCount();
 			if (currentTime >= (lastTime + 1000)){
+				App->Update();
 				lastTime = currentTime;
 				for (int i = 0; i < App->container.size(); i++){
 					if (App->container[i] == nullptr){
@@ -36,12 +37,12 @@ int main(){
 					if (((Creature*)App->container[i])->isDead == true){
 						delete App->container[i];
 						App->container[i]=nullptr;
-						App->container.clean_selected(i);
+						App->container.erase(i);
 					}
 					else if (((Item*)App->container[i])->toDestroy == true){
 						delete App->container[i];
 						App->container[i] = nullptr;
-						App->container.clean_selected(i);
+						App->container.erase(i);
 					}
 				}
 			}

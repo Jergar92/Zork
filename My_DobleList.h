@@ -98,25 +98,29 @@ public:
 		}
 	}
 	void Erase(Node* data){
-		Node* temp = data;
 
-		if (temp != nullptr){
-			if (temp->prev == nullptr){
-				temp = temp->next;
-				first_data = temp;
+		if (data != nullptr){
+			if (size() > 1){
+				if (data->prev == nullptr){
+					first_data = data->next;
+					first_data->prev= nullptr;
 
-			}
-			else if (temp->next == nullptr){
-				temp->prev->next = nullptr;
+				}
+				else if (data->next == nullptr){
+					data->prev->next = nullptr;
+				}
+				else{
+					data->prev->next = data->next;
+					data->next->prev = data->prev;
+				}
+				delete data;
 			}
 			else{
-				temp->prev->next = temp->next;
-				temp->next->prev = temp->prev;
+				first_data = nullptr;
+				delete data;
 			}
-			delete data;
-
-
 		}
+
 	}
 	void Insert(Node* pos, const TYPE &data){
 		Node* temp = pos;

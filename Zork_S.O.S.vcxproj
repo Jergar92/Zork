@@ -64,9 +64,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BearMonster.cpp" />
     <ClCompile Include="Creature.cpp" />
+    <ClCompile Include="EelMonster.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Exit.cpp" />
+    <ClCompile Include="HawkMonster.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MonkeyMonster.cpp" />
@@ -77,6 +80,9 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BearMonster.h" />
+    <ClInclude Include="EelMonster.h" />
+    <ClInclude Include="HawkMonster.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Exit.h" />

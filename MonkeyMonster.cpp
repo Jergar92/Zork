@@ -66,9 +66,13 @@ void Monkey::Update(){
 					}
 					for (i = 0; i < App->container.size(); i++){
 
-						if (App->container[i]->isType == MONSTER && App->container[i] != this){
+						if (App->container[i]->isType == MONSTER && !(App->container[i]->name == this->name) && ((Creature*)App->container[i])->isDead == false){
 							if (((Creature*)App->container[i])->location == location){
 								currentState = ATACK_NPC;
+								break;
+							}
+							else{
+								currentState = MOVE;
 							}
 
 						}
@@ -77,9 +81,14 @@ void Monkey::Update(){
 					else{
 					for (i = 0; i < App->container.size(); i++){
 
-						if (App->container[i]->isType == MONSTER && App->container[i] != this){
+						if (App->container[i]->isType == MONSTER && !(App->container[i]->name == this->name) && ((Creature*)App->container[i])->isDead == false){
 							if (((Creature*)App->container[i])->location == location){
 								currentState = ATACK_NPC;
+								break;
+							}
+							else{
+								currentState = MOVE;
+						
 							}
 
 						}
@@ -87,6 +96,10 @@ void Monkey::Update(){
 						{
 							if (App->hero->location == location){
 								currentState = ATACK_HERO;
+								break;
+							}
+							else{
+								currentState = MOVE;
 							}
 						}
 
@@ -156,7 +169,7 @@ void Monkey::Go(){//this move the player if the move is possible
 	
 		for (int i = 0; i < App->container.size(); i++){
 			if (App->container[i]->isType == EXIT){
-				if (((Exit*)App->container[i])->direction == direction && ((Exit*)App->container[i])->origin->name.C_Str() == location->name.C_Str()){
+				if (((Exit*)App->container[i])->direction == direction && ((Exit*)App->container[i])->origin == location){
 					if (((Exit*)App->container[i])->closed == true){//check if the exit is closed
 						if (((Exit*)App->container[i])->door == true){//check if the exit is closed
 							((Exit*)App->container[i])->closed = false;
@@ -184,7 +197,6 @@ void Monkey::Go(){//this move the player if the move is possible
 							printf("the %s left the %s and go to %s\n", this->name.C_Str(), App->hero->location->name.C_Str(), ((Exit*)App->container[i])->destination->name.C_Str());
 						}
 						location = ((Exit*)App->container[i])->destination;//change your location
-
 						return;
 					}
 				}
@@ -280,6 +292,7 @@ void Monkey::Die(){
 			}			
 		}
 	printf("the %s is dead\n", name.C_Str());
+	App->MonkeyNumber--;
 	isDead = true;
 	}
 

@@ -45,14 +45,18 @@ Example complex commands
 
  - Look here == Look
  - Look hero, Look hero stats
- - Look <name_item>, Look <name_item> stats
+ - Look "name_item", Look "name_item" stats
  - Look inside trunk
- - Put <item> into trunk
- - Get <item> from trunk
- - Equip <item>
- - Unequip <item>
+ - Put "item" into trunk
+ - Get "item" from trunk
+ - Equip "item"
+ - Unequip "item"
  - Push rock to north/east/west/south
- 
+ - Sell "item" to Seller
+ - Buy "item to Seller
+ - But Seller
+ - Eat/drink "item"
+ - Atack "creature"
  
 
 

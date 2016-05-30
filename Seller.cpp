@@ -33,7 +33,7 @@ void Seller::Update(){
 				 }
 					((Item*)item->data)->toDestroy = true;
 					location->list.Erase(item);
-					Item*  potion = new Item("Meat", "a good piece of meat that give me energy", 20, 0, true, MEAT);
+					Item*  potion = new Item("Potion", "this will recover my life", 20, 0, true, MEAT);
 					App->container.push_back(potion);
 					list.Push_back(potion);
 					break;
@@ -57,6 +57,9 @@ void Seller::Atack(Player* hero){
 		hero->life -= 1;
 		printf("%s hit to %s and do %i damage\n", name.C_Str(), hero->name.C_Str(), 1);
 	}
+}
+void Seller::Speak(){
+	printf("Seller - Hi, human I am a food processing machine , if I bring meat I will make it potions, is a long process , so if you want you can go and come back later.\n");
 }
 void Seller::Inventory(){
 	if (!list.empty()){
