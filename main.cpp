@@ -13,15 +13,8 @@ int main(){
 	MyString words;
 	Vector<MyString>strings;
 	unsigned int currentTime, lastTime = 0;
-
-
 	App->createWorld();
 	App->Help();
-
-
-
-
-
 	App->hero->Look();
 	while (1)
 	{
@@ -34,7 +27,11 @@ int main(){
 						continue;
 					}
 					App->container[i]->Update();
-					if (((Creature*)App->container[i])->isDead == true){
+					if (App->hero->isDead == true){
+						break;
+					}
+					else if (((Creature*)App->container[i])->isDead == true){
+						
 						delete App->container[i];
 						App->container[i]=nullptr;
 						App->container.erase(i);
@@ -51,7 +48,7 @@ int main(){
 			key = _getch();
 			operation[next++] = key;
 			printf("%c", key);
-			if (key == '\r'){
+			if (key == '\r'||next>90){
 				operation[--next] = '\0';
 				words.Token(operation, strings);
 				App->getOperation(strings);
@@ -64,13 +61,11 @@ int main(){
 				next--;
 			}
 		}
-		if ((strings[0] == "quit")){
+		if ((strings[0] == "quit") || App->hero->isDead == true){
 			break;
 		}
 	}
-
-	App->CleanUp();
+	App->CleanUp();//clean most of the memory leaks
 	return 0;
-
 }
 

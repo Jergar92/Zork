@@ -4,7 +4,7 @@
 #include "Item.h"
 class Room;
 enum TypeCreature{HERO,SELLER,NO_HOSTILE,HOSTILE_PLAYER,HOSTILE_ALL};
-enum State{IDLE, MOVE, TAKE, STEAL, ATACK_HERO, ATACK_NPC, DIE };
+enum State{IDLE, MOVE, TAKE, STEAL, ATTACK_HERO, ATTACK_NPC, DIE };
 
 class Creature : public Entity
 {
@@ -25,12 +25,13 @@ public:
 	virtual void PutInto(Vector<MyString> &strings);
 	virtual void GetFrom(Vector<MyString> &strings);
 	virtual void Look()const;
+
 	void Update();
 public:
 	Room* location;
 
 	int life = 100;
-	unsigned int atack = 1;
+	unsigned int attack = 1;
 	unsigned int armor = 1;
 	bool isDead = false;
 	TypeCreature CreatureType;

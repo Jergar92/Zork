@@ -11,8 +11,8 @@ public:
 	~Bear();
 	void Die();
 	void Update();
-	void Atack(Creature* container);
-	void Atack(Player* hero);
+	void Attack(Creature* container);
+	void Attack(Player* hero);
 public:
 	unsigned int currentTime, lastTime = 0;
 

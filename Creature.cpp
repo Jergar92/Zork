@@ -4,7 +4,7 @@ Creature::Creature()
 
 }
 Creature::Creature(const char* name, const char* description, int life, int atack, int armor,Room* location) :Entity(name, description)
-, life(life), atack(atack), armor(armor), location(location)
+, life(life), attack(atack), armor(armor), location(location)
 {
 }
 
@@ -16,7 +16,7 @@ void Creature::Update(){
 
 }
 void Creature::Stats()const{
-	printf("You have %i hp, %i atack and %i defense\n", life, atack, armor);
+	printf("You have %i hp, %i atack and %i defense\n", life, attack, armor);
 }
 
 void Creature::Go(Vector<MyString> &strings){//this move the player if the move is possible
@@ -321,7 +321,7 @@ void Creature::Equip(Vector<MyString> &strings){
 			if (strings[1] == ((Item*)item->data)->name && ((Item*)item->data)->isItem == BOOTS || ((Item*)item->data)->isItem == ARMOR || ((Item*)item->data)->isItem == WEAPON){
 				if (((Item*)item->data)->equiped == false){//equip and items give you stats
 					((Item*)item->data)->equiped = true;
-					atack += ((Item*)item->data)->atack;
+					attack += ((Item*)item->data)->atack;
 					armor += ((Item*)item->data)->defense;
 					printf("You equiped %s\n", ((Item*)item->data)->name);
 					return;
@@ -346,7 +346,7 @@ void Creature::UnEquip(Vector<MyString> &strings){
 			if (strings[1] == ((Item*)item->data)->name && ((Item*)item->data)->isItem == BOOTS || ((Item*)item->data)->isItem == ARMOR || ((Item*)item->data)->isItem == WEAPON){
 				if (((Item*)item->data)->equiped == true){//unequip and lost stats
 					((Item*)item->data)->equiped = false;
-					atack -= ((Item*)item->data)->atack;
+					attack -= ((Item*)item->data)->atack;
 					armor -= ((Item*)item->data)->defense;
 					printf("You have taken away %s\n", ((Item*)item->data)->name);
 					return;

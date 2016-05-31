@@ -2,6 +2,7 @@
 #include "time.h"
 #include <Windows.h>
 #include "EelMonster.h"
+#define time 2500
 
 Eel::Eel()
 {
@@ -26,7 +27,7 @@ void Eel::Update(){
 	}
 	int i = 0;
 	currentTime = GetTickCount();
-	if (currentTime >= (lastTime + 2500)){
+	if (currentTime >= (lastTime + time)){
 		if (life > 0){
 			lastTime = currentTime;
 			if (this->CreatureType == HOSTILE_ALL){
@@ -34,7 +35,7 @@ void Eel::Update(){
 					for (i = 0; i < App->container.size(); i++){
 						if (App->container[i]->isType == MONSTER && !(App->container[i]->name == this->name)){
 							if (((Creature*)App->container[i])->location == location && ((Creature*)App->container[i])->isDead == false){
-								currentState = ATACK_NPC;
+								currentState = ATTACK_NPC;
 								break;
 							}
 							else{
@@ -48,7 +49,7 @@ void Eel::Update(){
 
 						if (App->container[i]->isType == MONSTER && !(App->container[i]->name == this->name)){
 							if (((Creature*)App->container[i])->location == location&&((Creature*)App->container[i])->isDead == false){
-								currentState = ATACK_NPC;
+								currentState = ATTACK_NPC;
 								break;
 							}
 							else{
@@ -59,7 +60,7 @@ void Eel::Update(){
 						else if (App->container[i]->isType == PLAYER)
 						{
 							if (App->hero->location == location){
-								currentState = ATACK_HERO;
+								currentState = ATTACK_HERO;
 								break;
 							}
 							else{
@@ -77,11 +78,11 @@ void Eel::Update(){
 		}
 		switch (currentState)
 		{
-		case ATACK_HERO:
-			Atack(App->hero);
+		case ATTACK_HERO:
+			Attack(App->hero);
 			break;
-		case ATACK_NPC:
-			Atack(((Creature*)App->container[i]));
+		case ATTACK_NPC:
+			Attack(((Creature*)App->container[i]));
 			break;
 		case DIE:
 			Die();
@@ -91,43 +92,46 @@ void Eel::Update(){
 		}
 	}
 }
-void Eel::Atack(Player* hero){
-	if (hero->armor < atack){
-		hero->life -= (atack - hero->armor);
-		printf("%s hit to %s and do %i damage\n", name.C_Str(), hero->name.C_Str(), (atack - hero->armor));
-
+void Eel::Attack(Player* hero){
+	if (hero->armor < attack){
+		hero->life -= (attack - hero->armor);
+		printf("%s hit to %s and do %i damage\n", name.C_Str(), hero->name.C_Str(), (attack - hero->armor));
 	}
 	else{
 		hero->life -= 1;
 		printf("%s hit to %s and do %i damage\n", name.C_Str(), hero->name.C_Str(), 1);
 	}
 }
-void Eel::Atack(Creature* monster){
-	if (monster->armor < atack){
-		monster->life -= (atack - monster->armor);
-		printf("%s hit to %s and do %i damage\n", name.C_Str(), monster->name.C_Str(), monster->armor);
-
+void Eel::Attack(Creature* monster){
+	if (monster->armor < attack){
+		monster->life -= (attack - monster->armor);
+		if (location == App->hero->location){//If you're there the game tells you
+			printf("%s hit to %s and do %i damage\n", name.C_Str(), monster->name.C_Str(), monster->armor);
+		}
 	}
 	else{
 		monster->life -= 1;
-		printf("%s hit to %s and do %i damage\n", name.C_Str(), monster->name.C_Str(), 1);
+		if (location == App->hero->location){//If you're there the game tells you
+			printf("%s hit to %s and do %i damage\n", name.C_Str(), monster->name.C_Str(), 1);
+		}
 	}
 }
 void Eel::Die(){
 
 	if (!this->list.empty()){
-		printf("%s drop after die:\n", name.C_Str(), list.first_data->data->name.C_Str());
+		if (location == App->hero->location){//If you're there the game tells you
+			printf("%s drop after die:\n", name.C_Str(), list.first_data->data->name.C_Str());
+		}
 		for (; list.first_data != nullptr; list.first_data = list.first_data->next){
 			if (((Item*)list.first_data->data)->equiped == true){
 				((Item*)list.first_data->data)->equiped = false;
 			}
 			location->list.Push_back(list.first_data->data);
-			printf("%s\n", list.first_data->data->name.C_Str());
-
-
-
+			if (location == App->hero->location){//If you're there the game tells you
+				printf("%s\n", list.first_data->data->name.C_Str());
+			}
 		}
 	}
 	printf("the %s is dead\n", name.C_Str());
-	isDead = true;
+	isDead = true;//this will delete the creature on update
 }

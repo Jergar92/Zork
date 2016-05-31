@@ -15,8 +15,8 @@ public:
 	void Die();
 	void Equip();
 	void Update();
-	void Atack(Creature* container);
-	void Atack(Player* hero);
+	void Attack(Creature* container);
+	void Attack(Player* hero);
 	bool CheckTake();
 public:
 	unsigned int currentTime, lastTime = 0;

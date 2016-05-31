@@ -98,9 +98,9 @@ void World::createWorld(){
 	Item* powerArmor = new Item("Armor", "a powerful power armor, you will be more safe with this", 0, 20, false, true,  false, abandonedCave, ARMOR);
 	Item* jumpBoots = new Item("Boots", "a stunning jump boots, with it you can move faster", 5, 5, false, true,  false, rubble, BOOTS);
 	Item* fuel = new Item("Fuel", "a container fuel, could be useful", NULL, NULL, false, true,  false, thornForestEast, PICK);
-	Item* antenna = new Item("Antenna", "with this the beacon signal reached everywhere", NULL, NULL, false, true,  false, underwaterCave, PICK);
-	Item* core = new Item("Core", "a energy core, this will give power to the beacon", NULL, NULL, false, true,  false, bigNest, PICK);
-	Item* transmitter = new Item("Transmitter", "with this transmitter you can send a help message", NULL, NULL, false, true,  false, monsterCave, PICK);
+	Item* antenna = new Item("Antenna", "with this the beacon signal reached everywhere", NULL, NULL, false, true, false, underwaterCave, QUEST);
+	Item* core = new Item("Core", "a energy core, this will give power to the beacon", NULL, NULL, false, true, false, bigNest, QUEST);
+	Item* transmitter = new Item("Transmitter", "with this transmitter you can send a help message", NULL, NULL, false, true, false, monsterCave, QUEST);
 	Item* robot = new Item("Robot", "at the bottom of the waterfall you can see your assistant robot, it would be helpful but due to the strong current of water is impossible to remove you if something stop the waterfall...", NULL, NULL, false, false, false, waterfall, PICK);
 	Item* trunk = new Item("Trunk", "it is spacious and seems to fit everything", NULL, NULL, false, false, false, home, TRUNK);//I decided that it can not move , but if you change "canTake" to true you can move and work fine
 
@@ -152,8 +152,10 @@ void World::createWorld(){
 }
 void World::Update(){
 	int i = 0;
+	int counter = 0;
 	currentTime = GetTickCount();
-	if (currentTime >= (lastTime + 50000) && MonkeyNumber<2){
+	if (currentTime >= (lastTime + 50000) && MonkeyNumber<2 && counter<6){
+		counter++;
 		for (i = 0; i < container.size(); i++){
 			if (((Room*)container[i])->name == "Jungle"){
 				break;
@@ -172,107 +174,128 @@ void World::CleanUp(){
 	}
 }
 void World::getOperation(Vector<MyString> &strings){//list of possible operations
-if ((strings[0] == "north") || (strings[0] == "n")){
-		strings[1] = "north";
-		hero->Go(strings);
-		return;
-	}
-	else if ((strings[0] == "south") || (strings[0] == "s")){
-		strings[1] = "south";
-		hero->Go(strings);
+	if (App->hero->isDead == false){//this protect the game, if you are dead you can't command nothing
+		if ((strings[0] == "north") || (strings[0] == "n")){
+			strings[1] = "north";
+			hero->Go(strings);
+			return;
+		}
+		else if ((strings[0] == "south") || (strings[0] == "s")){
+			strings[1] = "south";
+			hero->Go(strings);
 
-		return;
-	}
-	else if ((strings[0] == "east") || (strings[0] == "e")){
-		strings[1] = "east";
-		hero->Go(strings);
+			return;
+		}
+		else if ((strings[0] == "east") || (strings[0] == "e")){
+			strings[1] = "east";
+			hero->Go(strings);
 
-		return;
-	}
-	else if ((strings[0] == "west") || (strings[0] == "w")){
-		strings[1] = "west";
+			return;
+		}
+		else if ((strings[0] == "west") || (strings[0] == "w")){
+			strings[1] = "west";
 
-		hero->Go(strings);
-		return;
-	}
-	else if ((strings[0] == "go") || (strings[0] == "g")){
-		hero->Go(strings);
-		return;
-	}
-	else if ((strings[0] == "open") || (strings[0] == "o")){
-		hero->Open(strings);
-		return;
-	}
-	else if ((strings[0] == "close") || (strings[0] == "c")){
-		hero->Close(strings);
-		return;
-	}
-	else if ((strings[0] == "look") || (strings[0] == "l")){
-		hero->Look(strings);
-		return;
-	}
-	else if ((strings[0] == "take") || (strings[0] == "t")){
-		hero->Take(strings);
-		return;
-	}
-	else if ((strings[0] == "drop") || (strings[0] == "d")){
-		hero->Drop(strings);
-		return;
-	}
-	else if ((strings[0] == "equip")){
-		hero->Equip(strings);
-		return;
-	}
-	else if ((strings[0] == "unequip")){
-		hero->UnEquip(strings);
-		return;
-	}
-	else if ((strings[0] == "push") || (strings[0] == "p")){
-		hero->Push(strings);
-		return;
-	}
-	else if ((strings[0] == "put") && (strings[2] == "into")){
-		hero->PutInto(strings);
-	
-		return;
-	}
+			hero->Go(strings);
+			return;
+		}
+		else if ((strings[0] == "go") || (strings[0] == "g")){
+			hero->Go(strings);
+			return;
+		}
+		else if ((strings[0] == "open") || (strings[0] == "o")){
+			hero->Open(strings);
+			return;
+		}
+		else if ((strings[0] == "close") || (strings[0] == "c")){
+			hero->Close(strings);
+			return;
+		}
+		else if ((strings[0] == "look") || (strings[0] == "l")){
+			hero->Look(strings);
+			return;
+		}
+		else if ((strings[0] == "take") || (strings[0] == "t")){
+			hero->Take(strings);
+			return;
+		}
+		else if ((strings[0] == "drop") || (strings[0] == "d")){
+			hero->Drop(strings);
+			return;
+		}
+		else if ((strings[0] == "equip")){
+			hero->Equip(strings);
+			return;
+		}
+		else if ((strings[0] == "unequip")){
+			hero->UnEquip(strings);
+			return;
+		}
+		else if ((strings[0] == "push") || (strings[0] == "p")){
+			hero->Push(strings);
+			return;
+		}
+		else if ((strings[0] == "put") && (strings[2] == "into")){
+			hero->PutInto(strings);
 
-	else if ((strings[0] == "get") && (strings[2] == "from")){
-		hero->GetFrom(strings);
+			return;
+		}
 
-		return;
-	}
-	else if ((strings[0] == "atack")){
-		hero->Atack(strings);
+		else if ((strings[0] == "get") && (strings[2] == "from")){
+			hero->GetFrom(strings);
 
-		return;
-	}
-	else if ((strings[0] == "eat" || strings[0] == "drink")){
-		hero->Eat_Drink(strings);
+			return;
+		}
+		else if ((strings[0] == "atack")){
+			hero->Attack(strings);
 
-		return;
-	}
-	else if (strings[0] == "buy"){
-		hero->Buy(strings);
+			return;
+		}
+		else if ((strings[0] == "special") && (strings[1] == "atack")){
+			hero->SpecialAttack(strings);
+			return;
+		}
+		else if ((strings[0] == "eat" || strings[0] == "drink")){
+			hero->Eat_Drink(strings);
 
-		return;
-	}
-	else if (strings[0] == "sell" ){
-		hero->Sell(strings);
+			return;
+		}
+		else if (strings[0] == "buy"){
+			hero->Buy(strings);
 
-		return;
+			return;
+		}
+		else if (strings[0] == "sell"){
+			hero->Sell(strings);
+
+			return;
+		}
+		else if (strings[0] == "speak"){
+			hero->Speak(strings);
+
+			return;
+		}
+		else if (strings[0] == "mount"){
+			hero->Mount(strings);
+			
+		}
+		else if ((strings[0] == "help") || (strings[0] == "h")){
+			Help();
+			return;
+		}
+		else if (strings[0] == "quit"){
+			return;
+		}
+		else{
+			printf("wrong operation\n");
+		}
 	}
-	else if ((strings[0] == "help") || (strings[0] == "h")){
-		Help();
-		return;
-	}
-	else if (strings[0] == "quit"){
-		return;
-	}
-	
 	else{
-		printf("wrong operation\n");
+	 if (strings[0] == "quit"){
+		return;
 	}
+	}
+	
+	
 }
 int World::getDirection(Vector<MyString> &strings){//this defines the direction, if not found returns -1 and the program will exit
 	int i = 0;

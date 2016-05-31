@@ -1,8 +1,10 @@
 #include "World.h"
 #include <Windows.h>
-
-
-
+#define lostLifeEnergy 5
+#define SPECIAL 2
+#define AtackTime 5000
+#define EnergyTime 20000
+#define SpecialAtackTime 20000
 Player::Player()
 {
 
@@ -19,29 +21,62 @@ Player::~Player()
 	
 }
 void Player::Stats()const{
-	printf("You have %i hp, %i atack and %i defense and %i\n", life, atack, armor,energy);
+	printf("You have %i hp, %i atack and %i defense and %i of energy\n", life, attack, armor,energy);
 }
 void Player::Update(){
-	currentAtackTime = GetTickCount();
-	if (currentAtackTime >= (lastAtackTime + 3000)){
-			lastAtackTime = currentTime;
+
+	if (life >= 0){
+		currentTime = GetTickCount();
+		currentAttackTime = GetTickCount();
+		currentSpecialAttackTime = GetTickCount();
+
+		if (currentTime >= (lastTime + EnergyTime)){//this decrease your energy if you don't have energy your life
+			lastTime = currentTime;
+			if (energy <= 0){
+				printf("You lost %i of life\n", lostLifeEnergy);
+				life -= lostLifeEnergy;
+			}
+			else {
+				printf("You lost %i of energy\n", lostLifeEnergy);
+				energy -= lostLifeEnergy;
+			}
+			if (life < 20){
+				printf("Take care, You only have %i of life\n", life);
+			}
+			if (energy < 20){
+				printf("Take care, You only have %i of energy\n", energy);
+			}
+		}
+		if (currentAttackTime >= (lastAttackTime + AtackTime)){//this is the autoatack
+			lastAttackTime = currentTime;
 			if (Target != nullptr){
 				if (Target->isDead == true){
 					Target = nullptr;
 					return;
 				}
-				AtackTarget(Target);
-			}
-			
+				AttackTarget(Target);
+			}	
+		}
+
+		if (currentSpecialAttackTime >= (lastSpecialAttackTime + SpecialAtackTime)&&specialAttack==false){//informs you once if you can use the special attack
+			printf("you've regained your strength, you can do special atack again\n");
+			specialAttack = true;
+		}
+	}
+	else{
+		printf("You are dead\n\n");//this end the game
+		printf("This is the end of the game press enter for exit\n");
+		getchar();
+		isDead = true;
 	}
 }
 
-void Player::AtackTarget(Creature* target){
+void Player::AttackTarget(Creature* target){
 	if (target->location == location){
 
-		if (target->armor < atack){
-			target->life -= (atack - target->armor);
-			printf("%s hit to %s and do %i damage\n", name.C_Str(), target->name.C_Str(), (atack - target->armor));
+		if (target->armor < attack){
+			target->life -= (attack - target->armor);
+			printf("%s hit to %s and do %i damage\n", name.C_Str(), target->name.C_Str(), (attack - target->armor));
 
 		}
 		else{
@@ -53,35 +88,71 @@ void Player::AtackTarget(Creature* target){
 		Target = nullptr;
 	}
 }
-void Player::Atack(Vector<MyString> &strings){
+void Player::Attack(Vector<MyString> &strings){
+
+		for (int i = 0; i < App->container.size(); i++){
+			if (App->container[i]->isType == MONSTER){
+
+				if (((Creature*)App->container[i])->name == strings[1] && ((Creature*)App->container[i])->location == location){
+					Target = ((Creature*)App->container[i]);
+					if (((Creature*)App->container[i])->armor < attack){
+						if (((Creature*)App->container[i])->CreatureType == NO_HOSTILE){
+							((Creature*)App->container[i])->CreatureType = HOSTILE_PLAYER;
+						}
+						((Creature*)App->container[i])->life -= (attack - ((Creature*)App->container[i])->armor);
+						printf("%s hit to %s and do %i damage\n", name.C_Str(), ((Creature*)App->container[i])->name.C_Str(), (attack - ((Creature*)App->container[i])->armor));
+						return;//this prevents you hit more than one monkey at a time
+					}
+					else{
+						if (((Creature*)App->container[i])->CreatureType == NO_HOSTILE){
+							((Creature*)App->container[i])->CreatureType = HOSTILE_PLAYER;
+						}
+						((Creature*)App->container[i])->life -= 1;
+						printf("%s hit to %s and do %i damage\n", name.C_Str(), ((Creature*)App->container[i])->name.C_Str(), 1);
+						return;//this prevents you hit more than one monkey at a time
+
+					}
+
+				}
+			}
+		}
+	
+}
+void Player::SpecialAttack(Vector<MyString> &strings){
+	if (currentSpecialAttackTime >= (lastSpecialAttackTime + SpecialAtackTime)){
+		lastSpecialAttackTime = currentSpecialAttackTime;
 	for (int i = 0; i < App->container.size(); i++){
 		if (App->container[i]->isType == MONSTER){
 
-			if (((Creature*)App->container[i])->name == strings[1] && ((Creature*)App->container[i])->location == location){
+			if (((Creature*)App->container[i])->name == strings[2] && ((Creature*)App->container[i])->location == location){
 				Target = ((Creature*)App->container[i]);
-				if (((Creature*)App->container[i])->armor < atack){
-					if (((Creature*)App->container[i])->CreatureType == NO_HOSTILE){
+				specialAttack = false;
+				if (((Creature*)App->container[i])->armor < attack){
+					if (((Creature*)App->container[i])->CreatureType == NO_HOSTILE){//if the creature is no hostile turn to hostile to you
 						((Creature*)App->container[i])->CreatureType = HOSTILE_PLAYER;
 					}
-					((Creature*)App->container[i])->life -= (atack - ((Creature*)App->container[i])->armor);
-					printf("%s hit to %s and do %i damage\n", name.C_Str(), ((Creature*)App->container[i])->name.C_Str(), (atack - ((Creature*)App->container[i])->armor));
-					return;
+					((Creature*)App->container[i])->life -= ((SPECIAL*attack) - ((Creature*)App->container[i])->armor);
+					printf("You hit with all your strength\n\n");
+					printf("%s hit to %s and do %i damage\n", name.C_Str(), ((Creature*)App->container[i])->name.C_Str(), ((SPECIAL*attack) - ((Creature*)App->container[i])->armor));
+					return;//this prevents you hit more than one monkey at a time
 				}
 				else{
-					if (((Creature*)App->container[i])->CreatureType == NO_HOSTILE){
+					if (((Creature*)App->container[i])->CreatureType == NO_HOSTILE){//if the creature is no hostile turn to hostile to you
 						((Creature*)App->container[i])->CreatureType = HOSTILE_PLAYER;
 					}
-					((Creature*)App->container[i])->life -= 1;
-					printf("%s hit to %s and do %i damage\n", name.C_Str(), ((Creature*)App->container[i])->name.C_Str(), 1);
-					return;
+					((Creature*)App->container[i])->life -= 1 * SPECIAL;
+					printf("You hit with all your strength\n\n");
+					printf("%s hit to %s and do %i damage\n", name.C_Str(), ((Creature*)App->container[i])->name.C_Str(), 1 * SPECIAL);
+					return;//this prevents you hit more than one monkey at a time
 
 				}
-			
+
 			}
 		}
 	}
+	}
 }
-void Player::Speak(Vector<MyString> &strings){//this move the player if the move is possible
+void Player::Speak(Vector<MyString> &strings)const{//this is for get info from the seller
 
 	for (int i = 0; i < App->container.size(); i++){
 		if (((Creature*)App->container[i])->CreatureType == SELLER){
@@ -154,7 +225,7 @@ void Player::Look()const{//LOOK CURRENT ROOM AND HIS ITEMS
 }
 
 
-void Player::Look(Vector<MyString> &strings){
+void Player::Look(Vector<MyString> &strings){//because getDirection can be const
 	int direction = -1;
 	direction = App->getDirection(strings);//dat get the right direction
 	if (direction == -1){
@@ -210,25 +281,24 @@ void Player::Look(Vector<MyString> &strings){
 			return;
 		}
 		else{
-			for (int i = 0; i < App->container.size(); i++){//LOOK SPECIFIC OBJECTS(no inventory items)
-				if (App->container[i]->isType == ITEM){
-					if (((Item*)App->container[i])->location->name == location->name){
-						if (strings[1] == ((Item*)App->container[i])->name){
+			for (int i = 0; i < location->list.size(); i++){//LOOK SPECIFIC OBJECTS(NO iventory items)
+				if (!location->list.empty()){
+					const List<Entity*>::Node* item = location->list.first_data;
+					for (; item != nullptr; item = item->next){
+						if (strings[1] == item->data->name){
 							if (strings[2] == "stats"){
-								if (((Item*)App->container[i])->isType == ARMOR || ((Item*)App->container[i])->isType == WEAPON || ((Item*)App->container[i])->isType == BOOTS) {
-									((Item*)App->container[i])->Stats();
+								if (item->data->isType == ARMOR || item->data->isType == WEAPON || item->data->isType == BOOTS) {
+									item->data->Stats();
 								}
 								else{
 									printf("this item don't have stats");
 								}
+								return;
 							}
-							else{
-								((Item*)App->container[i])->Look();
-							}
-							return;
 						}
 					}
 				}
+
 			}
 			for (int i = 0; i < list.size(); i++){//LOOK SPECIFIC OBJECTS(iventory items)
 				if (!list.empty()){
@@ -370,7 +440,7 @@ void Player::Take(Vector<MyString> &strings){//TAKE OBJECTS
 	}
 }
 
-void Player::Eat_Drink(Vector<MyString> &strings){//TAKE OBJECTS
+void Player::Eat_Drink(Vector<MyString> &strings){//use meat or piton
 
 	if (!list.empty()){
 		List<Entity*>::Node* item = list.first_data;
@@ -379,14 +449,14 @@ void Player::Eat_Drink(Vector<MyString> &strings){//TAKE OBJECTS
 			if (((Item*)item->data)->name == strings[1] && ((Item*)item->data)->isItem == MEAT){
 					energy += ((Item*)item->data)->energy;
 					printf("You eat %s your energy is %i now\n", ((Item*)item->data)->name.C_Str(),energy);
-					((Item*)item->data)->toDestroy = true;
+					((Item*)item->data)->toDestroy = true;//update will delete this item
 					location->list.Erase(item);
 					break;
 				}
 			else if (((Item*)item->data)->name == strings[1] && ((Item*)item->data)->isItem == POTION){
 				life += ((Item*)item->data)->life;
 				printf("You drink %s your life is %i now\n", ((Item*)item->data)->name.C_Str(), life);
-				((Item*)item->data)->toDestroy = true;
+				((Item*)item->data)->toDestroy = true;//update will delete this item
 				location->list.Erase(item);
 				break;
 			}
@@ -396,20 +466,66 @@ void Player::Eat_Drink(Vector<MyString> &strings){//TAKE OBJECTS
 				}
 			}
 		}	
+	}
+void Player::Mount(Vector<MyString> &strings){//this is the action to end the game
+	if (!this->list.empty()){
+		int counter = 0;
+		bool robot = false;
+		List<Entity*>::Node* item = this->list.first_data;
+		for (; item != nullptr; item = item->next){
+			if (strings[1] == "beacon"){//Look if you have this item on you inventory
+				if (((Item*)item->data)->isItem == QUEST){
+					counter++;
+				}
+				if (((Item*)item->data)->name == "Robot"){
+					robot = true;
+				}
+			}
+		}
+		if (counter == 3 && energy <= 20 &&robot==false){//if you do not have enough energy and you don't have the robot you lose
+			printf("You got assembling the beacon but starve before getting help\n\n");
+			printf("This is the end of the game press any button for exit\n");
+			getchar();
+			strings[0] = "quit";
+		}
+		else if (counter == 3 && energy <= 20 && robot == true){//if you do not have enough energy and but you have the robot you win
+			printf("You have successfully managed to save you congratulations!!\n\n");
+			printf("This is the end of the game press any button for exit\n");
+
+			getchar();
+			strings[0] = "quit";
+
+		}
+		else if (counter == 3 && energy > 20){//if you have enough energy you win
+			printf("You have successfully managed to save you congratulations!!\n\n");
+			printf("This is the end of the game press any button for exit\n");
+
+			getchar();
+			strings[0] = "quit";
+
+		}
+		else{//if you don't have the three objects needen you still playing
+			printf("You do not have the three objects needed");
+		}
+	}
+	else{
+		printf("You don't have items");
+
+	}
 }
-void Player::Buy(Vector<MyString> &strings){
+void Player::Buy(Vector<MyString> &strings){//take potion from seller or look seller inventory
 	for (int i = 0; i < App->container.size(); i++){
 		if (((Creature*)App->container[i])->CreatureType == SELLER){
-			if (((Creature*)App->container[i])->name == strings[1] && ((Creature*)App->container[i])->location == location){
+			if (((Creature*)App->container[i])->name == strings[1] && ((Creature*)App->container[i])->location == location){//this is for look inventory
 				((Seller*)App->container[i])->Inventory();
 			}
-			else if ((((Creature*)App->container[i])->name == strings[3] && ((Creature*)App->container[i])->location == location)){
+			else if ((((Creature*)App->container[i])->name == strings[3] && ((Creature*)App->container[i])->location == location)){//this is for take potion from him
 				if (!((Creature*)App->container[i])->list.empty()){
 					List<Entity*>::Node* item = ((Creature*)App->container[i])->list.first_data;
 					for (; item != nullptr; item = item->next)
 					{
 						if (((Item*)item->data)->name == strings[1]){
-							if (((Item*)item->data)->isItem == POTION && ((Item*)item->data)->canTake == true){//Check if is enviroment item and if you can take
+							if (((Item*)item->data)->isItem == POTION && ((Item*)item->data)->canTake == true){//Check if is potion item and if you can take
 								this->list.Push_back(((Item*)item->data));
 								printf("You take %s from %s\n", ((Item*)item->data)->name.C_Str(), ((Creature*)App->container[i])->name.C_Str());
 								((Creature*)App->container[i])->list.Erase(item);
@@ -427,7 +543,7 @@ void Player::Buy(Vector<MyString> &strings){
 		}
 	}
 }
-void Player::Sell(Vector<MyString> &strings){
+void Player::Sell(Vector<MyString> &strings){//give meat to seller
 	for (int i = 0; i < App->container.size(); i++){
 		if (((Creature*)App->container[i])->CreatureType == SELLER){
 			if ((((Creature*)App->container[i])->name == strings[3] && ((Creature*)App->container[i])->location == location)){
@@ -436,7 +552,7 @@ void Player::Sell(Vector<MyString> &strings){
 					for (; item != nullptr; item = item->next)
 					{
 						if (((Item*)item->data)->name == strings[1]){
-							if (((Item*)item->data)->isItem == MEAT && ((Item*)item->data)->canTake == true){//Check if is enviroment item and if you can take
+							if (((Item*)item->data)->isItem == MEAT && ((Item*)item->data)->canTake == true){//Check if is meat item
 								((Creature*)App->container[i])->list.Push_back(((Item*)item->data));
 								printf("You give %s to %s\n", ((Item*)item->data)->name.C_Str(), ((Creature*)App->container[i])->name.C_Str());
 								list.Erase(item);
@@ -490,7 +606,7 @@ void Player::Equip(Vector<MyString> &strings){
 			if (strings[1] == ((Item*)item->data)->name && ((Item*)item->data)->isItem == BOOTS || ((Item*)item->data)->isItem == ARMOR || ((Item*)item->data)->isItem == WEAPON){
 				if (((Item*)item->data)->equiped == false){//equip and items give you stats
 					((Item*)item->data)->equiped = true;
-					atack += ((Item*)item->data)->atack;
+					attack += ((Item*)item->data)->atack;
 					armor += ((Item*)item->data)->defense;
 					printf("You equiped %s\n", ((Item*)item->data)->name);
 					return;
@@ -515,7 +631,7 @@ void Player::UnEquip(Vector<MyString> &strings){
 			if (strings[1] == ((Item*)item->data)->name && ((Item*)item->data)->isItem == BOOTS || ((Item*)item->data)->isItem == ARMOR || ((Item*)item->data)->isItem == WEAPON){
 				if (((Item*)item->data)->equiped == true){//unequip and lost stats
 					((Item*)item->data)->equiped = false;
-					atack -= ((Item*)item->data)->atack;
+					attack -= ((Item*)item->data)->atack;
 					armor -= ((Item*)item->data)->defense;
 					printf("You have taken away %s\n", ((Item*)item->data)->name);
 					return;
@@ -563,7 +679,7 @@ void Player::Push(Vector<MyString> &strings){
 						((Item*)item->data)->canPush = false;
 						((Exit*)App->container[i])->destination->list.Push_back(((Item*)item->data));
 						((Exit*)App->container[i])->origin->list.Erase(item);//this blocks the fight against the monster (monsters not implemented)
-						for (int j = 0; j < App->container.size(); j++){//All monsters die
+						for (int j = 0; j < App->container.size(); j++){//All monsters die on this location die
 							if (App->container[j]->isType == MONSTER){
 								if (((Exit*)App->container[i])->destination == ((Creature*)App->container[j])->location){
 									((Creature*)App->container[j])->life -= 200;

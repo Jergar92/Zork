@@ -2,7 +2,7 @@
 #define _ITEM
 #include "World.h"
 
-enum itemType{ WEAPON, ARMOR, BOOTS, PICK, ENVIROMENT, TRUNK, MEAT, POTION };
+enum itemType{ WEAPON, ARMOR, BOOTS, PICK, ENVIROMENT, TRUNK, MEAT, POTION,QUEST };
 
 class Room;
 

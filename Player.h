@@ -12,7 +12,7 @@ public:
 	Player(const char* name, const char* description, int life, int atack, int armor, unsigned int energy, Room* location);
 	~Player();
 	void Stats()const;
-	void Speak(Vector<MyString> &strings);
+	void Speak(Vector<MyString> &strings)const;
 
 	void Go(Vector<MyString> &strings);
 	void Look(Vector<MyString> &strings);
@@ -22,14 +22,18 @@ public:
 	void Eat_Drink(Vector<MyString> &strings);
 	void Buy(Vector<MyString> &strings);
 	void Sell(Vector<MyString> &strings);
+	void Mount(Vector<MyString> &strings);
+
 	void Drop(Vector<MyString> &strings);
 	void Equip(Vector<MyString> &strings);
 	void UnEquip(Vector<MyString> &strings);
 	void Push(Vector<MyString> &strings);
 	void PutInto(Vector<MyString> &strings);
 	void GetFrom(Vector<MyString> &strings);
-	void Atack(Vector<MyString> &strings);
-	void AtackTarget(Creature* creature);
+	void Attack(Vector<MyString> &strings);
+	void SpecialAttack(Vector<MyString> &strings);
+
+	void AttackTarget(Creature* creature);
 
 	void Look()const;
 	void Update();
@@ -37,8 +41,9 @@ public:
 public:
 	unsigned int energy = 0;
 	unsigned int currentTime, lastTime = 0;
-	unsigned int currentAtackTime, lastAtackTime = 0;
-
+	unsigned int currentAttackTime, lastAttackTime = 0;
+	unsigned int currentSpecialAttackTime, lastSpecialAttackTime = 0;
+	bool specialAttack = true;
 	Creature* Target=nullptr;
 };
 

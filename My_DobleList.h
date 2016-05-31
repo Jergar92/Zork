@@ -38,12 +38,14 @@ public:
 	}
 	Node* end(){
 		Node* temp = first_data;
-		if (temp != nullptr){
-			while (temp->next != nullptr){
-				temp = temp->next;
-			}
+		Node* end = nullptr;
+		while (temp != nullptr)
+		{
+			end = temp;
+			temp = temp->next;
 		}
-		return temp;
+
+		return end;
 	}
 	void Push_back(const TYPE &data){
 		Node* temp = end();
