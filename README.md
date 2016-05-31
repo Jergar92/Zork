@@ -85,6 +85,7 @@ Example complex commands
  - Mount Beacon
 
 ITEMS
+
  - Armor-> attack: 0 defense: 20
  - Laser Gun-> attack: 20 defense: 0
  - Jump Boots-> attack: 5 defense: 5
@@ -95,17 +96,24 @@ ITEMS
  - Antenna->The Eel has that object
  - Robot-> With this object does not need energy to create the beacon
  - Fuel-> No functionality implemented
+ - Meat-> Recober energy, enemies drop meat at die
+ - Potions-> Recober life, Seller creates potions if you give meat
+
 NPC
 
- - Monkeys-> life:25 attack: 15 defense: 5 info: monkeys can steal objects and equip, beware (if one monkey take the armor + laser gun and take one quest item sorry for you.)
+ - Monkeys-> life:25 attack: 15 defense: 5 info: monkeys can take objects and equip, beware (if one monkey take the armor + laser gun and take one quest item sorry for you.)
  - Bear->life:100 attack: 30 defense: 20 info: the most powerful monster, a lot of life force and defense, You need an armor and gun to kill
  - Hawk->life:50 attack: 15defense: 15 info: It is a balanced beast, it would be the first that you should defeat
  - Eel->life:40 attack: 40 defense: 5  Info: is weak but very strong Equip armor if you do not want to die
  - Seller-> If you give food transforms it into potions to recover your life, but do not use all your meat because you need it to recover energy
 
+Speacial feature
+
+ - Periodically you lose energy if you don't have energy you lose life.
+
 Win Condition
 
--  You need the core, the transmitter and the antenna for win but also need at least 20 more energy or the robot of the waterfall
+-  You need the core, the transmitter and the antenna for win but also need at least 20 more energy or the robot is in the waterfall
 
 Lose Condition
 
