@@ -23,23 +23,30 @@ int main(){
 				App->Update();
 				lastTime = currentTime;
 				for (int i = 0; i < App->container.size(); i++){
-					if (App->container[i] == nullptr){
-						continue;
+					if (App->container[i]->isType == MONSTER || App->container[i]->isType == PLAYER || App->container[i]->isType == SELLER){
+						if (App->container[i] == nullptr){
+							continue;
+						}
+						App->container[i]->Update();
 					}
-					App->container[i]->Update();
 					if (App->hero->isDead == true){
 						break;
 					}
-					else if (((Creature*)App->container[i])->isDead == true){
+				}
+				for (int i = 0; i < App->container.size(); i++){
+				
+					if (((Creature*)App->container[i])->isDead == true){
 						
 						delete App->container[i];
 						App->container[i]=nullptr;
 						App->container.erase(i);
+						i--;
 					}
 					else if (((Item*)App->container[i])->toDestroy == true){
 						delete App->container[i];
 						App->container[i] = nullptr;
 						App->container.erase(i);
+						i--;
 					}
 				}
 			}

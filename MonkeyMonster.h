@@ -11,7 +11,7 @@ public:
 	~Monkey();
 	void Go();
 	void Take();
-	void Steal();
+	//void Steal();
 	void Die();
 	void Equip();
 	void Update();

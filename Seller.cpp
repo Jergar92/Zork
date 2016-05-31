@@ -49,17 +49,13 @@ void Seller::Speak(){//give info to player
 }
 void Seller::Inventory(){//inspects his inventory
 	if (!list.empty()){
-		for (int i = 0; i < list.size(); i++){
-			if (!list.empty()){
 				const List<Entity*>::Node* item = list.first_data;
 				printf("Seller - This is my inventory:\n");
 				for (; item != nullptr; item = item->next)
 				{
 					printf("%s\n", item->data->name.C_Str());
 				}
-			}
-		}
-	}
+			}	
 	else{
 		printf("Seller - I don't have nothing");
 	}

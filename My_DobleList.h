@@ -48,15 +48,20 @@ public:
 		return end;
 	}
 	void Push_back(const TYPE &data){
-		Node* temp = end();
-		Node* newNode = new Node(data);
-		if (temp == nullptr){
-			first_data = newNode;
+
+		Node* item = new Node(data);
+		Node* last = end();
+
+		if (last != nullptr)
+		{
+			item->prev = last;
+			last->next = item;
+		
 		}
 		else{
-			newNode->prev = temp;
-			temp->next = newNode;
+			first_data = item;
 		}
+
 	}
 	void Push_front(const TYPE &data){
 		Node* temp = first_data;
@@ -100,30 +105,32 @@ public:
 		}
 	}
 	void Erase(Node* data){
-
-		if (data != nullptr){
-			if (size() > 1){
-				if (data->prev == nullptr){
+		
+			if (size() > 1)
+			{
+				if (data->prev == nullptr)
+				{
 					first_data = data->next;
-					first_data->prev= nullptr;
-
+					first_data->prev = nullptr;
 				}
-				else if (data->next == nullptr){
+				else if (data->next == nullptr)
+				{
 					data->prev->next = nullptr;
 				}
-				else{
+				else
+				{
 					data->prev->next = data->next;
 					data->next->prev = data->prev;
 				}
 				delete data;
 			}
-			else{
+			else
+			{
 				first_data = nullptr;
 				delete data;
 			}
 		}
 
-	}
 	void Insert(Node* pos, const TYPE &data){
 		Node* temp = pos;
 		Node* newNode = new Node(data);
@@ -134,11 +141,12 @@ public:
 			temp->prev->next = newNode;
 
 		}
-		else{
+	else{
 			first_data = newNode;
 		}
 
 	}
+	
 };
 //ERASE Y INSERT
 

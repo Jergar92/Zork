@@ -33,9 +33,11 @@ void Monkey::Update(){
 			if (this->CreatureType == NO_HOSTILE){
 				if (!CheckTake()){
 						currentState = MOVE;
+						/*
 						if (location == App->hero->location && !App->hero->list.empty()){
 							currentState = STEAL;
 						}
+						*/
 					}
 					else{
 						currentState = TAKE;
@@ -120,9 +122,11 @@ void Monkey::Update(){
 		case TAKE:
 			Take();
 			break;
+		/*
 		case STEAL:
 			Steal();
 			break;
+			*/
 		case ATTACK_HERO:
 			Attack(App->hero);
 			break;
@@ -216,7 +220,7 @@ bool Monkey::CheckTake(){
 		List<Entity*>::Node* item = location->list.first_data;
 		for (; item != nullptr; item = item->next)
 		{
-			if (((Item*)item->data)->isItem != ENVIROMENT && ((Item*)item->data)->canTake == true){//Check if is enviroment item and if you can take
+			if (((Item*)item->data)->isItem != ENVIROMENT && ((Item*)item->data)->canTake == true && ((Item*)item->data)->toDestroy == false){//Check if is enviroment item and if you can take
 				return true;
 			}
 
@@ -234,9 +238,9 @@ void Monkey::Take(){//TAKE OBJECTS
 		List<Entity*>::Node* item = location->list.first_data;
 		for (; item != nullptr; item = item->next)
 		{
-				if (((Item*)item->data)->isItem != ENVIROMENT && ((Item*)item->data)->canTake == true){//Check if is enviroment item and if they can take
+			if (((Item*)item->data)->isItem != ENVIROMENT && ((Item*)item->data)->canTake == true && ((Item*)item->data)->toDestroy == false){//Check if is enviroment item and if they can take
 					this->list.Push_back(((Item*)item->data));
-					if (this->location == App->hero->location){
+					if (location == App->hero->location){
 						printf("%s take %s\n", name.C_Str(),((Item*)item->data)->name.C_Str());
 					}
 					if (((Item*)item->data)->isItem == BOOTS || ((Item*)item->data)->isItem == ARMOR || ((Item*)item->data)->isItem == WEAPON){
@@ -252,31 +256,27 @@ void Monkey::Take(){//TAKE OBJECTS
 	}
 	
 }
+/*
 void Monkey::Steal(){//TAKE OBJECTS from you
 
 	if (!App->hero->list.empty()){
 		List<Entity*>::Node* item = App->hero->list.first_data;
-		for (; item != nullptr; item = item->next)
-		{
-			if (((Item*)item->data)->isItem != ENVIROMENT && ((Item*)item->data)->canTake == true && ((Item*)item->data)->equiped==false){//if you don't have the object equiped they can steal from you
-				this->list.Push_back(((Item*)item->data));
-				if (this->location == App->hero->location){
+		for (; item != nullptr; item = item->next){
+			if (((Item*)item->data)->isItem != ENVIROMENT && ((Item*)item->data)->toDestroy == false && ((Item*)item->data)->equiped==false){//if you don't have the object equiped they can steal from you
+				list.Push_back(((Item*)item->data));
+				if (location == App->hero->location){
 					printf("%s steal %s from you\n", name.C_Str(), ((Item*)item->data)->name.C_Str());
 				}
 				if (((Item*)item->data)->isItem == BOOTS || ((Item*)item->data)->isItem == ARMOR || ((Item*)item->data)->isItem == WEAPON){//if they can equip the object they will equip
 					Equip();
 				}
 				App->hero->list.Erase(item);
-				break;
-				//	contai.clean_selected(i); end erase
+				return;
 			}
-
-
 		}
 	}
-
 }
-
+*/
 
 
 
@@ -289,24 +289,24 @@ void Monkey::Die(){
 		for (; list.first_data != nullptr; list.first_data = list.first_data->next){
 			if (((Item*)list.first_data->data)->equiped == true){
 				((Item*)list.first_data->data)->equiped = false;
-				}
+			}
 			location->list.Push_back(list.first_data->data);
 			if (location == App->hero->location){//If you're there the game tells you
 				printf("%s\n", list.first_data->data->name.C_Str());
 			}
 
 
-			}			
 		}
-	printf("the %s is dead\n", name.C_Str());
-	App->MonkeyNumber--;//decrease the number of active monkeys
-	isDead = true;//this will delete the creature on update
 	}
+	printf("the %s is dead\n", name.C_Str());
+	isDead = true;//this will delete the creature on update
+	App->MonkeyNumber--;//decrease the number of active monkeys
 
+}
 
 void Monkey::Equip(){
-	if (!this->list.empty()){
-		List<Entity*>::Node* item = this->list.first_data;
+	if (!list.empty()){
+		List<Entity*>::Node* item = list.first_data;
 		for (; item != nullptr; item = item->next){
 			if (((Item*)item->data)->isItem == BOOTS || ((Item*)item->data)->isItem == ARMOR || ((Item*)item->data)->isItem == WEAPON){
 				if (((Item*)item->data)->equiped == false){//equip and items give you stats

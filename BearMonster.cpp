@@ -34,7 +34,7 @@ void Bear::Update(){
 				if (this->location != App->hero->location&&App->hero->isDead != true){
 					for (i = 0; i < App->container.size(); i++){
 						if (App->container[i]->isType == MONSTER && !(App->container[i]->name == this->name) && ((Creature*)App->container[i])->isDead == false){
-							if (((Creature*)App->container[i])->location == location){
+							if (((Creature*)App->container[i])->location == location && ((Creature*)App->container[i])->isDead==false){
 								currentState = ATTACK_NPC;
 								break;
 							}

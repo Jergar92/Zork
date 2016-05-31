@@ -105,7 +105,7 @@ NPC
 
 Win Condition
 
--  You need the core, the transmitter and the antenna for win but also need at least 20 more energy or the robot is in the waterfall
+-  You need the core, the transmitter and the antenna for win but also need at least 20 more energy or the robot of the waterfall
 
 Lose Condition
 

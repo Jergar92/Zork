@@ -266,11 +266,10 @@ void Creature::Take(Vector<MyString> &strings){//TAKE OBJECTS
 		{
 			if (((Item*)item->data)->name == strings[1]){
 				if (((Item*)item->data)->isItem != ENVIROMENT && ((Item*)item->data)->canTake == true){//Check if is enviroment item and if you can take
-					this->list.Push_back(((Item*)item->data));
+					list.Push_back(((Item*)item->data));
 					printf("You take %s\n", ((Item*)item->data)->name.C_Str());
 					location->list.Erase(item);
 					break;
-					//	contai.clean_selected(i); end erase
 				}
 				else{
 					printf("You can't take %s\n", ((Item*)item->data)->name.C_Str());

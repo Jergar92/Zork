@@ -218,7 +218,7 @@ void Player::Look()const{//LOOK CURRENT ROOM AND HIS ITEMS
 		}
 		else if (App->container[i]->isType == MONSTER){
 			if (location == ((Creature*)App->container[i])->location){
-				printf("You see a %s", ((Creature*)App->container[i])->name.C_Str());
+				printf("You see a %s\n", ((Creature*)App->container[i])->name.C_Str());
 			}
 		}
 	}
@@ -372,7 +372,7 @@ void Player::Open(Vector<MyString> &strings){
 				}
 			}
 		}
-		printf("you can not pass\n");
+		printf("wrong operation\n");
 	}
 }
 void Player::Close(Vector<MyString> &strings){
@@ -420,15 +420,15 @@ void Player::Take(Vector<MyString> &strings){//TAKE OBJECTS
 		{
 			if (((Item*)item->data)->name == strings[1]){
 				if (((Item*)item->data)->isItem != ENVIROMENT && ((Item*)item->data)->canTake == true){//Check if is enviroment item and if you can take
-					this->list.Push_back(((Item*)item->data));
+					list.Push_back(((Item*)item->data));
 					printf("You take %s\n", ((Item*)item->data)->name.C_Str());
 					location->list.Erase(item);
-					break;
+					return;
 					//	contai.clean_selected(i); end erase
 				}
 				else{
 					printf("You can't take %s\n", ((Item*)item->data)->name.C_Str());
-					break;
+					return;
 
 				}
 			}
@@ -451,20 +451,18 @@ void Player::Eat_Drink(Vector<MyString> &strings){//use meat or piton
 					printf("You eat %s your energy is %i now\n", ((Item*)item->data)->name.C_Str(),energy);
 					((Item*)item->data)->toDestroy = true;//update will delete this item
 					location->list.Erase(item);
-					break;
+					return;
 				}
 			else if (((Item*)item->data)->name == strings[1] && ((Item*)item->data)->isItem == POTION){
 				life += ((Item*)item->data)->life;
 				printf("You drink %s your life is %i now\n", ((Item*)item->data)->name.C_Str(), life);
 				((Item*)item->data)->toDestroy = true;//update will delete this item
 				location->list.Erase(item);
-				break;
+				return;
 			}
-				else{
-					printf("You can't eat %s\n", ((Item*)item->data)->name.C_Str());
-					break;
-				}
-			}
+				
+		}
+		printf("You can't eat %s\n", ((Item*)item->data)->name.C_Str());
 		}	
 	}
 void Player::Mount(Vector<MyString> &strings){//this is the action to end the game
@@ -603,24 +601,23 @@ void Player::Equip(Vector<MyString> &strings){
 	if (!this->list.empty()){
 		List<Entity*>::Node* item = this->list.first_data;
 		for (; item != nullptr; item = item->next){
-			if (strings[1] == ((Item*)item->data)->name && ((Item*)item->data)->isItem == BOOTS || ((Item*)item->data)->isItem == ARMOR || ((Item*)item->data)->isItem == WEAPON){
-				if (((Item*)item->data)->equiped == false){//equip and items give you stats
+			if (strings[1] ==((Item*)item->data)->name){
+				if(((Item*)item->data)->isItem == BOOTS || ((Item*)item->data)->isItem == ARMOR || ((Item*)item->data)->isItem == WEAPON){
+					if (((Item*)item->data)->equiped == false){//equip and items give you stats
 					((Item*)item->data)->equiped = true;
 					attack += ((Item*)item->data)->atack;
 					armor += ((Item*)item->data)->defense;
 					printf("You equiped %s\n", ((Item*)item->data)->name);
 					return;
 				}
-				else{
-					printf("Already was equipped\n");
-					return;
+					else{
+						printf("Already was equipped\n");
+						return;
+					}
 				}
 			}
-		}
-	}
-	else{
+		}	
 		printf("You don't have items");
-
 	}
 }
 
@@ -756,15 +753,10 @@ void Player::GetFrom(Vector<MyString> &strings){//Get items froms trunk
 					for (; InsideItem != nullptr; InsideItem = InsideItem->next){
 						if (strings[1] == ((Item*)InsideItem->data)->name){
 							printf("You get %s from %s\n", ((Item*)InsideItem->data)->name.C_Str(), ((Item*)item->data)->name.C_Str());
-							this->list.Push_back(((Item*)InsideItem->data));
-
+							list.Push_back(((Item*)InsideItem->data));
 							((Item*)item->data)->list.Erase(InsideItem);
-
 							return;
-
 						}
-
-
 					}
 				}
 			}
