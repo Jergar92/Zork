@@ -330,6 +330,15 @@ void World::Help()const{
 	printf("You can take/drop items using the command Take/Drop, T/D.\n");
 	printf("You can put/get items into/from trunk using the command Put/Get<ITEM>Into/From.\n");
 	printf("You can push items using the command Push <ITEM> to North.\n");
+	printf("You can eat/drink items using the command eat/drink <ITEM>.\n");
+	printf("You can can talk to the seller using the command speak <NPC>(Only seller).\n");
+
+	printf("You can look seller invetory using the command buy <NPC>(Only seller).\n");
+	printf("You can buy items using the command buy <ITEM>(only potion) from <NPC>(Only seller).\n");
+	printf("You can sell items using the command sell <ITEM>(only meat) to <NPC>(Only seller).\n");
+	printf("You can atack monsters using the command Atack <NPC>.\n");
+	printf("From time to time You can do one special atack on monsters using the command Special Atack <NPC>.\n");
+	printf("If you have the necessary objects you can finish the game using de tho command ->Mount Beacon<-");
 	printf("You can quit the program using the command Quit.\n");
 	printf("for more information look README and use Help command for show this text again\n");
 
