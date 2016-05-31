@@ -37,7 +37,7 @@ public:
 	void Help()const;//this is called on main
 	void getOperation(Vector<MyString> &strings);
 	int getDirection(Vector<MyString> &strings);
-	//void CleanUp();//this clean container
+	void CleanUp();//this clean container
 	void Update();
 	unsigned int currentTime, lastTime = 0;
 	unsigned int MonkeyNumber = 0;

@@ -130,11 +130,11 @@ void World::createWorld(){
 	Monkey* monkey = new Monkey("Monkey", "Uah uah", 25, 15, 2, jungle);
 	container.push_back(monkey);
 	*/
-	Bear* bear = new Bear("Bear", "look prety agressive", 75, 25, 10, monsterCave);
+	Bear* bear = new Bear("Bear", "look prety agressive", 100, 30, 20, monsterCave);
 	container.push_back(bear);
-	Hawk* hawk = new Hawk("Hawk", "A giant hawk", 50, 10, 10, bigNest);
+	Hawk* hawk = new Hawk("Hawk", "A giant hawk", 50, 15, 15, bigNest);
 	container.push_back(hawk);
-	Eel* eel = new Eel("Eel", "It has many teeth", 40, 20, 5, underwaterCave);
+	Eel* eel = new Eel("Eel", "It has many teeth", 40, 40, 5, underwaterCave);
 	container.push_back(eel);
 	Seller* seller = new Seller("Seller", "A food processing machine", 100, 100, 100, altar);
 	container.push_back(seller);
@@ -332,7 +332,6 @@ void World::Help()const{
 	printf("You can push items using the command Push <ITEM> to North.\n");
 	printf("You can eat/drink items using the command eat/drink <ITEM>.\n");
 	printf("You can can talk to the seller using the command speak <NPC>(Only seller).\n");
-
 	printf("You can look seller invetory using the command buy <NPC>(Only seller).\n");
 	printf("You can buy items using the command buy <ITEM>(only potion) from <NPC>(Only seller).\n");
 	printf("You can sell items using the command sell <ITEM>(only meat) to <NPC>(Only seller).\n");
